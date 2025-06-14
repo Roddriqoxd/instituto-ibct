@@ -1,0 +1,10 @@
+<div class="carousel-container">
+  <div
+    class="carousel-track"
+    [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
+  >
+    <div class="carousel-item" >
+      <img [src]="imagenes[0].src" [alt]="imagenes[0].alt || 'carousel image'" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,385 @@
+<!-- BANNER -->
+<div style="padding-top: 50px">
+  <app-carousel-ele></app-carousel-ele>
+</div>
+
+<div class="Estadistica">
+
+  <div class="creativos">
+    <span class="creativos-numero">+1000</span>
+    <span class="creativos-letras">Estudiantes graduados</span>
+  </div>
+
+  <div class="creativos" style="width: 200px">
+    <span class="creativos-numero">+10</span>
+    <span class="creativos-letras">Estudiantes nuevos cada semana</span>
+  </div>
+
+  <div class="creativos">
+    <span class="creativos-numero">+800</span>
+    <span class="creativos-letras">Estudiantes ya trabajan</span>
+  </div>
+
+  <!--  <div class="creativos">-->
+  <!--    <span class="creativos-numero">30000</span>-->
+  <!--    <span class="creativos-letras">Pesaas alcanzadas</span>-->
+  <!--  </div>-->
+</div>
+<!-- BLANCO -->
+<div class="p-15 flex flex-col gap-8">
+  <div class="frase">
+    <span class="frase-sub">Mira muestras ventajas</span>
+    <span class="frase-title">Ventajas de estudiar con nosotros</span>
+  </div>
+  <!-- ULTIMO -->
+  <div class="ultimo">
+    <div class="cuadrado gap-7">
+      <img class="cuadrado-imagen" src="/assets/images/aprendizaje.png"/>
+
+      <div class="flex flex-col">
+        <span class="cuadrado-titulo">Ingreso rápido al mundo laboral</span>
+        <span class="cuadrado-parrafo"
+        >Desde el primer módulo ya estás desarrollando habilidades que te permitirán trabajar o emprender.</span
+        >
+      </div>
+    </div>
+
+    <div class="cuadrado gap-7">
+      <img class="cuadrado-imagen" src="/assets/images/primero.png"/>
+
+      <div class="flex flex-col">
+        <span class="cuadrado-titulo">Duración corta y eficiente</span>
+        <span class="cuadrado-parrafo"
+        >Nos enfocamos solo en lo que necesitas para desempeñarte profesionalmente en tu área.</span
+        >
+      </div>
+    </div>
+
+    <div class="cuadrado gap-7">
+      <img class="cuadrado-imagen" src="/assets/images/naranja.png"/>
+
+      <div class="flex flex-col">
+        <span class="cuadrado-titulo">Ambiente de Apoyo y Motivación</span>
+        <span class="cuadrado-parrafo"
+        >Fomentamos un entorno positivo donde te sentirás acompañado en cada etapa de tu formación.</span
+        >
+      </div>
+    </div>
+
+    <div class="cuadrado gap-7">
+      <img class="cuadrado-imagen" src="/assets/images/bien.png"/>
+
+      <div class="flex flex-col">
+        <span class="cuadrado-titulo">Instalaciones Equipadas:</span>
+        <span class="cuadrado-parrafo"
+        >Disponemos de laboratorios y aulas con tecnología actualizada para una mejor experiencia de aprendizaje.</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<!-- plantel docente -->
+<div class="profesores">
+  <div class="descripcion">
+    <div class="flex flex-col">
+      <span class="frase-sub">Profesores calificados</span>
+      <span class="profesores-frase"
+      >Tenemos el Mejor Plantel Docente en su Area</span>
+    </div>
+    <span class="profesores-parrafo">
+         Contamos con un equipo de instructores altamente capacitados, con amplia experiencia práctica y académica en cada una de sus especialidades. Nuestros docentes no solo dominan los contenidos técnicos, sino que también están comprometidos con una enseñanza dinámica, clara y personalizada, adaptándose al ritmo de cada estudiante para garantizar un aprendizaje efectivo y aplicable al mundo laboral.
+        </span>
+    <button class="profesores-docentes">Ver Docentes</button>
+  </div>
+
+  <div class="profesores-img">
+    <img class="w-1/2" src="/assets/images/publica%20BRIL2.png" alt="Docentes"/>
+  </div>
+</div>
+
+
+<div class="p-15 flex flex-col gap-8">
+  <div class="frase">
+    <span class="frase-sub">Mira muestras areas</span>
+    <span class="frase-title">Nuestros cursos</span>
+  </div>
+  <!-- 4 cursos -->
+  <div class="cuatro-cursos-rectangulo">
+
+    <div class="flex flex-col gap-5">
+      <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('conputacion')">
+        <i class="pi pi-desktop"
+           style="font-size: 15px; padding: 9px; background-color: rgba(115,188,0,0.32); color: #73BC00; border-radius: 5px"></i>
+        Curso De Computación
+      </span>
+      <div class="ensamblado" *ngIf="curso == 'conputacion'">
+        <div style="width: 50%; display: flex; justify-content: center">
+          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+        </div>
+        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+          <div class="frase">
+            <span class="frase-sub">Domina la computación</span>
+            <span class="frase-title">Curso de computación</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span>
+              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+            </span>
+            <span>
+            ✅ Sin requisitos previos
+
+          </span>
+            <span>
+            ✅ Clases prácticas y fáciles de seguir
+          </span>
+            <span>
+            ✅ Certificado al finalizar
+          </span>
+            <span>
+            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
+          </span>
+          </div>
+          <!-- BOTON -->
+          <button class="profesores-curso">Ver curso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5">
+          <span class="rectangulo-titulo" style="width: 320px;" (click)="toggleCurso('celulares')">
+        <i class="pi pi-mobile"
+           style="font-size: 15px; padding: 9px; background-color: rgba(188,135,0,0.32); color: #5b00bc; border-radius: 5px"></i>
+        Curso De Reparación De Celulares
+      </span>
+
+      <div class="ensamblado" *ngIf="curso == 'celulares'">
+        <div style="width: 50%; display: flex; justify-content: center">
+          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+        </div>
+        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+          <div class="frase">
+            <span class="frase-sub">Domina la computación</span>
+            <span class="frase-title">Curso De Reparación De Celulares</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span>
+              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+            </span>
+            <span>
+            ✅ Sin requisitos previos
+
+          </span>
+            <span>
+            ✅ Clases prácticas y fáciles de seguir
+          </span>
+            <span>
+            ✅ Certificado al finalizar
+          </span>
+            <span>
+            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
+          </span>
+          </div>
+          <!-- BOTON -->
+          <button class="profesores-curso">Ver curso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5">
+          <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('diseño')">
+        <i class="pi pi-palette"
+           style="font-size: 15px; padding: 9px; background-color: rgba(236,133,33,0.32); color: #e18708; border-radius: 5px"></i>
+        Curso De Diseño Gráfico
+      </span>
+
+      <div class="ensamblado" *ngIf="curso == 'diseño'">
+        <div style="width: 50%; display: flex; justify-content: center">
+          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+        </div>
+        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+          <div class="frase">
+            <span class="frase-sub">Domina las artes gráficas</span>
+            <span class="frase-title">Curso De Diseño Gráfico</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span>
+              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+            </span>
+            <span>
+            ✅ Sin requisitos previos
+
+          </span>
+            <span>
+            ✅ Clases prácticas y fáciles de seguir
+          </span>
+            <span>
+            ✅ Certificado al finalizar
+          </span>
+            <span>
+            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
+          </span>
+          </div>
+          <!-- BOTON -->
+          <button class="profesores-curso">Ver curso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5">
+          <span class="rectangulo-titulo" style="width: 220px;" (click)="toggleCurso('bar')">
+        <i class="pi pi-filter"
+           style="font-size: 15px; padding: 9px; background-color: rgba(227,1,186,0.32); color: #bc0000; border-radius: 5px"></i>
+        Curso De Bartender
+      </span>
+
+      <div class="ensamblado" *ngIf="curso == 'bar'">
+        <div style="width: 50%; display: flex; justify-content: center">
+          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+        </div>
+        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+          <div class="frase">
+            <span class="frase-sub">Domina la computación</span>
+            <span class="frase-title">Curso De Bartender</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span>
+              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+            </span>
+            <span>
+            ✅ Sin requisitos previos
+
+          </span>
+            <span>
+            ✅ Clases prácticas y fáciles de seguir
+          </span>
+            <span>
+            ✅ Certificado al finalizar
+          </span>
+            <span>
+            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
+          </span>
+          </div>
+          <!-- BOTON -->
+          <button class="profesores-curso">Ver curso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5">
+          <span class="rectangulo-titulo" style="width: 470px;" (click)="toggleCurso('ensamblado')">
+        <i class="pi pi-wrench"
+           style="font-size: 15px; padding: 9px; background-color: rgba(0,160,188,0.32); color: #003cbc; border-radius: 5px"></i>
+        Curso De Ensamblado y Reparación de Computadoras
+      </span>
+      @if (curso == 'ensamblado') {
+        <div class="ensamblado">
+          <div style="width: 50%; display: flex; justify-content: center">
+            <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+          </div>
+          <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+            <div class="frase">
+              <span class="frase-sub">Domina la computación</span>
+              <span class="frase-title">Curso De Ensamblado y Reparación de Computadoras</span>
+            </div>
+            <div class="flex flex-col gap-3">
+            <span>
+              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+            </span>
+              <span>
+            ✅ Sin requisitos previos
+
+          </span>
+              <span>
+            ✅ Clases prácticas y fáciles de seguir
+          </span>
+              <span>
+            ✅ Certificado al finalizar
+          </span>
+              <span>
+            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
+          </span>
+            </div>
+            <!-- BOTON -->
+            <button class="profesores-curso">Ver curso</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+
+<!-- cuadrados azul oscuro-->
+
+<div class="flex flex-col gap-8 p-15" style=" background-color: #F2F2F2;">
+  <div class="frase">
+    <span class="frase-sub">Nuestros momentos</span>
+    <span class="frase-title">Que dicen nuestros estudiantes de nosotros</span>
+  </div>
+  <!-- glen -->
+  <!-- 3 cuadrados -->
+  <div class="ultimodos">
+    <div class="cuadradodos">
+      <div class="cuadradodos-header">
+        <p-avatar image="https://randomuser.me/api/portraits/men/6.jpg" shape="circle" size="large"></p-avatar>
+        <div class="cuadradodos-textos">
+          <span class="cuadradodos-titulo">José</span><br/>
+          <span class="cuadradito-titulo">José Luis Méndez</span>
+        </div>
+      </div>
+      <span class="cuadradodos-parrafo">
+"El curso de diseño gráfico superó mis expectativas. Aprendí a usar herramientas como Photoshop e Illustrator, y ahora puedo hacer trabajos freelance. Muy agradecido con los profesores."
+    </span>
+      <div class="estrellas">
+        ⭐⭐⭐⭐⭐
+      </div>
+    </div>
+
+    <div class="cuadradodos">
+      <div class="cuadradodos-header">
+        <p-avatar image="https://randomuser.me/api/portraits/men/12.jpg" shape="circle" size="large"></p-avatar>
+        <div class="cuadradodos-textos">
+          <span class="cuadradodos-titulo">Marío</span><br/>
+          <span class="cuadradito-titulo">Marío Gómez</span>
+        </div>
+      </div>
+      <span class="cuadradodos-parrafo">
+          "Gracias a este curso, ahora puedo ofrecer servicios de reparación de celulares por mi cuenta. Aprendí desde lo más básico hasta técnicas avanzadas. Excelente inversión de tiempo."
+    </span>
+      <div class="estrellas">
+        ⭐⭐⭐⭐⭐
+      </div>
+    </div>
+
+    <div class="cuadradodos">
+      <div class="cuadradodos-header">
+        <p-avatar image="https://randomuser.me/api/portraits/men/2.jpg" shape="circle" size="large"></p-avatar>
+        <div class="cuadradodos-textos">
+          <span class="cuadradodos-titulo">Carlos</span><br/>
+          <span class="cuadradito-titulo">Carlos Eduardo Ramírez</span>
+        </div>
+      </div>
+      <span class="cuadradodos-parrafo">
+         "El curso de computación me ayudó a desarrollar habilidades básicas que ahora aplico diariamente en mi trabajo. Los instructores fueron pacientes y explicaron todo de forma clara. ¡Muy recomendable!"
+    </span>
+      <div class="estrellas">
+        ⭐⭐⭐⭐⭐
+      </div>
+    </div>
+
+    <div class="cuadradodos">
+      <div class="cuadradodos-header">
+        <p-avatar image="https://randomuser.me/api/portraits/men/4.jpg" shape="circle" size="large"></p-avatar>
+        <div class="cuadradodos-textos">
+          <span class="cuadradodos-titulo">Valeria</span><br/>
+          <span class="cuadradito-titulo">Valeria Sofía Núñez</span>
+        </div>
+      </div>
+      <span class="cuadradodos-parrafo">
+"Siempre quise trabajar en bares, y con este curso aprendí todo lo necesario sobre coctelería y atención al cliente. Ya conseguí mi primer trabajo como bartender. ¡Mil gracias!"</span>
+      <div class="estrellas">
+        ⭐⭐⭐⭐⭐
+      </div>
+    </div>
+  </div>
+</div>

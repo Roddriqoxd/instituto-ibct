@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap";
+
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+:root {
+  --amarillo: #FFDF00;
+  --azul: #002A71;
+  --rojo: #EA580C;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
