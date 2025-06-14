@@ -16,14 +16,16 @@ export class CarouselComponent implements OnInit, OnDestroy {
     {src: '/assets/images/banner2.png', alt: 'Imagen 2'},
     {src: '/assets/images/banner3.png', alt: 'Imagen 3'}
   ];
-
   currentIndex = 0;
-  private sub: Subscription | undefined;
+  intervalId: any;
 
   ngOnInit(): void {
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.imagenes.length;
+    }, 3000); // cada 3 segundos
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    clearInterval(this.intervalId);
   }
 }
