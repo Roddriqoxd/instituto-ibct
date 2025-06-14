@@ -1,0 +1,103 @@
+<div class="flex min-h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <div class="w-64 bg-white shadow-sm border-r border-gray-200">
+    <div class="p-4 border-b border-gray-200 flex gap-2 items-center justify-center">
+      <img src="/assets/images/LOGO%20IBCT.png" alt="" class="w-20">
+      <span class="font-semibold text-gray-800" style="line-height: 18px">CENTRO DE CAPACITACION</span>
+    </div>
+    <div class="p-4">
+      <ul class="space-y-2">
+        <li>
+          <div (click)="toggleSubmenu('estudiantes')"
+               class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-users mr-3"></i>
+              <span>Estudiantes</span>
+            </div>
+
+            <i class="pi" [ngClass]="submenuOpen === 'estudiantes'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </div>
+
+          <ul *ngIf="submenuOpen === 'estudiantes'" class="pl-8 mt-1">
+            <li>
+              <a routerLink="lista-estudiantes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Lista de estudiantes
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="registar-estudiantes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Registrar estudiantes
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a routerLink="/mensualidades" routerLinkActive="bg-blue-50 text-blue-600"
+             class="flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700">
+            <i class="pi pi-chart-line mr-3"></i>
+            <span>Mensualidades</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/reports" routerLinkActive="bg-blue-50 text-blue-600"
+             class="flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700">
+            <i class="pi pi-chart-bar mr-3"></i>
+            <span>Reportes</span>
+          </a>
+        </li>
+
+        <li>
+          <div (click)="toggleSubmenu('cursos')"
+               class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-building-columns mr-3"></i>
+              <span>Cursos</span>
+            </div>
+            <i class="pi" [ngClass]="submenuOpen === 'cursos'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </div>
+
+          <ul *ngIf="submenuOpen === 'cursos'" class="pl-8 mt-1">
+            <li>
+              <a routerLink="crear-curso"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Registrar curso
+              </a>
+            </li>
+            <li>
+              <a routerLink="lista-cursos"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Lista de cursos
+              </a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <div class="p-4 border-t border-gray-200 absolute bottom-0 w-64">
+      <div class="flex items-center space-x-3">
+        <p-avatar image="https://randomuser.me/api/portraits/men/1.jpg" shape="circle" size="large"></p-avatar>
+        <div>
+          <p class="font-medium">John Doe</p>
+          <p class="text-sm text-gray-500">Admin</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 overflow-y-scroll" style="height: 100vh">
+    <div class="p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

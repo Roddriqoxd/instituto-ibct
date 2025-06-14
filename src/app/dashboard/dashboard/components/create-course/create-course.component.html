@@ -1,0 +1,67 @@
+<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-sm">
+  <div class="p-6 border-b border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-800">Registrar Curso</h1>
+    <p class="text-gray-600 mt-1">> Registrar curso</p>
+  </div>
+  <form class="p-6 space-y-4 bg-white rounded-lg shadow"
+        [formGroup]="cursoForm"
+        (ngSubmit)="onSubmit()" >
+    <!-- Nombre del curso -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-1">Nombre del curso:</label>
+      <input pInputText formControlName="nombre" class="w-full" placeholder="Ej: Contabilidad General" />
+    </div>
+
+    <!-- Modalidad -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-1">Modalidad:</label>
+      <p-dropdown [optionValue]="'value'" [options]="modalidades" optionLabel="label" formControlName="modalidad" class="w-full" placeholder="Seleccione modalidad"></p-dropdown>
+    </div>
+
+    <!-- Duración -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-1">Duración:</label>
+      <p-dropdown  [optionValue]="'value'" [options]="duraciones" optionLabel="label" formControlName="duracion" class="w-full" placeholder="Seleccione duración"></p-dropdown>
+    </div>
+
+    <!-- Lista de horarios -->
+    <div formArrayName="horarios" class="space-y-4">
+      <label class="block text-gray-700 font-semibold">Horarios:</label>
+
+      <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg relative bg-gray-50">
+        <button type="button" (click)="removeHorario(i)" class="absolute top-2 right-2 text-red-500 hover:text-red-700">
+          <i class="pi pi-times"></i>
+        </button>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-sm text-gray-600">Turno:</label>
+            <p-dropdown  [optionValue]="'value'" [options]="turnos" optionLabel="label" formControlName="turno" placeholder="Turno" class="w-full"></p-dropdown>
+          </div>
+          <div>
+            <label class="text-sm text-gray-600">Hora de inicio:</label>
+            <p-dropdown  [optionValue]="'value'" [options]="horas" optionLabel="label" formControlName="horaInicio" placeholder="Hora inicio" class="w-full"></p-dropdown>
+          </div>
+          <div>
+            <label class="text-sm text-gray-600">Hora de salida:</label>
+            <p-dropdown  [optionValue]="'value'" [options]="horas" optionLabel="label" formControlName="horaSalida" placeholder="Hora salida" class="w-full"></p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón para añadir horario -->
+    <div>
+      <button type="button" (click)="addHorario()" pButton label="Agregar Horario" icon="pi pi-plus"></button>
+    </div>
+
+    <!-- Botón enviar -->
+    <div>
+      <button type="submit"
+              pButton label="Registrar Curso"
+              [disabled]="cursoForm.invalid"
+      ></button>
+    </div>
+  </form>
+
+</div>
