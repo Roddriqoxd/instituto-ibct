@@ -11,6 +11,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {InscripcionService} from '../../services/inscripcion.service';
 import {take} from 'rxjs';
 import {InscripcionResponseDTO} from '../../interfaces/inscripcion.interface';
+import {DialogModule} from 'primeng/dialog';
+import {EstimacionFechaPipe} from '../../pipes/estimacion-fecha.pipe';
 
 
 interface Customer {
@@ -35,199 +37,14 @@ interface Customer {
     CheckboxModule,
     ReactiveFormsModule,
     CalendarModule,
+    DialogModule,
+    EstimacionFechaPipe
   ],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
 export class StudentListComponent implements OnInit {
   private _inscripcionService: InscripcionService = inject(InscripcionService);
-
-  customers: Customer[] = [
-    {
-      nombre: 'Brook Simmons',
-      curso: 'Sales Executive',
-      horario: 'Miatronet',
-      telefono: 'higbrooksmmms.co',
-      modalidad: 'LinkedIn',
-      status: 'Active'
-    },
-    {
-      nombre: 'Dianne Russell',
-      curso: 'CEO',
-      horario: 'BriteMonk',
-      telefono: 'higdionmetussell.com',
-      modalidad: 'Website',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Amy Elsner',
-      curso: 'Product Manager',
-      horario: 'ZenTrollMs',
-      telefono: 'higomyelsner.com',
-      modalidad: 'Cold Call',
-      status: 'Prospect'
-    },
-    {
-      nombre: 'Jacob Jones',
-      curso: 'Manager',
-      horario: 'Streamlinz',
-      telefono: 'jacobjones@gmail.com',
-      modalidad: 'Partner',
-      status: 'Prospect'
-    },
-    {
-      nombre: 'CW Cameron Watson',
-      curso: 'Product Manager',
-      horario: 'BriteMonk',
-      telefono: 'higcameronwilliamson',
-      modalidad: 'Social Media',
-      status: 'Active'
-    },
-    {
-      nombre: 'WW Wade Warren',
-      curso: 'Director',
-      horario: 'Streamlinz',
-      telefono: 'higonmetteblock.com',
-      modalidad: 'Cold Call',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Guy Hawkins',
-      curso: 'Director',
-      horario: 'Wavelength',
-      telefono: 'higdonrelsteward.com',
-      modalidad: 'LinkedIn',
-      status: 'Active'
-    },
-    {
-      nombre: 'Annette Block',
-      curso: 'Manager',
-      horario: 'Wavelength',
-      telefono: 'jeromebell@gmail.com',
-      modalidad: 'Website',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Darrell Steward',
-      curso: 'Product Manager',
-      horario: 'ZenTrollMs',
-      telefono: 'higonyamalimba.co',
-      modalidad: 'Website',
-      status: 'Active'
-    },
-    {
-      nombre: 'Amy Elsner',
-      curso: 'Product Manager',
-      horario: 'ZenTrollMs',
-      telefono: 'higomyelsner.com',
-      modalidad: 'Cold Call',
-      status: 'Prospect'
-    },
-    {
-      nombre: 'Jacob Jones',
-      curso: 'Manager',
-      horario: 'Streamlinz',
-      telefono: 'jacobjones@gmail.com',
-      modalidad: 'Partner',
-      status: 'Prospect'
-    },
-    {
-      nombre: 'CW Cameron Watson',
-      curso: 'Product Manager',
-      horario: 'BriteMonk',
-      telefono: 'higcameronwilliamson',
-      modalidad: 'Social Media',
-      status: 'Active'
-    },
-    {
-      nombre: 'WW Wade Warren',
-      curso: 'Director',
-      horario: 'Streamlinz',
-      telefono: 'higonmetteblock.com',
-      modalidad: 'Cold Call',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Guy Hawkins',
-      curso: 'Director',
-      horario: 'Wavelength',
-      telefono: 'higdonrelsteward.com',
-      modalidad: 'LinkedIn',
-      status: 'Active'
-    },
-    {
-      nombre: 'Annette Block',
-      curso: 'Manager',
-      horario: 'Wavelength',
-      telefono: 'jeromebell@gmail.com',
-      modalidad: 'Website',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Darrell Steward',
-      curso: 'Product Manager',
-      horario: 'ZenTrollMs',
-      telefono: 'higonyamalimba.co',
-      modalidad: 'Website',
-      status: 'Active'
-    },
-    {
-      nombre: 'Amy Elsner',
-      curso: 'Product Manager',
-      horario: 'ZenTrollMs',
-      telefono: 'higomyelsner.com',
-      modalidad: 'Cold Call',
-      status: 'Prospect'
-    },
-    {
-      nombre: 'Jacob Jones',
-      curso: 'Manager',
-      horario: 'Streamlinz',
-      telefono: 'jacobjones@gmail.com',
-      modalidad: 'Partner',
-      status: 'Prospect'
-    },
-    {
-      nombre: 'CW Cameron Watson',
-      curso: 'Product Manager',
-      horario: 'BriteMonk',
-      telefono: 'higcameronwilliamson',
-      modalidad: 'Social Media',
-      status: 'Active'
-    },
-    {
-      nombre: 'WW Wade Warren',
-      curso: 'Director',
-      horario: 'Streamlinz',
-      telefono: 'higonmetteblock.com',
-      modalidad: 'Cold Call',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Guy Hawkins',
-      curso: 'Director',
-      horario: 'Wavelength',
-      telefono: 'higdonrelsteward.com',
-      modalidad: 'LinkedIn',
-      status: 'Active'
-    },
-    {
-      nombre: 'Annette Block',
-      curso: 'Manager',
-      horario: 'Wavelength',
-      telefono: 'jeromebell@gmail.com',
-      modalidad: 'Website',
-      status: 'Inactive'
-    },
-    {
-      nombre: 'Darrell Steward',
-      curso: 'Product Manager',
-      horario: 'ZenTrollMs',
-      telefono: 'higonyamalimba.co',
-      modalidad: 'Website',
-      status: 'Active'
-    }
-  ];
 
   estudiantes: InscripcionResponseDTO[] = [];
 
@@ -251,6 +68,9 @@ export class StudentListComponent implements OnInit {
     {label: 'Partner', value: 'Partner'},
     {label: 'Social Media', value: 'Social Media'}
   ];
+
+  selectedCustomer: any = null;
+  showDialog: boolean = false;
 
   constructor() {
   }
@@ -302,5 +122,10 @@ export class StudentListComponent implements OnInit {
     this.selectedSource = null;
     this.filterCustomers();
     table.reset();
+  }
+
+  openCustomerDetails(customer: any) {
+    this.selectedCustomer = customer;
+    this.showDialog = true;
   }
 }

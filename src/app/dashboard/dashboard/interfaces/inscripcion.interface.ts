@@ -17,6 +17,7 @@ export interface InscripcionDTO {
   estado: string;
   estadoCurso: string;
   estadoCertificado: string;
+  tipoInscripcion: string;
   estudianteId: number;
   horarioId: number;
   cursoId: number;
@@ -28,9 +29,11 @@ export interface InscripcionResponseDTO {
   estado: string;
   estadoCurso: string;
   estadoCertificado: string;
+  tipoInscripcion: string;
   estudiante: EstudianteDTO;
   horario: ScheduleDTO;
   curso: CourseDTO;
+  pagos: PagoDTO[];
 }
 
 

@@ -18,7 +18,6 @@ export class InicioPageComponent {
   curso: string = '';
 
   toggleCurso(curso: string) {
-    debugger
     if (this.curso !== curso) {
       this.curso = curso;
     } else {

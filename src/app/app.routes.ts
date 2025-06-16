@@ -7,6 +7,7 @@ import { CoursesListComponent } from './dashboard/dashboard/components/courses-l
 import {StudentListComponent} from './dashboard/dashboard/components/student-list/student-list.component';
 import {CreateCourseComponent} from './dashboard/dashboard/components/create-course/create-course.component';
 import {PricesComponent} from './dashboard/dashboard/components/prices/prices.component';
+import {PaymentFormComponent} from './dashboard/dashboard/components/payment-form/payment-form.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +47,10 @@ export const routes: Routes = [
       {
         path: 'precios',
         component: PricesComponent,
+      },
+      {
+        path: 'crear-pago',
+        component: PaymentFormComponent,
       },
       {
         path: '**',

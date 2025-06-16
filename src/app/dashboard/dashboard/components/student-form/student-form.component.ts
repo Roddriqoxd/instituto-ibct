@@ -137,7 +137,7 @@ export class StudentFormComponent implements OnInit {
       apellidoPaterno: form.apellidoPaterno,
       apellidoMaterno: form.apellidoMaterno,
       telefono: form.celular,
-      ci: `${form.ci}-${form.extensionCI}`,
+      ci: `${form.ci} ${form.extensionCI}`,
       rol: 'ESTUDIANTE',
       fechaRegistro: new Date()
     };
@@ -152,6 +152,7 @@ export class StudentFormComponent implements OnInit {
           estadoCurso: 'EN_CURSO',
           estadoCertificado: 'NONE',
           estudianteId: estudianteId!,
+          tipoInscripcion: form.tipoPago,
           horarioId: form.horario,
           cursoId: form.curso
         };
