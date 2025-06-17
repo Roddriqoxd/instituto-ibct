@@ -8,6 +8,8 @@ import {StudentListComponent} from './dashboard/dashboard/components/student-lis
 import {CreateCourseComponent} from './dashboard/dashboard/components/create-course/create-course.component';
 import {PricesComponent} from './dashboard/dashboard/components/prices/prices.component';
 import {PaymentFormComponent} from './dashboard/dashboard/components/payment-form/payment-form.component';
+import {BartenderComponent} from './home-page/components/bartender/bartender.component';
+import {ComputacionComponent} from './home-page/components/computacion/computacion.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +19,14 @@ export const routes: Routes = [
       {
         path: 'inicio',
         component: InicioPageComponent,
+      },
+      {
+        path: 'bartender',
+        component: BartenderComponent,
+      },
+      {
+        path: 'computacion',
+        component: ComputacionComponent,
       },
       {
         path: '**',
