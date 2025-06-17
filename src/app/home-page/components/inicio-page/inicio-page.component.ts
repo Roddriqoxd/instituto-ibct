@@ -1,16 +1,17 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {Avatar} from "primeng/avatar";
-import {CommonModule} from '@angular/common';
+import {CommonModule, ViewportScroller} from '@angular/common';
 import {CarouselComponent} from '../../../shared/carousel/carousel.component';
-import {Router} from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-inicio-page',
-    imports: [
-        Avatar,
-        CarouselComponent,
-        CommonModule
-    ],
+  imports: [
+    Avatar,
+    CarouselComponent,
+    CommonModule,
+    RouterModule,
+  ],
   templateUrl: './inicio-page.component.html',
   styleUrl: './inicio-page.component.css'
 })
@@ -18,7 +19,8 @@ export class InicioPageComponent implements AfterViewInit {
 
   curso: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private viewportScroller: ViewportScroller) {
+    this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   ngAfterViewInit() {
@@ -31,5 +33,9 @@ export class InicioPageComponent implements AfterViewInit {
     } else {
       this.curso = '';
     }
+  }
+
+  irRuta(bartender: string) {
+    this.router.navigate([`home/${bartender}`]);
   }
 }

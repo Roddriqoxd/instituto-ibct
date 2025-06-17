@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'app-computacion',
@@ -8,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class ComputacionComponent {
 
+  constructor(private viewportScroller: ViewportScroller) {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
 }

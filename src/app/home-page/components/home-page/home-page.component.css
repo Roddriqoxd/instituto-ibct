@@ -430,3 +430,7 @@
 .iconos-redes {
   display: flex;
 }
+
+.iconos-redes i {
+  cursor: pointer;
+}

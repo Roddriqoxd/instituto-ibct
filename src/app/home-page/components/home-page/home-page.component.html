@@ -1,11 +1,11 @@
-<div class="barra z-10">
+<div id="inicioo" class="barra z-10">
   <div class="logo">
     <img src="assets/images/LOGO%20IBCT.png" alt="IBCT logo"/>
     <span>Centro de Capacitacion <br/>TECNICA PRIVADA</span>
   </div>
   <div class="enlaces">
     <a>Inicio</a>
-    <a href="#cursos" >Cursos</a>
+    <a [routerLink]="[]" fragment="cursos">Cursos</a>
     <a >Administrativos</a>
     <a href="#footer">Contacto</a>
   </div>
@@ -29,9 +29,10 @@
         <span>Impulsa tu futuro con formación técnica de calidad.</span>
         <div class="iconos-redes">
           <i class="pi pi-whatsapp"
-             style="font-size: 20px; padding: 9px"></i>
+             style="font-size: 20px; padding: 9px" (click)="redesSociales('w')">
+          </i>
           <i class="pi pi-facebook"
-             style="font-size: 20px; padding: 9px"></i>
+             style="font-size: 20px; padding: 9px" (click)="redesSociales('f')"></i>
           <i class="pi pi-instagram"
              style="font-size: 20px; padding: 9px"></i>
         </div>
@@ -40,8 +41,8 @@
 
     <div class="columna">
       <strong>Links</strong>
-      <a>Inicio</a>
-      <a>Cursos</a>
+      <a [routerLink]="[]" fragment="inicioo">Inicio</a>
+      <a [routerLink]="[]" fragment="cursos">Cursos</a>
       <a>Administrativos</a>
     </div>
 
