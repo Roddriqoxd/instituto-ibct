@@ -10,6 +10,9 @@ import {PricesComponent} from './dashboard/dashboard/components/prices/prices.co
 import {PaymentFormComponent} from './dashboard/dashboard/components/payment-form/payment-form.component';
 import {BartenderComponent} from './home-page/components/bartender/bartender.component';
 import {ComputacionComponent} from './home-page/components/computacion/computacion.component';
+import {EnsambladoComponent} from './home-page/components/ensamblado/ensamblado.component';
+import {DGraficoComponent} from './home-page/components/d-grafico/d-grafico.component';
+import {CelularesComponent} from './home-page/components/celulares/celulares.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +30,18 @@ export const routes: Routes = [
       {
         path: 'computacion',
         component: ComputacionComponent,
+      },
+      {
+        path: 'ensamblado-computadoras',
+        component: EnsambladoComponent,
+      },
+      {
+        path: 'diseño-grafico',
+        component: DGraficoComponent,
+      },
+      {
+        path: 'reparacion-celulares',
+        component: CelularesComponent,
       },
       {
         path: '**',
