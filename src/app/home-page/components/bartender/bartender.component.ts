@@ -4,8 +4,7 @@ import {RutasService} from '../../services/rutas.service';
 
 @Component({
   selector: 'app-bartender',
-  imports: [
-  ],
+  imports: [],
   templateUrl: './bartender.component.html',
   styleUrl: './bartender.component.css'
 })
