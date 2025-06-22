@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {NgIf, ViewportScroller} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ViewportScroller} from '@angular/common';
+import {RutasService} from '../../services/rutas.service';
 
 @Component({
   selector: 'app-bartender',
@@ -7,10 +8,14 @@ import {NgIf, ViewportScroller} from '@angular/common';
   templateUrl: './bartender.component.html',
   styleUrl: './bartender.component.css'
 })
-export class BartenderComponent {
+export class BartenderComponent implements OnInit {
 
-  constructor(private viewportScroller: ViewportScroller) {
+  constructor(private viewportScroller: ViewportScroller, private _tipoRutaService: RutasService) {
     this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
+  ngOnInit() {
+    this._tipoRutaService.setTipoRuta('curso')
   }
 
 }

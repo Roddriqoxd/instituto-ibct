@@ -13,6 +13,7 @@ import {ComputacionComponent} from './home-page/components/computacion/computaci
 import {EnsambladoComponent} from './home-page/components/ensamblado/ensamblado.component';
 import {DGraficoComponent} from './home-page/components/d-grafico/d-grafico.component';
 import {CelularesComponent} from './home-page/components/celulares/celulares.component';
+import {PagosListComponent} from './dashboard/dashboard/components/pagos-list/pagos-list.component';
 
 export const routes: Routes = [
   {
@@ -76,6 +77,10 @@ export const routes: Routes = [
       {
         path: 'crear-pago',
         component: PaymentFormComponent,
+      },
+      {
+        path: 'lista-pagos',
+        component: PagosListComponent,
       },
       {
         path: '**',

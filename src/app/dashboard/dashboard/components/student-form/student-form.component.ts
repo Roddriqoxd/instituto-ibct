@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -11,12 +10,13 @@ import {take} from 'rxjs';
 import {Course} from '../../interfaces/course.interface';
 import {SelectInterface} from '../../interfaces/select.interface';
 import {DatePickerModule} from 'primeng/datepicker';
+import {ACTIVO, MENSUALIDAD, NINGUNO, PAGADO, TOTAL} from '../../utils/constantes';
 
 @Component({
   selector: 'app-student-form',
   imports: [
     ReactiveFormsModule,
-    DatePickerModule ,
+    DatePickerModule,
     DropdownModule,
     InputTextModule,
     ButtonModule
@@ -30,28 +30,28 @@ export class StudentFormComponent implements OnInit {
   private cursosData: Course[] = []
 
   ciExtensiones = [
-    { label: 'LP', value: 'LP' },
-    { label: 'CB', value: 'CB' },
-    { label: 'SC', value: 'SC' },
-    { label: 'OR', value: 'OR' },
-    { label: 'PT', value: 'PT' },
-    { label: 'TJ', value: 'TJ' },
-    { label: 'CH', value: 'CH' },
-    { label: 'BN', value: 'BN' },
-    { label: 'PA', value: 'PA' }
+    {label: 'LP', value: 'LP'},
+    {label: 'CB', value: 'CB'},
+    {label: 'SC', value: 'SC'},
+    {label: 'OR', value: 'OR'},
+    {label: 'PT', value: 'PT'},
+    {label: 'TJ', value: 'TJ'},
+    {label: 'CH', value: 'CH'},
+    {label: 'BN', value: 'BN'},
+    {label: 'PA', value: 'PA'}
   ];
 
   formulario: FormGroup;
 
   tipoPagoOptions = [
-    { label: 'Total', value: 'total' },
-    { label: 'Mensual', value: 'mensual' }
+    {label: 'Total', value: TOTAL},
+    {label: 'Mensual', value: MENSUALIDAD}
   ];
 
   descuentoOptions = [
-    { label: 'Ninguna', value: 'NINGUNA' },
-    { label: 'Sin matrícula', value: 'SIN_MATRICULA' },
-    { label: 'Pago total', value: 'PAGO_TOTAL' }
+    {label: 'Ninguna', value: 'NINGUNA'},
+    {label: 'Sin matrícula', value: 'SIN_MATRICULA'},
+    {label: 'Pago total', value: 'PAGO_TOTAL'}
   ];
 
   horarioOptions: SelectInterface[] = [];
@@ -99,7 +99,7 @@ export class StudentFormComponent implements OnInit {
       this.formulario.get('curso')?.reset();
       this.cursos = [];
       const data = this.cursosData.filter(value => {
-         return  value.modalidad == nuevoValor
+        return value.modalidad == nuevoValor
       });
       if (data) {
         for (const curso of data) {
@@ -148,11 +148,12 @@ export class StudentFormComponent implements OnInit {
 
         const inscripcion: InscripcionDTO = {
           fechaInicio: form.fechaInicio,
-          estado: 'ACTIVO',
-          estadoCurso: 'EN_CURSO',
-          estadoCertificado: 'NONE',
+          estado: ACTIVO,
+          estadoCurso: ACTIVO,
+          estadoCertificado: NINGUNO,
           estudianteId: estudianteId!,
           tipoInscripcion: form.tipoPago,
+          estadoPago: PAGADO,
           horarioId: form.horario,
           cursoId: form.curso
         };
@@ -166,7 +167,7 @@ export class StudentFormComponent implements OnInit {
               monto: parseFloat(form.monto),
               fechaPago: new Date(),
               tipoPago: form.tipoPago,
-              tipoDescuento: form.descuento || 'NINGUNO',
+              tipoDescuento: form.descuento || NINGUNO,
               inscripcionId: inscripcionId!
             };
 

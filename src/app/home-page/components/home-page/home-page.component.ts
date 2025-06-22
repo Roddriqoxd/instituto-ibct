@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {RouterLink, RouterModule, RouterOutlet} from '@angular/router';
+import {Component, effect, OnInit} from '@angular/core';
+import {Router, RouterModule, RouterOutlet} from '@angular/router';
+import {RutasService} from '../../services/rutas.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,9 +11,19 @@ import {RouterLink, RouterModule, RouterOutlet} from '@angular/router';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
 
-  protected readonly alert = alert;
+  ruta = '';
+
+  constructor(private router: Router, private _tipoRutaService: RutasService) {
+  }
+
+  ngOnInit() {
+    this._tipoRutaService.tipoRuta$.subscribe((ruta) => {
+      this.ruta = ruta
+    })
+  }
+
 
   redesSociales(red: string) {
     if (red === 'w') {
@@ -21,5 +32,9 @@ export class HomePageComponent {
     if (red === 'f') {
       window.open('https://www.facebook.com/profile.php?id=61554795886895');
     }
+  }
+
+  irRuta(bartender: string) {
+    this.router.navigate([`home/${bartender}`]);
   }
 }
