@@ -3,9 +3,7 @@ import {NgIf, ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'app-bartender',
-  imports: [
-    NgIf
-  ],
+  imports: [],
   templateUrl: './bartender.component.html',
   styleUrl: './bartender.component.css'
 })

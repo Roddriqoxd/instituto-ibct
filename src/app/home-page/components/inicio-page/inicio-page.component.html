@@ -4,7 +4,6 @@
 </div>
 
 <div class="Estadistica">
-
   <div class="creativos">
     <span class="creativos-numero">+1000</span>
     <span class="creativos-letras">Estudiantes graduados</span>
@@ -34,45 +33,49 @@
   <!-- ULTIMO -->
   <div class="ultimo">
     <div class="cuadrado gap-7">
-      <img class="cuadrado-imagen" src="/assets/images/aprendizaje.png"/>
+      <img class="cuadrado-imagen" src="/assets/images/aprendizaje.png" />
 
       <div class="flex flex-col">
         <span class="cuadrado-titulo">Ingreso rápido al mundo laboral</span>
         <span class="cuadrado-parrafo"
-        >Desde el primer módulo ya estás desarrollando habilidades que te permitirán trabajar o emprender.</span
+          >Desde el primer módulo ya estás desarrollando habilidades que te
+          permitirán trabajar o emprender.</span
         >
       </div>
     </div>
 
     <div class="cuadrado gap-7">
-      <img class="cuadrado-imagen" src="/assets/images/primero.png"/>
+      <img class="cuadrado-imagen" src="/assets/images/primero.png" />
 
       <div class="flex flex-col">
         <span class="cuadrado-titulo">Duración corta y eficiente</span>
         <span class="cuadrado-parrafo"
-        >Nos enfocamos solo en lo que necesitas para desempeñarte profesionalmente en tu área.</span
+          >Nos enfocamos solo en lo que necesitas para desempeñarte
+          profesionalmente en tu área.</span
         >
       </div>
     </div>
 
     <div class="cuadrado gap-7">
-      <img class="cuadrado-imagen" src="/assets/images/naranja.png"/>
+      <img class="cuadrado-imagen" src="/assets/images/naranja.png" />
 
       <div class="flex flex-col">
         <span class="cuadrado-titulo">Ambiente de Apoyo y Motivación</span>
         <span class="cuadrado-parrafo"
-        >Fomentamos un entorno positivo donde te sentirás acompañado en cada etapa de tu formación.</span
+          >Fomentamos un entorno positivo donde te sentirás acompañado en cada
+          etapa de tu formación.</span
         >
       </div>
     </div>
 
     <div class="cuadrado gap-7">
-      <img class="cuadrado-imagen" src="/assets/images/bien.png"/>
+      <img class="cuadrado-imagen" src="/assets/images/bien.png" />
 
       <div class="flex flex-col">
         <span class="cuadrado-titulo">Instalaciones Equipadas:</span>
         <span class="cuadrado-parrafo"
-        >Disponemos de laboratorios y aulas con tecnología actualizada para una mejor experiencia de aprendizaje.</span
+          >Disponemos de laboratorios y aulas con tecnología actualizada para
+          una mejor experiencia de aprendizaje.</span
         >
       </div>
     </div>
@@ -82,21 +85,31 @@
 <div class="profesores">
   <div class="descripcion">
     <div class="flex flex-col">
-      <span class="frase-sub">Profesores calificados</span>
+      <span class="frase-sub">Profesores Calificados</span>
       <span class="profesores-frase"
-      >Tenemos el Mejor Plantel Docente en su Area</span>
+        >Tenemos el Mejor Plantel Docente en su Area</span
+      >
     </div>
     <span class="profesores-parrafo">
-         Contamos con un equipo de instructores altamente capacitados, con amplia experiencia práctica y académica en cada una de sus especialidades. Nuestros docentes no solo dominan los contenidos técnicos, sino que también están comprometidos con una enseñanza dinámica, clara y personalizada, adaptándose al ritmo de cada estudiante para garantizar un aprendizaje efectivo y aplicable al mundo laboral.
-        </span>
+      Contamos con un equipo de Docentes altamente capacitados, con amplia
+      experiencia práctica y académica en cada una de sus especialidades.
+      Nuestros docentes no solo dominan los contenidos técnicos, sino que
+      también están comprometidos con una enseñanza dinámica, clara y
+      personalizada, adaptándose al ritmo de cada estudiante para garantizar un
+      aprendizaje efectivo y aplicable al mundo laboral.
+    </span>
     <button class="profesores-docentes">Ver Docentes</button>
   </div>
 
   <div class="profesores-img">
-    <img class="w-1/2" src="/assets/images/computacion-3.jpg" alt="Docentes" style="border-radius: 10px"/>
+    <img
+      class="w-1/2"
+      src="/assets/images/maestro.jpg"
+      alt="Docentes"
+      style="width: 400px; border-radius: 10px"
+    />
   </div>
 </div>
-
 
 <div id="cursos" class="p-15 flex flex-col gap-8">
   <div class="frase">
@@ -105,39 +118,59 @@
   </div>
   <!-- 4 cursos -->
   <div class="cuatro-cursos-rectangulo">
-
     <div class="flex flex-col gap-5">
-      <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('conputacion')">
-        <i class="pi pi-desktop"
-           style="font-size: 15px; padding: 9px; background-color: rgba(115,188,0,0.32); color: #73BC00; border-radius: 5px"></i>
+      <span
+        class="rectangulo-titulo"
+        style="width: 250px"
+        (click)="toggleCurso('conputacion')"
+      >
+        <i
+          class="pi pi-desktop"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(115, 188, 0, 0.32);
+            color: #73bc00;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Computación
       </span>
       <div class="ensamblado" *ngIf="curso == 'conputacion'">
         <div style="width: 50%; display: flex; justify-content: center">
-          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+          <img
+            src="/assets/images/computacion2.png"
+            alt=""
+            style="width: 500px; border-radius: 10px"
+          />
         </div>
-        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+        <div
+          style="
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
           <div class="frase">
             <span class="frase-sub">Domina la computación</span>
-            <span class="frase-title">Curso de computación</span>
+            <span class="frase-title">Curso de Computación </span>
           </div>
           <div class="flex flex-col gap-3">
             <span>
-              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+              Domina la computación y mejora tu perfil profesional Este curso te
+              brinda las habilidades digitales más demandadas en el mercado
+              laboral: uso de Word, Excel, PowerPoint, internet, seguridad
+              informática y más. Con una formación práctica y actual, estarás
+              listo para trabajar en oficinas, empresas o por cuenta propia.
             </span>
+            <span> ✅ Certificación técnica con valor laboral </span>
+            <span> ✅ Ideal para adultos, jóvenes y trabajadores</span>
+            <span> ✅ Aprendizaje desde cero y paso a paso </span>
             <span>
-            ✅ Sin requisitos previos
-
-          </span>
-            <span>
-            ✅ Clases prácticas y fáciles de seguir
-          </span>
-            <span>
-            ✅ Certificado al finalizar
-          </span>
-            <span>
-            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
-          </span>
+              Prepárate para el mundo laboral, académico o personal con
+              habilidades que abren puertas.
+            </span>
           </div>
           <!-- BOTON -->
           <button class="profesores-curso" (click)="irRuta('computacion')">Ver curso</button>
@@ -146,175 +179,267 @@
     </div>
 
     <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 320px;" (click)="toggleCurso('celulares')">
-        <i class="pi pi-mobile"
-           style="font-size: 15px; padding: 9px; background-color: rgba(188,135,0,0.32); color: #5b00bc; border-radius: 5px"></i>
+      <span
+        class="rectangulo-titulo"
+        style="width: 320px"
+        (click)="toggleCurso('celulares')"
+      >
+        <i
+          class="pi pi-mobile"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(188, 135, 0, 0.32);
+            color: #5b00bc;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Reparación De Celulares
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'celulares'">
         <div style="width: 50%; display: flex; justify-content: center">
-          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+          <img
+            src="/assets/images/celulares2.jpg"
+            alt=""
+            style="width: 500px; border-radius: 10px"
+          />
         </div>
-        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+        <div
+          style="
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
           <div class="frase">
             <span class="frase-sub">Domina la computación</span>
             <span class="frase-title">Curso De Reparación De Celulares</span>
           </div>
           <div class="flex flex-col gap-3">
             <span>
-              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+              El Curso de Reparación de Celulares está diseñado para formar
+              técnicos capacitados en la detección y solución de fallas en
+              dispositivos móviles. A través de clases prácticas, aprenderás a
+              cambiar pantallas, reparar puertos de carga, solucionar errores de
+              software y realizar mantenimiento completo. Con el uso de
+              herramientas profesionales, dominarás técnicas actuales aplicadas
+              a equipos Android e iPhone. Ideal para emprender tu propio negocio
+              o trabajar en servicios técnicos. Al finalizar, obtendrás
+              certificación con respaldo técnico.
             </span>
-            <span>
-            ✅ Sin requisitos previos
-
-          </span>
-            <span>
-            ✅ Clases prácticas y fáciles de seguir
-          </span>
-            <span>
-            ✅ Certificado al finalizar
-          </span>
-            <span>
-            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
-          </span>
+            <span> ✅ Aprendizaje 100% práctico </span>
+            <span> ✅ Alta demanda en el mercado </span>
+            <span> ✅ Certificación avalada por IBCT </span>
+            <span> Aprende hoy lo que el mercado necesita mañana </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('reparacion-celulares')">Ver curso</button>
+          <button class="profesores-curso">Ver curso</button>
         </div>
       </div>
     </div>
 
     <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('diseño')">
-        <i class="pi pi-palette"
-           style="font-size: 15px; padding: 9px; background-color: rgba(236,133,33,0.32); color: #e18708; border-radius: 5px"></i>
+      <span
+        class="rectangulo-titulo"
+        style="width: 250px"
+        (click)="toggleCurso('diseño')"
+      >
+        <i
+          class="pi pi-palette"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(236, 133, 33, 0.32);
+            color: #e18708;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Diseño Gráfico
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'diseño'">
         <div style="width: 50%; display: flex; justify-content: center">
-          <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
+          <img
+            src="/assets/images/diseño grafico2.jpg"
+            alt=""
+            style="width: 500px; border-radius: 10px"
+          />
         </div>
-        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+        <div
+          style="
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
           <div class="frase">
             <span class="frase-sub">Domina las artes gráficas</span>
             <span class="frase-title">Curso De Diseño Gráfico</span>
           </div>
           <div class="flex flex-col gap-3">
             <span>
-              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
+              Este curso te capacita en el manejo profesional de herramientas
+              como Photoshop, Illustrator y Canva para crear diseños creativos e
+              impactantes. Aprenderás a elaborar logotipos, afiches, contenido
+              para redes sociales, identidad visual y más. Con un enfoque
+              práctico y actualizado, desarrollarás tu portafolio desde cero y
+              estarás listo para trabajar en agencias, emprendimientos o como
+              diseñador freelance. Incluye certificación técnica y acceso a
+              material digital exclusivo.
+            </span>
+            <span> ✅ Clases prácticas desde el primer día </span>
+            <span> ✅ Incluye certificado profesional </span>
+            <span>
+              ✅ Docentes con experiencia en diseño y marketing digital
             </span>
             <span>
-            ✅ Sin requisitos previos
-
-          </span>
-            <span>
-            ✅ Clases prácticas y fáciles de seguir
-          </span>
-            <span>
-            ✅ Certificado al finalizar
-          </span>
-            <span>
-            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
-          </span>
+              Aprende diseño gráfico y haz que el mundo vea lo que imaginas.
+            </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('diseño-grafico')">Ver curso</button>
+          <button class="profesores-curso">Ver curso</button>
         </div>
       </div>
     </div>
 
     <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 220px;" (click)="toggleCurso('bar')">
-        <i class="pi pi-filter"
-           style="font-size: 15px; padding: 9px; background-color: rgba(227,1,186,0.32); color: #bc0000; border-radius: 5px"></i>
+      <span
+        class="rectangulo-titulo"
+        style="width: 220px"
+        (click)="toggleCurso('bar')"
+      >
+        <i
+          class="pi pi-filter"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(227, 1, 186, 0.32);
+            color: #bc0000;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Bartender
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'bar'">
         <div style="width: 50%; display: flex; justify-content: center">
-          <img src="/assets/images/bartender.png" alt="" style="width: 500px; border-radius: 10px"/>
+          <img
+            src="/assets/images/bartender-3.jpg"
+            alt=""
+            style="width: 500px; border-radius: 10px"
+          />
         </div>
-        <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
+        <div
+          style="
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
           <div class="frase">
-            <span class="frase-sub">Domina la computación</span>
-            <span class="frase-title">Curso De Bartender</span>
+            <span class="frase-sub">Aprende a impresionar con cada copa.</span>
+            <span class="frase-title">Curso De Bartender Profesional</span>
           </div>
           <div class="flex flex-col gap-3">
             <span>
-             El curso de Bartender en el Instituto IBCT está diseñado para quienes
-              desean aprender el arte de preparar y servir cócteles con profesionalismo, creatividad
-              y técnica. Con un enfoque práctico, dinámico y actual, este programa te permitirá trabajar
-              en bares, restaurantes, eventos y hoteles, o incluso emprender tu propio servicio de bar móvil.
-              </span>
+              Aprende el arte de preparar cócteles, tragos y bebidas especiales
+              con estilo y técnica profesional. Este curso te enseñará desde
+              mezclas clásicas hasta presentaciones modernas, incluyendo flair
+              bartending, decoración y servicio al cliente. Ideal para trabajar
+              en bares, restaurantes, eventos o emprender tu propio negocio.
+              Clases prácticas, materiales incluidos y certificación final.
+              Desarrolla tus habilidades en un entorno dinámico, divertido y
+              profesional. ¡Convierte tu pasión por las bebidas en una profesión
+              rentable!
+            </span>
+            <span> ✅ Aprendizaje práctico y dinámico </span>
+            <span> ✅ Oportunidades laborales en el rubro gastronómico </span>
+            <span> ✅ Certificación evalada por IBCT </span>
             <span>
-            ✅ Sin requisitos previos
-
-          </span>
-            <span>
-            ✅ Clases prácticas y fáciles de seguir
-          </span>
-            <span>
-            ✅ Certificado al finalizar
-          </span>
-            <span>
-            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
-          </span>
+              Prepárate para el mundo laboral, académico o personal con
+              habilidades que abren puertas.
+            </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('bartender')">Ver curso</button>
+          <button class="profesores-curso">Ver curso</button>
         </div>
       </div>
     </div>
 
     <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 470px;" (click)="toggleCurso('ensamblado')">
-        <i class="pi pi-wrench"
-           style="font-size: 15px; padding: 9px; background-color: rgba(0,160,188,0.32); color: #003cbc; border-radius: 5px"></i>
+      <span
+        class="rectangulo-titulo"
+        style="width: 470px"
+        (click)="toggleCurso('ensamblado')"
+      >
+        <i
+          class="pi pi-wrench"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(0, 160, 188, 0.32);
+            color: #003cbc;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Ensamblado y Reparación de Computadoras
       </span>
       @if (curso == 'ensamblado') {
-        <div class="ensamblado">
-          <div style="width: 50%; display: flex; justify-content: center">
-            <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
-          </div>
-          <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between">
-            <div class="frase">
-              <span class="frase-sub">Domina la computación</span>
-              <span class="frase-title">Curso De Ensamblado y Reparación de Computadoras</span>
-            </div>
-            <div class="flex flex-col gap-3">
-            <span>
-              Domina las herramientas digitales esenciales para el mundo actual. En este curso aprenderás desde el uso básico del sistema operativo, internet y correo electrónico, hasta programas como Microsoft Word, Excel y PowerPoint. Ideal para personas sin experiencia previa o que desean actualizar sus conocimientos.
-            </span>
-              <span>
-            ✅ Sin requisitos previos
-
-          </span>
-              <span>
-            ✅ Clases prácticas y fáciles de seguir
-          </span>
-              <span>
-            ✅ Certificado al finalizar
-          </span>
-              <span>
-            Prepárate para el mundo laboral, académico o personal con habilidades que abren puertas.
-          </span>
-            </div>
-            <!-- BOTON -->
-            <button class="profesores-curso" (click)="irRuta('ensamblado-computadoras')">Ver curso</button>
-          </div>
+      <div class="ensamblado">
+        <div style="width: 50%; display: flex; justify-content: center">
+          <img
+            src="/assets/images/ensamblado3.png"
+            alt=""
+            style="width: 500px; border-radius: 10px"
+          />
         </div>
+        <div
+          style="
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
+          <div class="frase">
+            <span class="frase-sub">Domina la computación</span>
+            <span class="frase-title"
+              >Curso De Ensamblado y Reparación de Computadoras</span
+            >
+          </div>
+          <div class="flex flex-col gap-3">
+            <span>
+              Aprende a ensamblar computadoras desde cero, diagnosticar fallas
+              en laptops y realizar mantenimiento preventivo y correctivo en
+              impresoras. Este curso está orientado a quienes desean trabajar en
+              soporte técnico o crear su propio negocio. Incluye prácticas con
+              hardware real, configuración de BIOS, instalación de sistemas
+              operativos y técnicas de limpieza profunda.
+            </span>
+            <span> ✅  Prácticas 100% reales con equipos actuales.</span>
+            <span> ✅ Aprendes hardware, software y diagnóstico. </span>
+            <span> ✅Enseñanza paso a paso desde cero. </span>
+            <span>
+              Prepárate para el mundo laboral, académico o personal con
+              habilidades que abren puertas.
+            </span>
+          </div>
+          <!-- BOTON -->
+          <button class="profesores-curso">Ver curso</button>
+        </div>
+      </div>
       }
     </div>
   </div>
 </div>
 
-
 <!-- cuadrados azul oscuro-->
 
-<div class="flex flex-col gap-8 p-15" style=" background-color: #F2F2F2;">
+<div class="flex flex-col gap-8 p-15" style="background-color: #f2f2f2">
   <div class="frase">
     <span class="frase-sub">Nuestros momentos</span>
     <span class="frase-title">Que dicen nuestros estudiantes de nosotros</span>
@@ -324,65 +449,82 @@
   <div class="ultimodos">
     <div class="cuadradodos">
       <div class="cuadradodos-header">
-        <p-avatar image="https://randomuser.me/api/portraits/men/6.jpg" shape="circle" size="large"></p-avatar>
+        <p-avatar
+          image="https://randomuser.me/api/portraits/men/6.jpg"
+          shape="circle"
+          size="large"
+        ></p-avatar>
         <div class="cuadradodos-textos">
-          <span class="cuadradodos-titulo">José</span><br/>
+          <span class="cuadradodos-titulo">José</span><br />
           <span class="cuadradito-titulo">José Luis Méndez</span>
         </div>
       </div>
       <span class="cuadradodos-parrafo">
-"El curso de diseño gráfico superó mis expectativas. Aprendí a usar herramientas como Photoshop e Illustrator, y ahora puedo hacer trabajos freelance. Muy agradecido con los profesores."
-    </span>
-      <div class="estrellas">
-        ⭐⭐⭐⭐⭐
-      </div>
+        "El curso de diseño gráfico superó mis expectativas. Aprendí a usar
+        herramientas como Photoshop e Illustrator, y ahora puedo hacer trabajos
+        freelance. Muy agradecido con los profesores."
+      </span>
+      <div class="estrellas">⭐⭐⭐⭐⭐</div>
     </div>
 
     <div class="cuadradodos">
       <div class="cuadradodos-header">
-        <p-avatar image="https://randomuser.me/api/portraits/men/12.jpg" shape="circle" size="large"></p-avatar>
+        <p-avatar
+          image="https://randomuser.me/api/portraits/men/12.jpg"
+          shape="circle"
+          size="large"
+        ></p-avatar>
         <div class="cuadradodos-textos">
-          <span class="cuadradodos-titulo">Marío</span><br/>
+          <span class="cuadradodos-titulo">Marío</span><br />
           <span class="cuadradito-titulo">Marío Gómez</span>
         </div>
       </div>
       <span class="cuadradodos-parrafo">
-          "Gracias a este curso, ahora puedo ofrecer servicios de reparación de celulares por mi cuenta. Aprendí desde lo más básico hasta técnicas avanzadas. Excelente inversión de tiempo."
-    </span>
-      <div class="estrellas">
-        ⭐⭐⭐⭐⭐
-      </div>
+        "Gracias a este curso, ahora puedo ofrecer servicios de reparación de
+        celulares por mi cuenta. Aprendí desde lo más básico hasta técnicas
+        avanzadas. Excelente inversión de tiempo."
+      </span>
+      <div class="estrellas">⭐⭐⭐⭐⭐</div>
     </div>
 
     <div class="cuadradodos">
       <div class="cuadradodos-header">
-        <p-avatar image="https://randomuser.me/api/portraits/men/2.jpg" shape="circle" size="large"></p-avatar>
+        <p-avatar
+          image="https://randomuser.me/api/portraits/men/2.jpg"
+          shape="circle"
+          size="large"
+        ></p-avatar>
         <div class="cuadradodos-textos">
-          <span class="cuadradodos-titulo">Carlos</span><br/>
+          <span class="cuadradodos-titulo">Carlos</span><br />
           <span class="cuadradito-titulo">Carlos Eduardo Ramírez</span>
         </div>
       </div>
       <span class="cuadradodos-parrafo">
-         "El curso de computación me ayudó a desarrollar habilidades básicas que ahora aplico diariamente en mi trabajo. Los instructores fueron pacientes y explicaron todo de forma clara. ¡Muy recomendable!"
-    </span>
-      <div class="estrellas">
-        ⭐⭐⭐⭐⭐
-      </div>
+        "El curso de computación me ayudó a desarrollar habilidades básicas que
+        ahora aplico diariamente en mi trabajo. Los instructores fueron
+        pacientes y explicaron todo de forma clara. ¡Muy recomendable!"
+      </span>
+      <div class="estrellas">⭐⭐⭐⭐⭐</div>
     </div>
 
     <div class="cuadradodos">
       <div class="cuadradodos-header">
-        <p-avatar image="https://randomuser.me/api/portraits/men/4.jpg" shape="circle" size="large"></p-avatar>
+        <p-avatar
+          image="https://randomuser.me/api/portraits/men/4.jpg"
+          shape="circle"
+          size="large"
+        ></p-avatar>
         <div class="cuadradodos-textos">
-          <span class="cuadradodos-titulo">Valeria</span><br/>
+          <span class="cuadradodos-titulo">Valeria</span><br />
           <span class="cuadradito-titulo">Valeria Sofía Núñez</span>
         </div>
       </div>
       <span class="cuadradodos-parrafo">
-"Siempre quise trabajar en bares, y con este curso aprendí todo lo necesario sobre coctelería y atención al cliente. Ya conseguí mi primer trabajo como bartender. ¡Mil gracias!"</span>
-      <div class="estrellas">
-        ⭐⭐⭐⭐⭐
-      </div>
+        "Siempre quise trabajar en bares, y con este curso aprendí todo lo
+        necesario sobre coctelería y atención al cliente. Ya conseguí mi primer
+        trabajo como bartender. ¡Mil gracias!"</span
+      >
+      <div class="estrellas">⭐⭐⭐⭐⭐</div>
     </div>
   </div>
 </div>

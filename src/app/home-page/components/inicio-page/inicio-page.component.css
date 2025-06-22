@@ -89,7 +89,7 @@
   align-items: center;
   padding: 20px 15%;
   background-color: #F2F2F2;
-  height: 450px;
+  height: 563px;
 }
 
 .descripcion {
@@ -101,6 +101,7 @@
 }
 
 .profesores-titulo {
+  display: flex;
 }
 
 .profesores-img {
