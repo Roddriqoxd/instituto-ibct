@@ -9,6 +9,7 @@ import {Course, Schedule} from '../../interfaces/course.interface';
 import {CommonModule} from '@angular/common';
 import {CourseService} from '../../services/course.service';
 import {take} from 'rxjs';
+import {LUNES_A_VIERNES, SABADOS} from '../../utils/constantes';
 
 @Component({
   selector: 'app-create-course-list',
@@ -38,8 +39,8 @@ export class CoursesListComponent implements OnInit {
   selectedDuracion: string | null = null;
 
   modalidadOptions = [
-    {label: 'Lunes a Viernes', value: 'LV'},
-    {label: 'Sábados', value: 'S'}
+    {label: 'Lunes a Viernes', value: LUNES_A_VIERNES},
+    {label: 'Sábados', value: SABADOS}
   ];
 
   duracionOptions = [

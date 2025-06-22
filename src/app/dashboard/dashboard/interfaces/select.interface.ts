@@ -1,4 +1,4 @@
 export interface SelectInterface {
   label: string;
-  value: string;
+  value: string | null;
 }

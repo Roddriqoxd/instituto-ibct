@@ -26,7 +26,7 @@
   <!--  </div>-->
 </div>
 <!-- BLANCO -->
-<div class="p-15 flex flex-col gap-8">
+<div id="ventajas" class="p-15 flex flex-col gap-8">
   <div class="frase">
     <span class="frase-sub">Mira muestras ventajas</span>
     <span class="frase-title">Ventajas de estudiar con nosotros</span>
@@ -79,7 +79,7 @@
   </div>
 </div>
 <!-- plantel docente -->
-<div class="profesores">
+<div id="docentes" class="profesores">
   <div class="descripcion">
     <div class="flex flex-col">
       <span class="frase-sub">Profesores calificados</span>
@@ -93,7 +93,7 @@
   </div>
 
   <div class="profesores-img">
-    <img class="w-1/2" src="/assets/images/computacion-3.jpg" alt="Docentes" style="border-radius: 10px"/>
+    <img  src="/assets/images/docentes.png" alt="Docentes" style="border-radius: 10px; width: 400px"/>
   </div>
 </div>
 
@@ -106,13 +106,13 @@
   <!-- 4 cursos -->
   <div class="cuatro-cursos-rectangulo">
 
-    <div class="flex flex-col gap-5">
-      <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('conputacion')">
+    <div class="flex flex-col gap-5" style="border: 1px solid #ffd7005c; border-radius: 10px;">
+      <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('conputacion')" [class.open]="curso == 'conputacion' ">
         <i class="pi pi-desktop"
            style="font-size: 15px; padding: 9px; background-color: rgba(115,188,0,0.32); color: #73BC00; border-radius: 5px"></i>
         Curso De Computación
       </span>
-      <div class="ensamblado" *ngIf="curso == 'conputacion'">
+      <div class="ensamblado" *ngIf="curso == 'conputacion'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
         </div>
@@ -145,14 +145,14 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 320px;" (click)="toggleCurso('celulares')">
+    <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
+          <span class="rectangulo-titulo" style="width: 320px;" (click)="toggleCurso('celulares')" [class.open]="curso == 'celulares' ">
         <i class="pi pi-mobile"
            style="font-size: 15px; padding: 9px; background-color: rgba(188,135,0,0.32); color: #5b00bc; border-radius: 5px"></i>
         Curso De Reparación De Celulares
       </span>
 
-      <div class="ensamblado" *ngIf="curso == 'celulares'">
+      <div class="ensamblado" *ngIf="curso == 'celulares'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
         </div>
@@ -185,14 +185,14 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('diseño')">
+    <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
+          <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('diseño')" [class.open]="curso == 'diseño' ">
         <i class="pi pi-palette"
            style="font-size: 15px; padding: 9px; background-color: rgba(236,133,33,0.32); color: #e18708; border-radius: 5px"></i>
         Curso De Diseño Gráfico
       </span>
 
-      <div class="ensamblado" *ngIf="curso == 'diseño'">
+      <div class="ensamblado" *ngIf="curso == 'diseño'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
         </div>
@@ -225,14 +225,14 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 220px;" (click)="toggleCurso('bar')">
+    <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
+          <span class="rectangulo-titulo" style="width: 220px;" (click)="toggleCurso('bar')" [class.open]="curso == 'bar' ">
         <i class="pi pi-filter"
            style="font-size: 15px; padding: 9px; background-color: rgba(227,1,186,0.32); color: #bc0000; border-radius: 5px"></i>
         Curso De Bartender
       </span>
 
-      <div class="ensamblado" *ngIf="curso == 'bar'">
+      <div class="ensamblado" *ngIf="curso == 'bar'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img src="/assets/images/bartender.png" alt="" style="width: 500px; border-radius: 10px"/>
         </div>
@@ -268,14 +268,14 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-5">
-          <span class="rectangulo-titulo" style="width: 470px;" (click)="toggleCurso('ensamblado')">
+    <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
+          <span class="rectangulo-titulo" style="width: 470px;" (click)="toggleCurso('ensamblado')" [class.open]="curso == 'ensamblado' ">
         <i class="pi pi-wrench"
            style="font-size: 15px; padding: 9px; background-color: rgba(0,160,188,0.32); color: #003cbc; border-radius: 5px"></i>
         Curso De Ensamblado y Reparación de Computadoras
       </span>
       @if (curso == 'ensamblado') {
-        <div class="ensamblado">
+        <div class="ensamblado" @expandCollapse>
           <div style="width: 50%; display: flex; justify-content: center">
             <img src="/assets/images/computacion-3.jpg" alt="" style="width: 500px; border-radius: 10px"/>
           </div>
@@ -314,7 +314,7 @@
 
 <!-- cuadrados azul oscuro-->
 
-<div class="flex flex-col gap-8 p-15" style=" background-color: #F2F2F2;">
+<div id="comentarios" class="flex flex-col gap-8 p-15" style=" background-color: #F2F2F2;">
   <div class="frase">
     <span class="frase-sub">Nuestros momentos</span>
     <span class="frase-title">Que dicen nuestros estudiantes de nosotros</span>
@@ -385,4 +385,12 @@
       </div>
     </div>
   </div>
+</div>
+
+<div id="ubicacion" class="p-15 flex flex-col gap-8" style="align-items: center">
+  <div class="frase">
+    <span class="frase-sub">Donde puedes encontrarnos</span>
+    <span class="frase-title">Nuestra ubicación</span>
+  </div>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d237.95659032639813!2d-66.1539572604232!3d-17.397123235558567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373b73fd16c5d%3A0x845ee0af1d54450c!2sIBCT%20Centro%20de%20capacitaci%C3%B3n%20t%C3%A9cnica!5e0!3m2!1ses!2sbo!4v1750216641537!5m2!1ses!2sbo" width="90%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>

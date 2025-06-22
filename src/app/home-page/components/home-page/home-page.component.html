@@ -1,15 +1,21 @@
-<div id="inicioo" class="barra z-10">
-  <div class="logo">
+<div class="icono-whatsapp" (click)="redesSociales('w')">
+  <i class="pi pi-whatsapp" style="font-size: 2.2rem"></i>
+</div>
+<div class="barra z-10">
+  <div class="logo cursor-pointer" (click)="irRuta('inicio')">
     <img src="assets/images/LOGO%20IBCT.png" alt="IBCT logo"/>
-    <span>Centro de Capacitacion <br/>TECNICA PRIVADA</span>
+    <span>Centro de Capacitación <br/>TECNICA PRIVADA</span>
   </div>
   <div class="enlaces">
-    <a>Inicio</a>
-    <a [routerLink]="[]" fragment="cursos">Cursos</a>
+    <a (click)="irRuta('inicio')">Inicio</a>
+    @if (ruta !== 'curso') {
+      <a [routerLink]="[]" fragment="cursos">Cursos</a>
+    }
     <a >Administrativos</a>
-    <a href="#footer">Contacto</a>
+    <a [routerLink]="[]" fragment="footer">Contacto</a>
   </div>
 </div>
+<div id="inicio"></div>
 <!-- BANNER -->
 
 <router-outlet></router-outlet>
@@ -41,17 +47,23 @@
 
     <div class="columna">
       <strong>Links</strong>
-      <a [routerLink]="[]" fragment="inicioo">Inicio</a>
+      <a (click)="irRuta('inicio')">Inicio</a>
       <a [routerLink]="[]" fragment="cursos">Cursos</a>
       <a>Administrativos</a>
     </div>
 
     <div class="columna">
       <strong>Segmentos</strong>
-      <a>Ventajas</a>
-      <a>Docentes</a>
-      <a>Cursos</a>
-      <a>Comentarios</a>
+      @if (ruta === 'curso') {
+        <a [routerLink]="[]" fragment="horarios">Horarios</a>
+        <a [routerLink]="[]" fragment="contenido">Contenido</a>
+      } @else {
+        <a [routerLink]="[]" fragment="ventajas">Ventajas</a>
+        <a [routerLink]="[]" fragment="docentes">Docentes</a>
+        <a [routerLink]="[]" fragment="cursos">Cursos</a>
+        <a [routerLink]="[]" fragment="comentarios">Comentarios</a>
+        <a [routerLink]="[]" fragment="ubicacion">Ubicacion</a>
+      }
     </div>
   </div>
 
