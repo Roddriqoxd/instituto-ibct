@@ -14,6 +14,7 @@ import {EnsambladoComponent} from './home-page/components/ensamblado/ensamblado.
 import {DGraficoComponent} from './home-page/components/d-grafico/d-grafico.component';
 import {CelularesComponent} from './home-page/components/celulares/celulares.component';
 import {PagosListComponent} from './dashboard/dashboard/components/pagos-list/pagos-list.component';
+import {ProfesoresComponent} from './home-page/components/profesores/profesores.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,10 @@ export const routes: Routes = [
       {
         path: 'reparacion-celulares',
         component: CelularesComponent,
+      },
+      {
+        path: 'docentes',
+        component: ProfesoresComponent,
       },
       {
         path: '**',

@@ -10,6 +10,7 @@ import {
   style,
   animate
 } from '@angular/animations';
+import {CarouselModule} from 'primeng/carousel';
 
 @Component({
   selector: 'app-inicio-page',
@@ -18,6 +19,7 @@ import {
     CarouselComponent,
     CommonModule,
     RouterModule,
+    CarouselModule
   ],
   templateUrl: './inicio-page.component.html',
   styleUrl: './inicio-page.component.css',
@@ -35,6 +37,24 @@ import {
 })
 export class InicioPageComponent implements AfterViewInit, OnInit {
 
+  banners = [
+    {
+      src: '/assets/images/banner.png',
+      isButtonVisible: true,
+      route: '/bartender'
+    },
+    {
+      src: '/assets/images/banner.png',
+      isButtonVisible: false,
+      route: ''
+    },
+    {
+      src: '/assets/images/banner.png',
+      isButtonVisible: true,
+      route: '/computacion'
+    }
+  ];
+
   curso: string = '';
 
   constructor(private router: Router, private viewportScroller: ViewportScroller, private _tipoRutaService: RutasService) {
@@ -46,7 +66,7 @@ export class InicioPageComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    this.toggleCurso('conputacion')
+    // this.toggleCurso('conputacion')
   }
 
   toggleCurso(curso: string) {
@@ -56,6 +76,10 @@ export class InicioPageComponent implements AfterViewInit, OnInit {
     } else {
       this.curso = '';
     }
+  }
+
+  onButtonClick(ruta: string): void {
+    this.router.navigate([`home/${ruta}`]);
   }
 
   irRuta(bartender: string) {

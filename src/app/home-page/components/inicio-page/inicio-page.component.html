@@ -1,6 +1,38 @@
 <!-- BANNER -->
 <div style="padding-top: 50px">
-  <app-carousel-ele></app-carousel-ele>
+  <p-carousel
+    [value]="banners"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="5000"
+    [showIndicators]="true"
+    [showNavigators]="false"
+    containerClass="w-full"
+    contentClass="overflow-hidden"
+    indicatorsContentClass="absolute left-1/2 transform -translate-x-1/2 z-10 top-50 md:top-100 lg:top-150"
+  >
+    <ng-template pTemplate="item" let-banner>
+      <div class="w-full h-[200px] md:h-[400px] lg:h-[600px] relative">
+        <img
+          [src]="banner.src"
+          alt="banner"
+          class="w-full h-full object-cover"
+        />
+
+        <button
+          *ngIf="banner.isButtonVisible"
+          class="profesores-docentes absolute left-6 top-[90%] transform -translate-y-1/2 bg-white bg-opacity-70 text-black px-4 py-2 rounded-lg shadow hover:bg-opacity-90 transition"
+          (click)="onButtonClick(banner.route)"
+        >
+          Ver más
+        </button>
+      </div>
+    </ng-template>
+  </p-carousel>
+
+
+
 </div>
 
 <div class="Estadistica">
@@ -85,7 +117,7 @@
 <div id="docentes" class="profesores">
   <div class="descripcion">
     <div class="flex flex-col">
-      <span class="frase-sub">Profesores Calificados</span>
+      <span class="frase-sub">Profesores calificados</span>
       <span class="profesores-frase"
         >Tenemos el Mejor Plantel Docente en su Area</span
       >
@@ -104,7 +136,7 @@
   <div class="profesores-img">
     <img
       class="w-1/2"
-      src="/assets/images/maestro.jpg"
+      src="/assets/images/docentes.png"
       alt="Docentes"
       style="width: 400px; border-radius: 10px"
     />
@@ -118,36 +150,17 @@
   </div>
   <!-- 4 cursos -->
   <div class="cuatro-cursos-rectangulo">
- <--revisar-->
 
     <div class="flex flex-col gap-5" style="border: 1px solid #ffd7005c; border-radius: 10px;">
       <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('conputacion')" [class.open]="curso == 'conputacion' ">
         <i class="pi pi-desktop"
            style="font-size: 15px; padding: 9px; background-color: rgba(115,188,0,0.32); color: #73BC00; border-radius: 5px"></i>
- <--revisar-->
-    <div class="flex flex-col gap-5">
-      <span
-        class="rectangulo-titulo"
-        style="width: 250px"
-        (click)="toggleCurso('conputacion')"
-      >
-        <i
-          class="pi pi-desktop"
-          style="
-            font-size: 15px;
-            padding: 9px;
-            background-color: rgba(115, 188, 0, 0.32);
-            color: #73bc00;
-            border-radius: 5px;
-          "
-        ></i>
- <--revisar-->
         Curso De Computación
       </span>
       <div class="ensamblado" *ngIf="curso == 'conputacion'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img
-            src="/assets/images/computacion2.png"
+            src="/assets/images/computacion.jpg"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
@@ -186,36 +199,17 @@
       </div>
     </div>
 
- <--revisar-->
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
           <span class="rectangulo-titulo" style="width: 320px;" (click)="toggleCurso('celulares')" [class.open]="curso == 'celulares' ">
         <i class="pi pi-mobile"
            style="font-size: 15px; padding: 9px; background-color: rgba(188,135,0,0.32); color: #5b00bc; border-radius: 5px"></i>
- <--revisar-->
-    <div class="flex flex-col gap-5">
-      <span
-        class="rectangulo-titulo"
-        style="width: 320px"
-        (click)="toggleCurso('celulares')"
-      >
-        <i
-          class="pi pi-mobile"
-          style="
-            font-size: 15px;
-            padding: 9px;
-            background-color: rgba(188, 135, 0, 0.32);
-            color: #5b00bc;
-            border-radius: 5px;
-          "
-        ></i>
- <--revisar-->
         Curso De Reparación De Celulares
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'celulares'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img
-            src="/assets/images/celulares2.jpg"
+            src="/assets/images/reparacion-celulares.jpg"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
@@ -250,41 +244,22 @@
             <span> Aprende hoy lo que el mercado necesita mañana </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('reparacion-celulares')">Ver curso</button>
         </div>
       </div>
     </div>
 
- <--revisar-->
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
           <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('diseño')" [class.open]="curso == 'diseño' ">
         <i class="pi pi-palette"
            style="font-size: 15px; padding: 9px; background-color: rgba(236,133,33,0.32); color: #e18708; border-radius: 5px"></i>
- <--revisar-->
-    <div class="flex flex-col gap-5">
-      <span
-        class="rectangulo-titulo"
-        style="width: 250px"
-        (click)="toggleCurso('diseño')"
-      >
-        <i
-          class="pi pi-palette"
-          style="
-            font-size: 15px;
-            padding: 9px;
-            background-color: rgba(236, 133, 33, 0.32);
-            color: #e18708;
-            border-radius: 5px;
-          "
-        ></i>
- <--revisar-->
         Curso De Diseño Gráfico
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'diseño'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img
-            src="/assets/images/diseño grafico2.jpg"
+            src="/assets/images/diseño-grafico.jpg"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
@@ -322,41 +297,22 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('diseño-grafico')">Ver curso</button>
         </div>
       </div>
     </div>
 
- <--revisar-->
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
           <span class="rectangulo-titulo" style="width: 220px;" (click)="toggleCurso('bar')" [class.open]="curso == 'bar' ">
         <i class="pi pi-filter"
            style="font-size: 15px; padding: 9px; background-color: rgba(227,1,186,0.32); color: #bc0000; border-radius: 5px"></i>
- <--revisar-->
-    <div class="flex flex-col gap-5">
-      <span
-        class="rectangulo-titulo"
-        style="width: 220px"
-        (click)="toggleCurso('bar')"
-      >
-        <i
-          class="pi pi-filter"
-          style="
-            font-size: 15px;
-            padding: 9px;
-            background-color: rgba(227, 1, 186, 0.32);
-            color: #bc0000;
-            border-radius: 5px;
-          "
-        ></i>
- <--revisar-->
         Curso De Bartender
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'bar'" @expandCollapse>
         <div style="width: 50%; display: flex; justify-content: center">
           <img
-            src="/assets/images/bartender-3.jpg"
+            src="/assets/images/bartender.jpg"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
@@ -394,12 +350,11 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('bartender')">Ver curso</button>
         </div>
       </div>
     </div>
 
- <--revisar-->
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
           <span class="rectangulo-titulo" style="width: 470px;" (click)="toggleCurso('ensamblado')" [class.open]="curso == 'ensamblado' ">
         <i class="pi pi-wrench"
@@ -410,34 +365,7 @@
         <div class="ensamblado" @expandCollapse>
           <div style="width: 50%; display: flex; justify-content: center">
           <img
-            src="/assets/images/ensamblado3.png"
-            alt=""
-            style="width: 500px; border-radius: 10px"
-          />
- <--revisar-->
-    <div class="flex flex-col gap-5">
-      <span
-        class="rectangulo-titulo"
-        style="width: 470px"
-        (click)="toggleCurso('ensamblado')"
-      >
-        <i
-          class="pi pi-wrench"
-          style="
-            font-size: 15px;
-            padding: 9px;
-            background-color: rgba(0, 160, 188, 0.32);
-            color: #003cbc;
-            border-radius: 5px;
-          "
-        ></i>
-        Curso De Ensamblado y Reparación de Computadoras
-      </span>
-      @if (curso == 'ensamblado') {
-      <div class="ensamblado">
-        <div style="width: 50%; display: flex; justify-content: center">
-          <img
-            src="/assets/images/ensamblado3.png"
+            src="/assets/images/ensamblado-computadoras.jpg"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
@@ -455,7 +383,6 @@
             <span class="frase-title"
               >Curso De Ensamblado y Reparación de Computadoras</span
             >
- <--revisar-->
           </div>
           <div class="flex flex-col gap-3">
             <span>
@@ -475,7 +402,7 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('ensamblado-computadoras')">Ver curso</button>
         </div>
       </div>
       }
