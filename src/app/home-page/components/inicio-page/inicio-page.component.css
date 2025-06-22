@@ -41,8 +41,9 @@
   background-color: var(--amarillo);
   align-items: center;
   justify-content: space-evenly;
-  height: 150px;
-  padding: 0 50px;
+  padding: 50px 50px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .frase {
@@ -89,7 +90,8 @@
   align-items: center;
   padding: 20px 15%;
   background-color: #F2F2F2;
-  height: 563px;
+  height: 100% !important;
+  gap: 20px;
 }
 
 .descripcion {
@@ -97,6 +99,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  min-width: 300px;
   height: 100%;
 }
 
@@ -176,7 +179,6 @@
 .frase-title {
   font-size: 27px;
   font-weight: 600;
-  width: 500px;
   text-align: center;
 }
 
@@ -309,6 +311,7 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  width: max-content;
 }
 
 .open {
@@ -446,4 +449,19 @@
 
 .iconos-redes {
   display: flex;
+}
+
+@media (max-width: 768px) {
+  .profesores{
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .reparacion-computadoras {
+    width: fit-content;
+  }
+
+  .carousel-page {
+    display: none;
+  }
 }

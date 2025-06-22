@@ -37,4 +37,12 @@ export class HomePageComponent implements OnInit {
   irRuta(bartender: string) {
     this.router.navigate([`home/${bartender}`]);
   }
+
+  toggeMenu(element: HTMLDivElement) {
+    if (element.style.display == 'none') {
+      element.style.display = 'flex';
+    } else {
+      element.style.display = 'none';
+    }
+  }
 }

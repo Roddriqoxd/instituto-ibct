@@ -5,7 +5,8 @@
   align-items: center;
   padding: 0px 100px 0px 100px;
   position: fixed;
-  width: 100%;
+  width: 100vw;
+  z-index: 9999;
   height: 50px;
   background: rgb(255 255 255 / 66%);
   backdrop-filter: blur(20px);
@@ -449,4 +450,46 @@
 
 .iconos-redes i {
   cursor: pointer;
+}
+
+.menu-bar {
+  display: none;
+}
+
+.menu-bar-opciones {
+  background-color: white;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .nombre-inst {
+    display: none;
+  }
+
+  .enlaces {
+    display: none;
+  }
+
+  .menu-bar {
+    display: block;
+  }
+
+  .col-3 {
+    display: none;
+  }
+
+  .col-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 1108px) {
+  .col-3 {
+    display: none;
+  }
 }

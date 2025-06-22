@@ -1,5 +1,9 @@
 <!-- BANNER -->
 <div style="padding-top: 50px">
+
+</div>
+
+<div class="carousel-page">
   <p-carousel
     [value]="banners"
     [numVisible]="1"
@@ -152,7 +156,7 @@
   <div class="cuatro-cursos-rectangulo">
 
     <div class="flex flex-col gap-5" style="border: 1px solid #ffd7005c; border-radius: 10px;">
-      <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('conputacion')" [class.open]="curso == 'conputacion' ">
+      <span class="rectangulo-titulo"  (click)="toggleCurso('conputacion')" [class.open]="curso == 'conputacion' ">
         <i class="pi pi-desktop"
            style="font-size: 15px; padding: 9px; background-color: rgba(115,188,0,0.32); color: #73BC00; border-radius: 5px"></i>
         Curso De Computación
@@ -200,7 +204,7 @@
     </div>
 
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo" style="width: 320px;" (click)="toggleCurso('celulares')" [class.open]="curso == 'celulares' ">
+          <span class="rectangulo-titulo"  (click)="toggleCurso('celulares')" [class.open]="curso == 'celulares' ">
         <i class="pi pi-mobile"
            style="font-size: 15px; padding: 9px; background-color: rgba(188,135,0,0.32); color: #5b00bc; border-radius: 5px"></i>
         Curso De Reparación De Celulares
@@ -250,7 +254,7 @@
     </div>
 
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo" style="width: 250px;" (click)="toggleCurso('diseño')" [class.open]="curso == 'diseño' ">
+          <span class="rectangulo-titulo" (click)="toggleCurso('diseño')" [class.open]="curso == 'diseño' ">
         <i class="pi pi-palette"
            style="font-size: 15px; padding: 9px; background-color: rgba(236,133,33,0.32); color: #e18708; border-radius: 5px"></i>
         Curso De Diseño Gráfico
@@ -303,7 +307,7 @@
     </div>
 
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo" style="width: 220px;" (click)="toggleCurso('bar')" [class.open]="curso == 'bar' ">
+          <span class="rectangulo-titulo"  (click)="toggleCurso('bar')" [class.open]="curso == 'bar' ">
         <i class="pi pi-filter"
            style="font-size: 15px; padding: 9px; background-color: rgba(227,1,186,0.32); color: #bc0000; border-radius: 5px"></i>
         Curso De Bartender
@@ -356,7 +360,7 @@
     </div>
 
     <div class="flex flex-col gap-5" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo" style="width: 470px;" (click)="toggleCurso('ensamblado')" [class.open]="curso == 'ensamblado' ">
+          <span class="rectangulo-titulo reparacion-computadoras" (click)="toggleCurso('ensamblado')" [class.open]="curso == 'ensamblado' ">
         <i class="pi pi-wrench"
            style="font-size: 15px; padding: 9px; background-color: rgba(0,160,188,0.32); color: #003cbc; border-radius: 5px"></i>
         Curso De Ensamblado y Reparación de Computadoras
