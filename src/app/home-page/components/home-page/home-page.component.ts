@@ -1,4 +1,4 @@
-import {Component, effect, OnInit} from '@angular/core';
+import {Component, effect, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router, RouterModule, RouterOutlet} from '@angular/router';
 import {RutasService} from '../../services/rutas.service';
 
@@ -12,6 +12,7 @@ import {RutasService} from '../../services/rutas.service';
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit {
+  @ViewChild('menu') menuRef!: ElementRef<HTMLDivElement>;
 
   ruta = '';
 
@@ -36,13 +37,10 @@ export class HomePageComponent implements OnInit {
 
   irRuta(bartender: string) {
     this.router.navigate([`home/${bartender}`]);
+    this.menuRef.nativeElement.classList.remove('open');
   }
 
-  toggeMenu(element: HTMLDivElement) {
-    if (element.style.display == 'none') {
-      element.style.display = 'flex';
-    } else {
-      element.style.display = 'none';
-    }
+  toggleMenu(): void {
+    this.menuRef.nativeElement.classList.toggle('open');
   }
 }

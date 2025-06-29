@@ -15,23 +15,21 @@
   styleClass="w-full"
 >
   <ng-template pTemplate="item" let-docente>
-    <div class="cursos-ensamblado">
-      <div class="ensamblado flex flex-row gap-4 bg-white p-6">
-        <div class="w-1/2 flex justify-center items-center">
-          <img [src]="docente.imagen" alt="" class="w-[300px] rounded-lg" />
+    <div class="ensamblado">
+      <div class="image-container-curso flex justify-center items-center">
+        <img [src]="docente.imagen" alt="" class="w-[300px] rounded-lg"/>
+      </div>
+      <div class="card-container-curso flex flex-col justify-between">
+        <div class="frase mb-4">
+          <span class="frase-sub block text-sm text-gray-500">{{ docente.subtitulo }}</span>
+          <span class="frase-title block text-xl font-bold text-gray-800">{{ docente.nombre }}</span>
         </div>
-        <div class="w-1/2 flex flex-col justify-between">
-          <div class="frase mb-4">
-            <span class="frase-sub block text-sm text-gray-500">{{ docente.subtitulo }}</span>
-            <span class="frase-title block text-xl font-bold text-gray-800">{{ docente.nombre }}</span>
-          </div>
 
-          <div class="informacion-curso flex flex-col justify-between h-full">
+        <div class="informacion-curso flex flex-col justify-between h-full">
             <span class="parrafo-cursos-ensamblado text-justify text-gray-700">
               {{ docente.biografia }}
             </span>
-            <span class="frase-motivacion mt-4 italic text-green-700">"{{ docente.frase }}"</span>
-          </div>
+          <span class="frase-motivacion mt-4 italic text-green-700">"{{ docente.frase }}"</span>
         </div>
       </div>
     </div>

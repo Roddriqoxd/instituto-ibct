@@ -459,6 +459,7 @@
 .menu-bar-opciones {
   background-color: white;
   position: absolute;
+  display: none;
   left: 0;
   width: 100%;
   top: 50px;
@@ -466,7 +467,22 @@
   align-items: center;
 }
 
+.menu-bar-opciones ul li {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border-bottom: 1px solid var(--azul);
+}
+
+.open {
+  display: flex;
+}
+
 @media (max-width: 768px) {
+  .barra {
+    padding: 0 30px;
+  }
+
   .nombre-inst {
     display: none;
   }
@@ -491,5 +507,11 @@
 @media (max-width: 1108px) {
   .col-3 {
     display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .open {
+    display: none !important;
   }
 }

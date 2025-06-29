@@ -1,6 +1,9 @@
 .ensamblado{
   display: flex;
   align-content: center;
+  display: flex;
+  padding: 20px 100px 50px;
+  gap: 20px;
 }
 
 .frase {
@@ -18,12 +21,9 @@
 .frase-title {
   font-size: 27px;
   font-weight: 600;
-  width: 500px;
 }
 
 .cursos-ensamblado{
-  display: flex;
-  padding: 20px 100px 50px;
 }
 /* IMAGEN ENSAMBLADO */
 .ensamblado-cursos-imagen{
@@ -212,4 +212,41 @@
 .frase-motivacion {
   color: #969696;
   font-style: oblique;
+}
+
+.card-container-curso {
+  width: 50%;
+}
+
+.image-container-curso {
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .cursos-ensamblado {
+    padding: 70px 30px;
+  }
+
+  .ensamblado {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+
+  .card-container-curso {
+    width: 100%;
+  }
+
+  .image-container-curso {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .profesores-frase {
+    text-align: center;
+  }
+
+  .frase-sub {
+    text-align: center;
+  }
 }

@@ -17,10 +17,12 @@
       >
         <ul class="py-2">
           <li><a (click)="irRuta('computacion')" class="block px-4 py-2 hover:bg-gray-100">Computación</a></li>
-          <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de celulares</a></li>
+          <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de
+            celulares</a></li>
           <li><a (click)="irRuta('diseño-grafico')" class="block px-4 py-2 hover:bg-gray-100">Diseño gráfico</a></li>
           <li><a (click)="irRuta('bartender')" class="block px-4 py-2 hover:bg-gray-100">Bartender</a></li>
-          <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y reparación de computadoras</a></li>
+          <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y
+            reparación de computadoras</a></li>
         </ul>
       </div>
     </div>
@@ -28,15 +30,17 @@
     <a [routerLink]="[]" fragment="footer">Contacto</a>
   </div>
 
-  <i class="pi pi-bars cursor-pointer menu-bar" style="font-size: 20px" (click)="toggeMenu(menu)"></i>
-  <div #menu class="menu-bar-opciones" style="display: none">
+  <i class="pi pi-bars cursor-pointer menu-bar" style="font-size: 20px" (click)="toggleMenu()"></i>
+  <div #menu class="menu-bar-opciones">
     <ul class="py-2">
       <li><a (click)="irRuta('inicio')" class="block px-4 py-2 hover:bg-gray-100">Inicio</a></li>
       <li><a (click)="irRuta('computacion')" class="block px-4 py-2 hover:bg-gray-100">Computación</a></li>
-      <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de celulares</a></li>
+      <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de
+        celulares</a></li>
       <li><a (click)="irRuta('diseño-grafico')" class="block px-4 py-2 hover:bg-gray-100">Diseño gráfico</a></li>
       <li><a (click)="irRuta('bartender')" class="block px-4 py-2 hover:bg-gray-100">Bartender</a></li>
-      <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y reparación de computadoras</a></li>
+      <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y
+        reparación de computadoras</a></li>
       <li><a (click)="irRuta('docentes')" class="block px-4 py-2 hover:bg-gray-100">Docentes</a></li>
     </ul>
   </div>
@@ -73,7 +77,7 @@
 
     <div class="columna col-2">
       <strong>Links</strong>
-        <a (click)="irRuta('inicio')">Inicio</a>
+      <a (click)="irRuta('inicio')">Inicio</a>
       <div class="relative group inline-block">
 
         <a class="cursor-pointer">Cursos</a>
@@ -83,10 +87,12 @@
         >
           <ul class="py-2">
             <li><a (click)="irRuta('computacion')" class="block px-4 py-2 hover:bg-gray-100">Computación</a></li>
-            <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de celulares</a></li>
+            <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de
+              celulares</a></li>
             <li><a (click)="irRuta('diseño-grafico')" class="block px-4 py-2 hover:bg-gray-100">Diseño gráfico</a></li>
             <li><a (click)="irRuta('bartender')" class="block px-4 py-2 hover:bg-gray-100">Bartender</a></li>
-            <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y reparación de computadoras</a></li>
+            <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y
+              reparación de computadoras</a></li>
           </ul>
         </div>
       </div>
@@ -98,7 +104,7 @@
       @if (ruta === 'curso') {
         <a [routerLink]="[]" fragment="horarios">Horarios</a>
         <a [routerLink]="[]" fragment="contenido">Contenido</a>
-      } @else if(ruta === 'docentes') {
+      } @else if (ruta === 'docentes') {
         <a [routerLink]="[]" fragment="docentes">Docentes</a>
       } @else {
         <a [routerLink]="[]" fragment="ventajas">Ventajas</a>

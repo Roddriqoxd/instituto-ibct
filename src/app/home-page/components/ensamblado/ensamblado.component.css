@@ -1,6 +1,15 @@
-.ensamblado{
+.ensamblado {
   display: flex;
   align-content: center;
+  gap: 20px;
+}
+
+.card-container-curso {
+  width: 50%;
+}
+
+.image-container-curso {
+  width: 50%;
 }
 
 .frase {
@@ -18,16 +27,16 @@
 .frase-title {
   font-size: 27px;
   font-weight: 600;
-  width: 500px;
   text-align: center;
 }
 
-.cursos-ensamblado{
+.cursos-ensamblado {
   display: flex;
   padding: 100px;
 }
+
 /* IMAGEN ENSAMBLADO */
-.ensamblado-cursos-imagen{
+.ensamblado-cursos-imagen {
   display: flex;
   height: 500px;
   padding: 10px 20px 20px 70px;
@@ -38,28 +47,32 @@
   display: flex;
   justify-content: center;
 }
+
 /* PADRE DE TEXTOS */
-.texto-ensamblado-cursos{
+.texto-ensamblado-cursos {
   width: 50%;
   display: flex;
   flex-direction: column;
   padding: 30px 50px 20px;
 }
+
 /* TITULO */
-.cursos-titulo-ensamblado{
+.cursos-titulo-ensamblado {
   display: flex;
-  padding: 5px 0px ;
+  padding: 5px 0px;
   color: darkorange;
   font-weight: bold;
 }
+
 /* SUB TITULO */
-.cursos-sub-titulo-ensamblado{
+.cursos-sub-titulo-ensamblado {
   display: flex;
   font-size: 28px;
   font-weight: bold;
 }
+
 /* PARRAFO */
-.parrafo-cursos-ensamblado{
+.parrafo-cursos-ensamblado {
   display: flex;
 }
 
@@ -71,26 +84,30 @@
   padding: 20px;
   border-bottom: 1px solid #ccc;
 }
+
 /* LOGOTIPO */
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 /* HORARIOS */
-.titulo-horarios{
+.titulo-horarios {
   display: flex;
   justify-content: center;
-  padding:  0  0 20px 0;
+  padding: 0 0 20px 0;
   font-size: 27px;
   font-weight: 600;
 }
+
 /* FONDO*/
-.horarios{
+.horarios {
   text-align: center;
   padding: 50px 20px 60px 20px;
   background: #f7f7f7;
 }
+
 /* BLOQUES */
 .bloques-horario {
   display: flex;
@@ -118,21 +135,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:6px;
+  gap: 6px;
 }
+
 /* ICONOS MAÑANA TARDE SABADOS */
 .horario img {
   width: 70px;
 }
+
 /* TURNOS HORARIO */
-.turnos-horario{
+.turnos-horario {
   font-size: 16px;
   font-weight: bold;
 }
+
 /* CONTENIDO */
-.contenido-curso{
+.contenido-curso {
   display: flex;
-  padding: 0px 0px 50px ;
+  padding: 0px 0px 50px;
   justify-content: center;
   font-size: 27px;
   font-weight: 600;
@@ -149,11 +169,12 @@
 
 .bloques-cursos {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 40px;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
 }
+
 /* BLOQUES */
 .bloque-curso {
   background: #fafafa;
@@ -163,23 +184,27 @@
   text-align: left;
   transition: transform 0.2s ease;
 }
+
 /* TITULO BLOQUE */
-.titulo-bloque{
+.titulo-bloque {
   display: flex;
   font-size: 20px;
   padding: 10px 0;
   font-weight: 600;
 }
+
 /* PARRAFO BLOQUE */
-.parrafo-bloque{
+.parrafo-bloque {
   display: flex;
   font-size: 16px;
   text-align: justify;
 }
+
 /* MOVIMIENTO DE BLOQUES */
 .bloque-curso:hover {
   transform: translateY(-5px);
 }
+
 /* TRANSFORMACION */
 .transformacion {
   background-color: #1e73f0;
@@ -187,18 +212,21 @@
   text-align: center;
   padding: 40px 20px;
 }
-.transformacion-titulo{
+
+.transformacion-titulo {
   display: flex;
   justify-content: center;
   font-weight: bold;
   font-size: 28px;
   padding: 0px 200px 20px;
 }
-.transformacion-parrafo{
+
+.transformacion-parrafo {
   display: flex;
   font-size: 20px;
   padding: 20px;
 }
+
 /* BOTON */
 .transformacion button {
   background: #ffde59;
@@ -208,4 +236,32 @@
   border-radius: 30px;
   cursor: pointer;
   color: #333;
+}
+
+@media (max-width: 1000px) {
+  .cursos-ensamblado {
+    padding: 70px 30px;
+  }
+
+  .ensamblado {
+    flex-wrap: wrap;
+  }
+
+  .card-container-curso {
+    width: 100%;
+  }
+
+  .image-container-curso {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .profesores-frase {
+    text-align: center;
+  }
+
+  .frase-sub {
+    text-align: center;
+  }
 }
