@@ -1,0 +1,55 @@
+<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-sm">
+  <div class="p-6 border-b border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-800">Registrar ingreso / egreso</h1>
+    <p class="text-gray-600 mt-1">> Registrar ingreso / egreso</p>
+  </div>
+
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="p-6 space-y-6">
+    <!-- Tipo de Registro -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Tipo de registro</label>
+      <p-dropdown
+        [options]="tipoRegistroOptions"
+        formControlName="tipoRegistro"
+        [optionValue]="'value'"
+        placeholder="Seleccionar"
+        class="w-full">
+      </p-dropdown>
+    </div>
+
+    <!-- Monto -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Monto</label>
+      <div style="display: flex; align-items: center; gap: 10px">
+        @if (formulario.get('tipoRegistro')?.value === 'INGRESO') {
+          <i class="pi pi-plus"></i>
+        } @else if (formulario.get('tipoRegistro')?.value === 'EGRESO') {
+          <i class="pi pi-minus"></i>
+        }
+        <input pInputText type="number" formControlName="monto" class="w-full"/>
+      </div>
+    </div>
+
+    <!-- Detalle -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Detalle</label>
+      <textarea
+        pInputTextarea
+        formControlName="detalle"
+        rows="4"
+        class="w-full"
+        placeholder="Detalle del ingreso o egreso (opcional)">
+      </textarea>
+    </div>
+
+    <!-- Botón Enviar -->
+    <button type="submit" class="w-full mt-4 p-3 border border-black-500 "
+            style="border-radius: 15px; cursor: pointer"
+            [ngClass]="{
+      'text-green-700 bg-green-100': formulario.get('tipoRegistro')?.value === 'INGRESO',
+      'text-red-700 bg-red-100': formulario.get('tipoRegistro')?.value === 'EGRESO'
+    }"
+    >Registrar {{ formulario.get('tipoRegistro')?.value | lowercase }}
+    </button>
+  </form>
+</div>

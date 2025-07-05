@@ -8,10 +8,39 @@
     <div class="p-4">
       <ul class="space-y-2">
         <li>
+          <div (click)="toggleSubmenu('administrador')"
+               class="disabled flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-users mr-3"></i>
+              <span>Usuarios</span>
+            </div>
+
+            <i class="pi" [ngClass]="submenuOpen === 'administrador'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </div>
+
+          <ul *ngIf="submenuOpen === 'administrador'" class="pl-8 mt-1">
+            <li>
+              <a routerLink="lista-estudiantes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Lista de usuarios
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="registrar-estudiantes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Registrar usuario
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
           <div (click)="toggleSubmenu('estudiantes')"
                class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
             <div class="flex items-center">
-              <i class="pi pi-users mr-3"></i>
+              <i class="pi pi-address-book mr-3"></i>
               <span>Estudiantes</span>
             </div>
 
@@ -28,7 +57,7 @@
             </li>
 
             <li>
-              <a routerLink="registar-estudiantes"
+              <a routerLink="registrar-estudiantes"
                  routerLinkActive="bg-blue-50 text-blue-600"
                  class="block p-2 rounded hover:bg-gray-100 text-gray-700">
                 Registrar estudiantes
@@ -65,22 +94,44 @@
               </a>
             </li>
 
-<!--            <li>-->
-<!--              <a routerLink="registar-estudiantes"-->
-<!--                 routerLinkActive="bg-blue-50 text-blue-600"-->
-<!--                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">-->
-<!--                Registrar estudiantes-->
-<!--              </a>-->
-<!--            </li>-->
+            <li>
+              <a routerLink="pagos-dia"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Pagos del dia
+              </a>
+            </li>
           </ul>
         </li>
 
         <li>
-          <a routerLink="/reports" routerLinkActive="bg-blue-50 text-blue-600"
-             class="flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700">
-            <i class="pi pi-chart-bar mr-3"></i>
-            <span>Reportes</span>
-          </a>
+          <div (click)="toggleSubmenu('ingresos')"
+               class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-wallet mr-3"></i>
+              <span>Ingresos / Egresos</span>
+            </div>
+
+            <i class="pi" [ngClass]="submenuOpen === 'ingresos'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </div>
+
+          <ul *ngIf="submenuOpen === 'ingresos'" class="pl-8 mt-1">
+            <li>
+              <a routerLink="ingresos-egresos"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Lista de ingresos y egresos
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="registrar-ingreso-egreso"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Registrar ingreso / egreso
+              </a>
+            </li>
+          </ul>
         </li>
 
         <li>
@@ -109,6 +160,52 @@
               </a>
             </li>
           </ul>
+        </li>
+
+        <li>
+          <div (click)="toggleSubmenu('precios')"
+               class="disabled flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-dollar mr-3"></i>
+              <span>Precios</span>
+            </div>
+
+            <i class="pi" [ngClass]="submenuOpen === 'precios'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </div>
+
+          <ul *ngIf="submenuOpen === 'precios'" class="pl-8 mt-1">
+            <li>
+              <a routerLink="lista-estudiantes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Lista de precios
+              </a>
+            </li>
+
+<!--            <li>-->
+<!--              <a routerLink="registrar-estudiantes"-->
+<!--                 routerLinkActive="bg-blue-50 text-blue-600"-->
+<!--                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">-->
+<!--                Registrar precio-->
+<!--              </a>-->
+<!--            </li>-->
+
+            <li>
+              <a routerLink="registrar-estudiantes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Registrar egreso
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a routerLink="/reports" routerLinkActive="bg-blue-50 text-blue-600"
+             class=" disabled flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700">
+            <i class="pi pi-chart-bar mr-3"></i>
+            <span>Reportes</span>
+          </a>
         </li>
 
       </ul>

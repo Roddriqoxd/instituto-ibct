@@ -14,24 +14,24 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium">Nombre</label>
-          <input pInputText formControlName="nombre" class="w-full" />
+          <input pInputText formControlName="nombre" class="w-full"/>
         </div>
         <div>
           <label class="block text-sm font-medium">Apellido Paterno</label>
-          <input pInputText formControlName="apellidoPaterno" class="w-full" />
+          <input pInputText formControlName="apellidoPaterno" class="w-full"/>
         </div>
         <div>
           <label class="block text-sm font-medium">Apellido Materno</label>
-          <input pInputText formControlName="apellidoMaterno" class="w-full" />
+          <input pInputText formControlName="apellidoMaterno" class="w-full"/>
         </div>
         <div>
           <label class="block text-sm font-medium">Celular</label>
-          <input pInputText formControlName="celular" class="w-full" />
+          <input pInputText formControlName="celular" class="w-full"/>
         </div>
         <div class="col-span-2 grid grid-cols-6 gap-4">
           <div class="col-span-2">
             <label class="block text-sm font-medium">CI</label>
-            <input pInputText formControlName="ci" class="w-full" />
+            <input pInputText formControlName="ci" class="w-full"/>
           </div>
           <div>
             <label class="block text-sm font-medium">Extensión</label>
@@ -65,11 +65,13 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium">Horario</label>
-          <p-dropdown [optionValue]="'value'" class="w-full" [options]="horarioOptions" formControlName="horario" placeholder="Seleccionar"></p-dropdown>
+          <p-dropdown [optionValue]="'value'" class="w-full" [options]="horarioOptions" formControlName="horario"
+                      placeholder="Seleccionar"></p-dropdown>
         </div>
         <div>
           <label class="block text-sm font-medium">Fecha de inicio de clases</label>
-          <p-datepicker [inputStyle]="{'width: 100%': true}" class="w-full" formControlName="fechaInicio" inputId="calendar" dateFormat="dd/mm/yy"></p-datepicker>
+          <p-datepicker [inputStyle]="{'width: 100%': true}" class="w-full" formControlName="fechaInicio"
+                        inputId="calendar" dateFormat="dd/mm/yy"></p-datepicker>
         </div>
       </div>
     </div>
@@ -80,15 +82,17 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium">Tipo de pago</label>
-          <p-dropdown  [optionValue]="'value'" class="w-full" [options]="tipoPagoOptions" formControlName="tipoPago" placeholder="Seleccionar"></p-dropdown>
+          <p-dropdown [optionValue]="'value'" class="w-full" [options]="tipoPagoOptions" formControlName="tipoPago"
+                      placeholder="Seleccionar"></p-dropdown>
         </div>
         <div>
           <label class="block text-sm font-medium">Abono</label>
-          <input pInputText formControlName="monto" class="w-full" />
+          <input pInputText formControlName="monto" class="w-full"/>
         </div>
         <div>
           <label class="block text-sm font-medium">Descuento</label>
-          <p-dropdown  [optionValue]="'value'"  class="w-full" [options]="descuentoOptions" formControlName="descuento" placeholder="Seleccionar"></p-dropdown>
+          <p-dropdown [optionValue]="'value'" class="w-full" [options]="descuentoOptions" formControlName="descuento"
+                      placeholder="Seleccionar"></p-dropdown>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-sm">
   <div class="p-6 border-b border-gray-200">
-    <h1 class="text-2xl font-bold text-gray-800">Lista de estudiantes</h1>
-    <p class="text-gray-600 mt-1">> lista estudiantes</p>
+    <h1 class="text-2xl font-bold text-gray-800">Pagos del dia</h1>
+    <p class="text-gray-600 mt-1">> Pagos del dia</p>
   </div>
 
   <!-- Search and Filters -->
@@ -66,17 +66,26 @@
              styleClass="p-datatable-striped">
       <ng-template #header>
         <tr>
+          <th class="p-4 text-left">Estado de pago</th>
           <th class="p-4 text-left">Nombre</th>
           <th class="p-4 text-left">Curso</th>
           <th class="p-4 text-left">Horario</th>
           <th class="p-4 text-left">Modalidad</th>
-          <th class="p-4 text-left">Estado de pago</th>
           <th class="p-4 text-left">Estatus</th>
           <th class="p-4 text-left">Detalles</th>
         </tr>
       </ng-template>
       <ng-template #body let-customer>
         <tr class="hover:bg-gray-50">
+          <td class="p-4">
+                  <span [ngClass]="{
+                    'bg-green-100 text-green-800': customer.estadoPago === PAGADO,
+                    'bg-yellow-100 text-yellow-800': customer.estadoPago === PAGO_PENDIENTE,
+                    'bg-red-100 text-red-800': customer.estadoPago === PAGO_VENCIDO,
+                  }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
+                    {{ customer.estadoPago }}
+                  </span>
+          </td>
           <td
             class="p-4 font-medium text-gray-900">{{ customer.estudiante.nombre }} {{ customer.estudiante.apellidoPaterno }} {{ customer.estudiante.apellidoMaterno }}
           </td>
@@ -88,15 +97,6 @@
                     'bg-purple-100 text-purple-800': customer.curso.modalidad === SABADOS,
                   }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
                     {{ customer.curso.modalidad }}
-                  </span>
-          </td>
-          <td class="p-4">
-                  <span [ngClass]="{
-                    'bg-green-100 text-green-800': customer.estadoPago === PAGADO,
-                    'bg-yellow-100 text-yellow-800': customer.estadoPago === PAGO_PENDIENTE,
-                    'bg-red-100 text-red-800': customer.estadoPago === PAGO_VENCIDO,
-                  }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
-                    {{ customer.estadoPago }}
                   </span>
           </td>
           <td class="p-4">

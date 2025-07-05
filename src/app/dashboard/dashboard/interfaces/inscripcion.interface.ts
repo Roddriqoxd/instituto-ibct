@@ -44,6 +44,7 @@ export interface PagoDTO {
   monto: number;
   fechaPago: Date;
   tipoPago: string;
+  detalle?: string;
   tipoDescuento: string;
-  inscripcionId: number;
+  inscripcionId?: number;
 }

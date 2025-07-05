@@ -17,7 +17,7 @@ export class PagosService {
     return this._http.post<PagoDTO>(`${this._url}/pagos`, pago);
   }
 
-  public obtenerTodosCursos(): Observable<PagoDTO[]> {
+  public obtenerTodosPagos(): Observable<PagoDTO[]> {
     return this._http.get<PagoDTO[]>(`${this._url}/pagos`);
   }
 }
