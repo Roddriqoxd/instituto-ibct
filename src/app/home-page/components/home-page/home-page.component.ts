@@ -36,7 +36,7 @@ export class HomePageComponent implements OnInit {
   }
 
   irRuta(bartender: string) {
-    this.router.navigate([`home/${bartender}`]);
+    this.router.navigate([`/${bartender}`]);
     this.menuRef.nativeElement.classList.remove('open');
   }
 

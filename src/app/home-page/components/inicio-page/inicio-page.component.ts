@@ -1,22 +1,15 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Avatar} from "primeng/avatar";
 import {CommonModule, ViewportScroller} from '@angular/common';
-import {CarouselComponent} from '../../../shared/carousel/carousel.component';
 import {Router, RouterModule} from '@angular/router';
 import {RutasService} from '../../services/rutas.service';
-import {
-  trigger,
-  transition,
-  style,
-  animate
-} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
 import {CarouselModule} from 'primeng/carousel';
 
 @Component({
   selector: 'app-inicio-page',
   imports: [
     Avatar,
-    CarouselComponent,
     CommonModule,
     RouterModule,
     CarouselModule
@@ -26,11 +19,11 @@ import {CarouselModule} from 'primeng/carousel';
   animations: [
     trigger('expandCollapse', [
       transition(':enter', [
-        style({ height: '0', opacity: 0, overflow: 'hidden' }),
-        animate('300ms ease-out', style({ height: '*', opacity: 1 }))
+        style({height: '0', opacity: 0, overflow: 'hidden'}),
+        animate('300ms ease-out', style({height: '*', opacity: 1}))
       ]),
       transition(':leave', [
-        animate('200ms ease-in', style({ height: '0', opacity: 0, overflow: 'hidden' }))
+        animate('200ms ease-in', style({height: '0', opacity: 0, overflow: 'hidden'}))
       ])
     ])
   ]
@@ -93,11 +86,7 @@ export class InicioPageComponent implements AfterViewInit, OnInit {
     }
   }
 
-  onButtonClick(ruta: string): void {
-    this.router.navigate([`home/${ruta}`]);
-  }
-
   irRuta(bartender: string) {
-    this.router.navigate([`home/${bartender}`]);
+    this.router.navigate([`/${bartender}`]);
   }
 }
