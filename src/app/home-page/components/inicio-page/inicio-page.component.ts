@@ -40,18 +40,33 @@ export class InicioPageComponent implements AfterViewInit, OnInit {
   banners = [
     {
       src: '/assets/images/banner.png',
-      isButtonVisible: true,
-      route: '/bartender'
-    },
-    {
-      src: '/assets/images/banner.png',
       isButtonVisible: false,
-      route: ''
+      route: '/inicio'
     },
     {
-      src: '/assets/images/banner.png',
+      src: '/assets/images/barten.png',
+      isButtonVisible: true,
+      route: 'bartender'
+    },
+    {
+      src: '/assets/images/computacion.png',
       isButtonVisible: true,
       route: '/computacion'
+    },
+    {
+      src: '/assets/images/ensamblado.png',
+      isButtonVisible: true,
+      route: '/ensamblado-computadoras'
+    },
+    {
+      src: '/assets/images/celulares.png',
+      isButtonVisible: true,
+      route: '/reparacion-celulares'
+    },
+    {
+      src: '/assets/images/grafico.png',
+      isButtonVisible: true,
+      route: '/diseño-grafico'
     }
   ];
 

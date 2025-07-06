@@ -14,9 +14,9 @@ import {RutasService} from '../../services/rutas.service';
 export class ProfesoresComponent implements OnInit {
   docentes = [
     {
-      imagen: '/assets/images/docente1.jpg',
-      nombre: 'Lucía Andrade Candia',
-      subtitulo: 'Licenciada en ingeniería en sistemas',
+      imagen: '/assets/images/WIL.png',
+      nombre: 'Wily  Candia',
+      subtitulo: 'Licenciado en ingeniería en sistemas',
       biografia: `Lucía Andrade es Licenciada en Literatura Hispánica por la Universidad Nacional de Córdoba.
       Con más de 15 años de experiencia en el ámbito educativo, ha dedicado su carrera a fomentar el pensamiento
       crítico y el amor por la lectura en estudiantes de secundaria y nivel superior. Ha participado en numerosos
@@ -25,8 +25,8 @@ export class ProfesoresComponent implements OnInit {
       frase: 'La educación es el arma más poderosa que puedes usar para cambiar el mundo. Nelson Mandela',
     },
     {
-      imagen: '/assets/images/docente1.jpg',
-      nombre: 'Javier Ríos Morales',
+      imagen: '/assets/images/FER.png',
+      nombre: 'Fernando Ríos Morales',
       subtitulo: 'Doctor en Física Aplicada',
       biografia: `Javier Ríos es Doctor en Física Aplicada por la Universidad Técnica Federico Santa María. Es investigador
       en temas de superconductividad y estructuras cuánticas, y ha publicado artículos en revistas científicas internacionales.
@@ -35,8 +35,8 @@ export class ProfesoresComponent implements OnInit {
       frase: 'El propósito de la educación es reemplazar una mente vacía por una abierta. Malcolm Forbes',
     },
     {
-      imagen: '/assets/images/docente1.jpg',
-      nombre: 'Carmen Soliz Vargas',
+      imagen: '/assets/images/JUAN.png',
+      nombre: 'Juan Solis',
       subtitulo: 'Magíster en Educación y Tecnología',
       biografia: `Carmen Soliz es Magíster en Educación y Tecnología por la Universidad de Chile. Tiene más de 20 años de experiencia
       capacitando a docentes en metodologías activas y uso de plataformas digitales. Lidera un programa nacional de transformación
@@ -44,7 +44,7 @@ export class ProfesoresComponent implements OnInit {
       frase: 'La educación no es llenar un balde, sino encender un fuego. William Butler Yeats',
     },
     {
-      imagen: '/assets/images/docente1.jpg',
+      imagen: '/assets/images/CARLOS.png',
       nombre: 'Alberto Cuéllar Torres',
       subtitulo: 'Ingeniero en Sistemas',
       biografia: `Alberto Cuéllar es Ingeniero en Sistemas por la Universidad Mayor de San Andrés. Con más de 10 años en la enseñanza
