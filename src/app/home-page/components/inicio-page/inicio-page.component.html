@@ -1,7 +1,5 @@
 <!-- BANNER -->
-<div style="padding-top: 50px">
-
-</div>
+<div style="padding-top: 50px"></div>
 
 <div class="carousel-page">
   <p-carousel
@@ -34,24 +32,21 @@
       </div>
     </ng-template>
   </p-carousel>
-
-
-
 </div>
 
 <div class="Estadistica">
   <div class="creativos">
-    <span class="creativos-numero">+1000</span>
+    <span class="creativos-numero">+2000</span>
     <span class="creativos-letras">Estudiantes graduados</span>
   </div>
 
   <div class="creativos" style="width: 200px">
-    <span class="creativos-numero">+10</span>
+    <span class="creativos-numero">+20</span>
     <span class="creativos-letras">Estudiantes nuevos cada semana</span>
   </div>
 
   <div class="creativos">
-    <span class="creativos-numero">+800</span>
+    <span class="creativos-numero">+1000</span>
     <span class="creativos-letras">Estudiantes ya trabajan</span>
   </div>
 
@@ -63,7 +58,7 @@
 <!-- BLANCO -->
 <div id="ventajas" class="p-15 flex flex-col gap-8">
   <div class="frase">
-    <span class="frase-sub">Mira muestras ventajas</span>
+    <span class="frase-sub">Mira nuestras ventajas</span>
     <span class="frase-title">Ventajas de estudiar con nosotros</span>
   </div>
   <!-- ULTIMO -->
@@ -121,7 +116,7 @@
 <div id="docentes" class="profesores">
   <div class="descripcion">
     <div class="flex flex-col">
-      <span class="frase-sub">Profesores calificados</span>
+      <span class="frase-sub">Docentes Calificados</span>
       <span class="profesores-frase"
         >Tenemos el Mejor Plantel Docente en su Area</span
       >
@@ -134,7 +129,9 @@
       personalizada, adaptándose al ritmo de cada estudiante para garantizar un
       aprendizaje efectivo y aplicable al mundo laboral.
     </span>
-    <button (click)="irRuta('docentes')" class="profesores-docentes">Ver Docentes</button>
+    <button (click)="irRuta('docentes')" class="profesores-docentes">
+      Ver Docentes
+    </button>
   </div>
 
   <div class="profesores-img">
@@ -149,28 +146,46 @@
 
 <div id="cursos" class="p-15 flex flex-col gap-8">
   <div class="frase">
-    <span class="frase-sub">Mira muestras areas</span>
+    <span class="frase-sub">Mira nuestras areas</span>
     <span class="frase-title">Nuestros cursos</span>
   </div>
   <!-- 4 cursos -->
   <div class="cuatro-cursos-rectangulo">
-
-    <div class="flex flex-col gap-5 curso-card" style="border: 1px solid #ffd7005c; border-radius: 10px;">
-      <span class="rectangulo-titulo"  (click)="toggleCurso('conputacion')" [class.open]="curso == 'conputacion' ">
-        <i class="pi pi-desktop"
-           style="font-size: 15px; padding: 9px; background-color: rgba(115,188,0,0.32); color: #73BC00; border-radius: 5px"></i>
+    <div
+      class="flex flex-col gap-5 curso-card"
+      style="border: 1px solid #ffd7005c; border-radius: 10px"
+    >
+      <span
+        class="rectangulo-titulo"
+        (click)="toggleCurso('conputacion')"
+        [class.open]="curso == 'conputacion'"
+      >
+        <i
+          class="pi pi-desktop"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(115, 188, 0, 0.32);
+            color: #73bc00;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Computación
       </span>
       <div class="ensamblado" *ngIf="curso == 'conputacion'" @expandCollapse>
-        <div class="image-container-curso"  style="display: flex; justify-content: center">
+        <div
+          class="image-container-curso"
+          style="display: flex; justify-content: center"
+        >
           <img
             src="/assets/images/computacion-curso.webp"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
         </div>
-        <div class="image-container-curso"
-             style="
+        <div
+          class="image-container-curso"
+          style="
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -182,13 +197,15 @@
           </div>
           <div class="flex flex-col gap-3">
             <span style="text-align: justify">
-              Domina la computación y mejora tu perfil profesional Este curso te
-              brinda las habilidades digitales más demandadas en el mercado
-              laboral: uso de Word, Excel, PowerPoint, internet, seguridad
-              informática y más. Con una formación práctica y actual, estarás
-              listo para trabajar en oficinas, empresas o por cuenta propia.
+              ¡Impulsa tu carrera dominando la computadora! Adquiere las
+              habilidades digitales esenciales para el mundo laboral y
+              educativo. Nuestro curso práctico abarca desde Windows y Office
+              (Word, Excel, PowerPoint, Access, Publisher) hasta internet,
+              WinRAR, WinZip y dactilografía. Prepárate para trabajar en
+              cualquier entorno, ya sea en una oficina, empresa o de forma
+              autónoma.
             </span>
-            <span> ✅ Certificación técnica con valor laboral </span>
+            <span> ✅ Certificado con valor curricular </span>
             <span> ✅ Ideal para adultos, jóvenes y trabajadores</span>
             <span> ✅ Aprendizaje desde cero y paso a paso </span>
             <span>
@@ -197,28 +214,49 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('computacion')">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('computacion')">
+            Ver curso
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-5 curso-card" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo"  (click)="toggleCurso('celulares')" [class.open]="curso == 'celulares' ">
-        <i class="pi pi-mobile"
-           style="font-size: 15px; padding: 9px; background-color: rgba(188,135,0,0.32); color: #5b00bc; border-radius: 5px"></i>
+    <div
+      class="flex flex-col gap-5 curso-card"
+      style="border: 1px solid #ffd7005c; border-radius: 10px"
+    >
+      <span
+        class="rectangulo-titulo"
+        (click)="toggleCurso('celulares')"
+        [class.open]="curso == 'celulares'"
+      >
+        <i
+          class="pi pi-mobile"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(188, 135, 0, 0.32);
+            color: #5b00bc;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Reparación De Celulares
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'celulares'" @expandCollapse>
-        <div class="image-container-curso"  style="display: flex; justify-content: center">
+        <div
+          class="image-container-curso"
+          style="display: flex; justify-content: center"
+        >
           <img
             src="/assets/images/reparacion-celulares.webp"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
         </div>
-        <div class="image-container-curso"
-             style="
+        <div
+          class="image-container-curso"
+          style="
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -246,28 +284,52 @@
             <span> Aprende hoy lo que el mercado necesita mañana </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('reparacion-celulares')">Ver curso</button>
+          <button
+            class="profesores-curso"
+            (click)="irRuta('reparacion-celulares')"
+          >
+            Ver curso
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-5 curso-card" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo" (click)="toggleCurso('diseño')" [class.open]="curso == 'diseño'">
-        <i class="pi pi-palette"
-           style="font-size: 15px; padding: 9px; background-color: rgba(236,133,33,0.32); color: #e18708; border-radius: 5px"></i>
+    <div
+      class="flex flex-col gap-5 curso-card"
+      style="border: 1px solid #ffd7005c; border-radius: 10px"
+    >
+      <span
+        class="rectangulo-titulo"
+        (click)="toggleCurso('diseño')"
+        [class.open]="curso == 'diseño'"
+      >
+        <i
+          class="pi pi-palette"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(236, 133, 33, 0.32);
+            color: #e18708;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Diseño Gráfico
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'diseño'" @expandCollapse>
-        <div class="image-container-curso"  style="display: flex; justify-content: center">
+        <div
+          class="image-container-curso"
+          style="display: flex; justify-content: center"
+        >
           <img
             src="/assets/images/diseño-grafico.webp"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
         </div>
-        <div class="image-container-curso"
-             style="
+        <div
+          class="image-container-curso"
+          style="
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -298,28 +360,49 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('diseño-grafico')">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('diseño-grafico')">
+            Ver curso
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-5 curso-card" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo"  (click)="toggleCurso('bar')" [class.open]="curso == 'bar' ">
-        <i class="pi pi-filter"
-           style="font-size: 15px; padding: 9px; background-color: rgba(227,1,186,0.32); color: #bc0000; border-radius: 5px"></i>
+    <div
+      class="flex flex-col gap-5 curso-card"
+      style="border: 1px solid #ffd7005c; border-radius: 10px"
+    >
+      <span
+        class="rectangulo-titulo"
+        (click)="toggleCurso('bar')"
+        [class.open]="curso == 'bar'"
+      >
+        <i
+          class="pi pi-filter"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(227, 1, 186, 0.32);
+            color: #bc0000;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Bartender
       </span>
 
       <div class="ensamblado" *ngIf="curso == 'bar'" @expandCollapse>
-        <div class="image-container-curso"  style="display: flex; justify-content: center">
+        <div
+          class="image-container-curso"
+          style="display: flex; justify-content: center"
+        >
           <img
             src="/assets/images/bartender.webp"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
         </div>
-        <div class="image-container-curso"
-             style="
+        <div
+          class="image-container-curso"
+          style="
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -350,27 +433,48 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('bartender')">Ver curso</button>
+          <button class="profesores-curso" (click)="irRuta('bartender')">
+            Ver curso
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-5 curso-card" style="    border: 1px solid #ffd7005c;; border-radius: 10px;">
-          <span class="rectangulo-titulo" (click)="toggleCurso('ensamblado')" [class.open]="curso == 'ensamblado' ">
-        <i class="pi pi-wrench"
-           style="font-size: 15px; padding: 9px; background-color: rgba(0,160,188,0.32); color: #003cbc; border-radius: 5px"></i>
+    <div
+      class="flex flex-col gap-5 curso-card"
+      style="border: 1px solid #ffd7005c; border-radius: 10px"
+    >
+      <span
+        class="rectangulo-titulo"
+        (click)="toggleCurso('ensamblado')"
+        [class.open]="curso == 'ensamblado'"
+      >
+        <i
+          class="pi pi-wrench"
+          style="
+            font-size: 15px;
+            padding: 9px;
+            background-color: rgba(0, 160, 188, 0.32);
+            color: #003cbc;
+            border-radius: 5px;
+          "
+        ></i>
         Curso De Ensamblado y Reparación de Computadoras
       </span>
       @if (curso == 'ensamblado') {
-        <div class="ensamblado" @expandCollapse>
-          <div class="image-container-curso" style="display: flex; justify-content: center">
+      <div class="ensamblado" @expandCollapse>
+        <div
+          class="image-container-curso"
+          style="display: flex; justify-content: center"
+        >
           <img
             src="/assets/images/ensamblado-computadoras.webp"
             alt=""
             style="width: 500px; border-radius: 10px"
           />
         </div>
-        <div class="card-container-curso"
+        <div
+          class="card-container-curso"
           style="
             display: flex;
             flex-direction: column;
@@ -392,7 +496,7 @@
               hardware real, configuración de BIOS, instalación de sistemas
               operativos y técnicas de limpieza profunda.
             </span>
-            <span> ✅  Prácticas 100% reales con equipos actuales.</span>
+            <span> ✅ Prácticas 100% reales con equipos actuales.</span>
             <span> ✅ Aprendes hardware, software y diagnóstico. </span>
             <span> ✅Enseñanza paso a paso desde cero. </span>
             <span>
@@ -401,7 +505,12 @@
             </span>
           </div>
           <!-- BOTON -->
-          <button class="profesores-curso" (click)="irRuta('ensamblado-computadoras')">Ver curso</button>
+          <button
+            class="profesores-curso"
+            (click)="irRuta('ensamblado-computadoras')"
+          >
+            Ver curso
+          </button>
         </div>
       </div>
       }
@@ -409,58 +518,93 @@
   </div>
 </div>
 
-<div class="flex flex-col gap-8 p-15" style=" background-color: #F2F2F2; align-items: center">
-
+<div
+  class="flex flex-col gap-8 p-15"
+  style="background-color: #f2f2f2; align-items: center"
+>
   <div class="frase">
     <span class="frase-sub">Sabemos quiénes somos y hacia dónde vamos.</span>
     <span class="frase-title">Misión y visión</span>
   </div>
   <!-- cuadrados -->
-    <div class="bloques-cursos">
-      <div class="bloque-curso">
-        <span class="titulo-bloque">Misión</span>
-        <span class="parrafo-bloque">
+  <div class="bloques-cursos">
+    <div class="bloque-curso">
+      <span class="titulo-bloque">Misión</span>
+      <span class="parrafo-bloque">
         Formar integralmente a personas y profesionales a través de programas de
         capacitación de alta calidad, orientados al desarrollo de competencias
         técnicas, humanas y tecnológicas.
       </span>
-      </div>
-      <div class="bloque-curso">
-        <span class="titulo-bloque">Visión</span>
-        <span class="parrafo-bloque">
+    </div>
+    <div class="bloque-curso">
+      <span class="titulo-bloque">Visión</span>
+      <span class="parrafo-bloque">
         Ser un centro de capacitación líder a nivel nacional e internacional,
         reconocido por su excelencia educativa, innovación metodológica y
         compromiso con el desarrollo sostenible,
       </span>
-      </div>
     </div>
+  </div>
   <!-- VALORES -->
-
 
   <span class="frase-title">Valores</span>
   <div class="valores-ibct">
     <div class="valor">
-      <i class="pi pi-users" style="font-size: 15px; padding: 9px; background-color: rgba(0,123,255,0.79); color: rgba(255,255,255,0.76); border-radius: 5px"></i>
+      <i
+        class="pi pi-users"
+        style="
+          font-size: 15px;
+          padding: 9px;
+          background-color: rgba(0, 123, 255, 0.79);
+          color: rgba(255, 255, 255, 0.76);
+          border-radius: 5px;
+        "
+      ></i>
       <span class="texto">Respeto</span>
     </div>
 
     <div class="valor">
-      <i class="pi pi-lock" style="font-size: 15px; padding: 9px; background-color: rgba(40,167,69,0.82); color: rgba(255,255,255,0.79); border-radius: 5px"></i>
+      <i
+        class="pi pi-lock"
+        style="
+          font-size: 15px;
+          padding: 9px;
+          background-color: rgba(40, 167, 69, 0.82);
+          color: rgba(255, 255, 255, 0.79);
+          border-radius: 5px;
+        "
+      ></i>
       <span class="texto">Integridad</span>
     </div>
 
     <div class="valor">
-      <i class="pi pi-check-circle" style="font-size: 15px; padding: 9px; background-color: rgba(255,193,7,0.86); color: rgba(255,255,255,0.81); border-radius: 5px"></i>
+      <i
+        class="pi pi-check-circle"
+        style="
+          font-size: 15px;
+          padding: 9px;
+          background-color: rgba(255, 193, 7, 0.86);
+          color: rgba(255, 255, 255, 0.81);
+          border-radius: 5px;
+        "
+      ></i>
       <span class="texto">Compromiso</span>
     </div>
 
     <div class="valor">
-      <i class="pi pi-clock" style="font-size: 15px; padding: 9px; background-color: rgba(220,53,69,0.87); color: rgba(255,255,255,0.82); border-radius: 5px"></i>
+      <i
+        class="pi pi-clock"
+        style="
+          font-size: 15px;
+          padding: 9px;
+          background-color: rgba(220, 53, 69, 0.87);
+          color: rgba(255, 255, 255, 0.82);
+          border-radius: 5px;
+        "
+      ></i>
       <span class="texto">Diligencia</span>
     </div>
   </div>
-
-
 </div>
 <!-- cuadrados azul oscuro-->
 
@@ -554,10 +698,22 @@
   </div>
 </div>
 
-<div id="ubicacion" class="p-15 flex flex-col gap-8" style="align-items: center; background-color: #F2F2F2;">
+<div
+  id="ubicacion"
+  class="p-15 flex flex-col gap-8"
+  style="align-items: center; background-color: #f2f2f2"
+>
   <div class="frase">
     <span class="frase-sub">Donde puedes encontrarnos</span>
     <span class="frase-title">Nuestra ubicación</span>
   </div>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d237.95659032639813!2d-66.1539572604232!3d-17.397123235558567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373b73fd16c5d%3A0x845ee0af1d54450c!2sIBCT%20Centro%20de%20capacitaci%C3%B3n%20t%C3%A9cnica!5e0!3m2!1ses!2sbo!4v1750216641537!5m2!1ses!2sbo" width="90%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d237.95659032639813!2d-66.1539572604232!3d-17.397123235558567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e373b73fd16c5d%3A0x845ee0af1d54450c!2sIBCT%20Centro%20de%20capacitaci%C3%B3n%20t%C3%A9cnica!5e0!3m2!1ses!2sbo!4v1750216641537!5m2!1ses!2sbo"
+    width="90%"
+    height="500"
+    style="border: 0"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
 </div>
