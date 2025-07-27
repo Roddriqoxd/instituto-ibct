@@ -13,6 +13,10 @@ import {take} from 'rxjs';
 import {InscripcionResponseDTO} from '../../interfaces/inscripcion.interface';
 import {DialogModule} from 'primeng/dialog';
 import {EstimacionFechaPipe} from '../../pipes/estimacion-fecha.pipe';
+import {SelectInterface} from '../../interfaces/select.interface';
+import {LUNES_A_VIERNES, SABADOS} from '../../utils/constantes';
+import {Course} from '../../interfaces/course.interface';
+import {CourseService} from '../../services/course.service';
 
 
 interface Customer {
@@ -45,29 +49,24 @@ interface Customer {
 })
 export class StudentListComponent implements OnInit {
   private _inscripcionService: InscripcionService = inject(InscripcionService);
+  private _courseService: CourseService = inject(CourseService);
 
   estudiantes: InscripcionResponseDTO[] = [];
 
   filteredCustomers: InscripcionResponseDTO[] = [];
-  selectedStatus: string | null = null;
-  selectedSource: string | null = null;
+  modalidadSeleccionada: string | null = null;
+  cursoSeleccionado: string | null = null;
   searchText: string = '';
 
-  statusOptions = [
-    {label: 'All Status', value: null},
-    {label: 'Active', value: 'Active'},
-    {label: 'Inactive', value: 'Inactive'},
-    {label: 'Prospect', value: 'Prospect'}
+  cursos: SelectInterface[] = [];
+
+  modalidad = [
+    {label: 'Fin de semana', value: SABADOS},
+    {label: 'Lunes a viernes', value: LUNES_A_VIERNES},
+    {label: 'Todas', value: ''},
   ];
 
-  sourceOptions = [
-    {label: 'All Sources', value: null},
-    {label: 'LinkedIn', value: 'LinkedIn'},
-    {label: 'Website', value: 'Website'},
-    {label: 'Cold Call', value: 'Cold Call'},
-    {label: 'Partner', value: 'Partner'},
-    {label: 'Social Media', value: 'Social Media'}
-  ];
+  private cursosData: Course[] = []
 
   selectedCustomer: any = null;
   showDialog: boolean = false;
@@ -83,6 +82,12 @@ export class StudentListComponent implements OnInit {
         this.estudiantes = inscritos;
         this.filteredCustomers =  inscritos;
       })
+
+    this._courseService.obtenerTodosCursos()
+      .pipe(take(1))
+      .subscribe((cursos) => {
+        this.cursosData = cursos;
+      })
   }
 
   filterCustomers() {
@@ -93,12 +98,35 @@ export class StudentListComponent implements OnInit {
         customer.estudiante.apellidoMaterno.toLowerCase().includes(this.searchText.toLowerCase()) ||
         customer.curso.nombre.toLowerCase().includes(this.searchText.toLowerCase());
 
-      const matchesStatus = !this.selectedStatus || customer.estado === this.selectedStatus;
+      const matchesStatus = !this.modalidadSeleccionada || customer.curso.modalidad === this.modalidadSeleccionada;
 
-      const matchesSource = !this.selectedSource || customer.curso.modalidad === this.selectedSource;
+      const matchesSource = !this.cursoSeleccionado || customer.curso.id == parseInt(this.cursoSeleccionado);
 
       return matchesSearch && matchesStatus && matchesSource;
     });
+  }
+
+  onModalidadChange(event: any) {
+    this.cursos = [];
+    this.modalidadSeleccionada = null;
+    this.cursoSeleccionado = null;
+    const data = this.cursosData.filter(value => {
+      return value.modalidad == event.value;
+    });
+
+    if (data) {
+      for (const curso of data) {
+        const id = curso.id?.toString() ?? '';
+        this.cursos.push({label: curso.nombre, value: id});
+      }
+    }
+    this.modalidadSeleccionada = event.value;
+    this.filterCustomers();
+  }
+
+  onCursoChange(event: any) {
+    this.cursoSeleccionado = event.value;
+    this.filterCustomers();
   }
 
   onSearchChange(event: any) {
@@ -106,20 +134,11 @@ export class StudentListComponent implements OnInit {
     this.filterCustomers();
   }
 
-  onStatusChange(event: any) {
-    this.selectedStatus = event.value;
-    this.filterCustomers();
-  }
-
-  onSourceChange(event: any) {
-    this.selectedSource = event.value;
-    this.filterCustomers();
-  }
 
   clearFilters(table: Table) {
     this.searchText = '';
-    this.selectedStatus = null;
-    this.selectedSource = null;
+    this.modalidadSeleccionada = null;
+    this.cursoSeleccionado = null;
     this.filterCustomers();
     table.reset();
   }

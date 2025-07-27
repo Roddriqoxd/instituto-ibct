@@ -1,16 +1,18 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import {TextareaModule} from 'primeng/textarea';
-import {take} from 'rxjs';
+import {take, timer} from 'rxjs';
 import {InscripcionService} from '../../services/inscripcion.service';
-import {InscripcionResponseDTO, PagoDTO} from '../../interfaces/inscripcion.interface';
+import {DeudaDTO, InscripcionResponseDTO, Pago, PagoDTO} from '../../interfaces/inscripcion.interface';
 import {TiempoCursoPipe} from '../../pipes/tiempo-curso.pipe';
-import {CERTIFICACION, MENSUALIDAD, NINGUNO, TOTAL} from '../../utils/constantes';
+import {CERTIFICACION, MENSUALIDAD, NINGUNO, RECURSAMIENTO, TOTAL} from '../../utils/constantes';
 import {PagosService} from '../../services/pagos.service';
+import {ToggleSwitch} from 'primeng/toggleswitch';
+import {ReciboPagoComponent} from '../recibo-pago/recibo-pago.component';
 
 @Component({
   selector: 'app-payment-form',
@@ -23,11 +25,15 @@ import {PagosService} from '../../services/pagos.service';
     DropdownModule,
     ButtonModule,
     TiempoCursoPipe,
+    ToggleSwitch,
+    ReciboPagoComponent,
   ],
   templateUrl: './payment-form.component.html',
   styleUrl: './payment-form.component.css'
 })
 export class PaymentFormComponent implements OnInit {
+  @ViewChild('saldo') saldoRef!: ElementRef<HTMLInputElement>;
+
   pagoForm;
 
   estudiantes: InscripcionResponseDTO[] = [];
@@ -44,20 +50,21 @@ export class PaymentFormComponent implements OnInit {
     fecha?: Date;
   } | null = null;
 
-  esPagoTotal: boolean = false;
+  checked: boolean = false;
 
   estudianteSeleccionado: InscripcionResponseDTO | null = null;
 
   tiposPago = [
     {label: 'Mensualidad', value: MENSUALIDAD},
-    {label: 'Total', value: TOTAL},
-    {label: 'Accesorios', value: 'accesorios'},
     {label: 'Certificado', value: CERTIFICACION},
-    {label: 'Recursamiento', value: 'recursamiento'}
+    {label: 'Recursamiento', value: RECURSAMIENTO}
   ];
 
   private _inscripcionService: InscripcionService = inject(InscripcionService);
   private _pagosService: PagosService = inject(PagosService);
+
+
+  pagos: Pago[] = [];
 
   constructor(private fb: FormBuilder) {
     this.pagoForm = this.fb.group({
@@ -77,7 +84,7 @@ export class PaymentFormComponent implements OnInit {
 
     this._inscripcionService.listaInscritos()
       .pipe(take(1))
-      .subscribe((inscritos)=>{
+      .subscribe((inscritos) => {
         console.log(inscritos);
         this.estudiantes = inscritos;
         this.estudiantes = this.estudiantes.map(insc => ({
@@ -90,7 +97,39 @@ export class PaymentFormComponent implements OnInit {
 
         console.log(this.estudiantes);
       })
-    }
+    this._inscripcionService.listaInscritos()
+      .pipe(take(1))
+      .subscribe((inscritos) => {
+        this.estudiantes = inscritos;
+        this._pagosService.obtenerTodosPagos()
+          .pipe(
+            take(1))
+          .subscribe(pagos => {
+            this.pagos = this.mapPagos(pagos, inscritos);
+          })
+      })
+  }
+
+  private mapPagos(pagosDTO: PagoDTO[], inscripciones: InscripcionResponseDTO[]): Pago[] {
+    return pagosDTO.map((pagoDTO) => {
+      const inscripcion = inscripciones.find(
+        (i) => i.id === pagoDTO.inscripcionId
+      );
+
+      const pago: Pago = {
+        id: pagoDTO.id,
+        monto: pagoDTO.monto,
+        fechaPago: pagoDTO.fechaPago,
+        tipoPago: pagoDTO.tipoPago,
+        detalle: pagoDTO?.detalle,
+        tipoDescuento: pagoDTO?.tipoDescuento,
+        inscripcion: inscripcion,
+        curso: inscripcion?.curso!,
+      };
+
+      return pago;
+    });
+  }
 
   generarMensualidades() {
     if (!this.estudianteSeleccionado) return;
@@ -133,7 +172,7 @@ export class PaymentFormComponent implements OnInit {
           fecha: pagosMensualidad[i].fechaPago
         });
       } else {
-        mensualidades.push({ pagado: false });
+        mensualidades.push({pagado: false});
       }
     }
 
@@ -149,12 +188,68 @@ export class PaymentFormComponent implements OnInit {
         fechaPago: new Date(),
         tipoPago: formValues.tipoPago!,
         tipoDescuento: NINGUNO,
+        detalle: formValues.descripcion!,
         inscripcionId: this.estudianteSeleccionado!.id!
       };
 
-      this._pagosService.crearPago(nuevoPago).pipe(take(1)).subscribe((data)=>{
-       this.pagoForm.reset();
+      this._pagosService.crearPago(nuevoPago)
+        .pipe(take(1)).subscribe({
+        next: () => {
+          const hoy = new Date();
+          const enUnaSemana = new Date(hoy);
+          enUnaSemana.setDate(hoy.getDate() + 7);
+
+
+          if (this.checked && this.saldoRef) {
+            const saldo = this.saldoRef.nativeElement.value;
+
+            const deuda: DeudaDTO = {
+              monto: Number(saldo),
+              fechaPago: this._formatDate(hoy),
+              estaPagado: false,
+              fechaLimite: this._formatDate(enUnaSemana),
+              inscripcionId: this.estudianteSeleccionado!.id!,
+              detalle: formValues.descripcion!,
+            }
+
+            this._pagosService.crearDeuda(deuda).subscribe({
+              next: () => {
+                this.pagoForm.reset();
+                alert('Registro exitoso')
+              },
+              error: (err) => {
+                console.error(err);
+              }
+            })
+          } else {
+            this.pagoForm.reset();
+            alert('Registro exitoso')
+          }
+        }
       })
     }
+  }
+
+  private _formatDate(date: Date): Date{
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}` as unknown as Date;
+  }
+
+  public onchange(event: boolean): void {
+    timer(100).pipe(take(1)).subscribe(() => this.checked = event)
+  }
+
+  public sumarTotal(cuenta: string = '0', saldo: string = '0'): number {
+    return Number(cuenta) + Number(saldo);
+  }
+
+  pagoSeleccionado: Pago | null = null;
+  modalVisible = false;
+
+  abrirRecibo(pago: Pago) {
+    this.pagoSeleccionado = pago;
+    this.modalVisible = true;
   }
 }

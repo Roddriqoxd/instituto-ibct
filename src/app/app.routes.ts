@@ -22,6 +22,7 @@ import {
   ExpensesIncomeFormComponent
 } from './dashboard/dashboard/components/expenses-income-form/expenses-income-form.component';
 import {PaymentListComponent} from './dashboard/dashboard/components/payment-list/payment-list.component';
+import {ReportsListComponent} from './dashboard/dashboard/components/reports-list/reports-list.component';
 
 export const routes: Routes = [
   {
@@ -105,6 +106,10 @@ export const routes: Routes = [
       {
         path: 'registrar-ingreso-egreso',
         component: ExpensesIncomeFormComponent,
+      },
+      {
+        path: 'lista-reportes',
+        component: ReportsListComponent,
       },
       {
         path: '**',

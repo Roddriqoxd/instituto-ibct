@@ -90,14 +90,49 @@
     </div>
 
     <!-- Monto / Abono -->
-    <div>
-      <label class="block text-gray-700 font-semibold mb-1">Monto / Abono:</label>
-      <input pInputText type="number" formControlName="monto" class="w-full" placeholder="Ej: 200.00" />
+<!--    <div>-->
+<!--      <label class="block text-gray-700 font-semibold mb-1">Monto / Abono:</label>-->
+<!--      <input pInputText type="number" formControlName="monto" class="w-full" placeholder="Ej: 200.00" />-->
+<!--    </div>-->
+
+    <div class="flex align-center" style="padding-top: 20px">
+      <div class="flex gap-2">
+        <label class="text-sm" [style.color]="!checked ? 'green' : 'black'">Al contado</label>
+        <p-toggleswitch (onChange)="onchange($event.checked)"/>
+        <label class="text-sm" [style.color]="checked ? 'green' : 'black'">A saldo</label>
+      </div>
     </div>
+
+    @if (!checked) {
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium">Abono</label>
+          <input pInputText formControlName="monto" type="number" class="w-full"/>
+        </div>
+      </div>
+    } @else {
+      <div class="grid grid-cols-2 gap-4">
+
+        <div>
+          <label class="block text-sm font-medium">Cuenta</label>
+          <input #cuenta formControlName="monto" type="number" pInputText class="w-full" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium">Saldo (Pago pendiente)</label>
+          <input #saldo type="number" pInputText class="w-full" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium">Total</label>
+          <input pInputText  class="w-full" [value]="sumarTotal(cuenta.value , saldo.value)" readonly/>
+        </div>
+      </div>
+    }
 
     <!-- Descripción -->
     <div>
-      <label class="block text-gray-700 font-semibold mb-1">Descripción (opcional):</label>
+      <label class="block text-gray-700 font-semibold mb-1">Detalle (opcional):</label>
       <textarea pInputTextarea formControlName="descripcion" class="w-full" rows="3" placeholder="Opcional..."></textarea>
     </div>
 
@@ -112,3 +147,17 @@
 
   </form>
 </div>
+
+<button
+  pButton
+  type="button"
+  label="Ver Recibo"
+  icon="pi pi-eye"
+  (click)="abrirRecibo(pagos[1])"
+></button>
+
+<app-recibo-pago
+  *ngIf="pagoSeleccionado"
+  [(visible)]="modalVisible"
+  [pago]="pagoSeleccionado"
+></app-recibo-pago>

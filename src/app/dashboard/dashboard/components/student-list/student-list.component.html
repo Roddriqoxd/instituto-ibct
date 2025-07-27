@@ -17,15 +17,19 @@
                class="pl-10 w-full"/>
       </div>
       <div class="flex space-x-2">
-<!--        <p-dropdown [options]="statusOptions" placeholder="Status"-->
-<!--                    [(ngModel)]="selectedStatus"-->
-<!--                    (onChange)="onStatusChange($event)"-->
-<!--                    optionLabel="label" optionValue="value"></p-dropdown>-->
+        <p-dropdown [options]="modalidad"
+                    placeholder="Modalidad"
+                    [(ngModel)]="modalidadSeleccionada"
+                    (onChange)="onModalidadChange($event)"
+                    optionLabel="label"
+                    optionValue="value"></p-dropdown>
 
-<!--        <p-dropdown [options]="sourceOptions" placeholder="Lead Source"-->
-<!--                    [(ngModel)]="selectedSource"-->
-<!--                    (onChange)="onSourceChange($event)"-->
-<!--                    optionLabel="label" optionValue="value"></p-dropdown>-->
+        <p-dropdown [options]="cursos"
+                    placeholder="Asignatura"
+                    [(ngModel)]="cursoSeleccionado"
+                    (onChange)="onCursoChange($event)"
+                    optionLabel="label"
+                    optionValue="value"></p-dropdown>
 
         <button pButton icon="pi pi-filter-slash" label="Clear"
                 (click)="clearFilters(table)"
@@ -171,10 +175,6 @@
         <p class="font-medium font-bold text-gray-800">Duración (Meses)</p>
         <p>{{ selectedCustomer.curso.duracionMeses }}</p>
       </div>
-      <!--      <div>-->
-      <!--        <p class="font-medium font-bold text-gray-800">Estado Curso</p>-->
-      <!--        <p>{{ selectedCustomer.estadoCurso }}</p>-->
-      <!--      </div>-->
 
       <!-- Horario -->
       <div>
@@ -185,40 +185,22 @@
         <p class="font-medium font-bold text-gray-800">Horario</p>
         <p>{{ selectedCustomer.horario.horaInicio }} - {{ selectedCustomer.horario.horaFin }}</p>
       </div>
-      <!--      <div>-->
-      <!--        <p class="font-medium font-bold text-gray-800">Estado Horario</p>-->
-      <!--        <p>{{ selectedCustomer.horario.estado }}</p>-->
-      <!--      </div>-->
 
       <!-- Inscripción -->
       <div>
         <p class="font-medium font-bold text-gray-800">Fecha de inicio de clases</p>
         <p>{{ selectedCustomer.fechaInicio | date: 'dd   MMMM  yyyy' }}</p>
       </div>
-      <!--      <div class="md:col-span-2">-->
-      <!--        <p class="font-medium font-bold text-gray-800">Estado Inscripción</p>-->
-      <!--        <p>{{ selectedCustomer.estado }}</p>-->
-      <!--      </div>-->
       <div>
         <p class="font-medium font-bold text-gray-800">Fecha estimada de conclusión</p>
         <p>{{ selectedCustomer?.fechaInicio | estimacionFecha:selectedCustomer.curso.duracionMeses | date: 'dd   MMMM  yyyy' }}</p>
       </div>
-<!--      <div>-->
-<!--        <p class="font-medium font-bold text-gray-800">Estado Certificado</p>-->
-<!--        <p>{{ selectedCustomer.estadoCertificado ? selectedCustomer.estadoCertificado : 'No corresponde' }}</p>-->
-<!--      </div>-->
-
-      <!--      <div>-->
-      <!--        <p class="font-medium font-bold text-gray-800">Estado Certificado</p>-->
-      <!--        <p>{{ selectedCustomer.estadoCertificado }}</p>-->
-      <!--      </div>-->
     </div>
 
     <div style="padding-top: 10px">
       <div *ngIf="selectedCustomer" class="grid grid-cols-1 md:grid-cols-1 gap-4 text-sm text-gray-700">
 
         <div>
-<!--          <p class="font-bold text-gray-800" style="padding: 12px 0 5px 0; font-size: 15px">Pagos</p>-->
           <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
             @if (selectedCustomer.tipoInscripcion === 'total') {
               <div>
@@ -229,33 +211,53 @@
             @if (selectedCustomer.tipoInscripcion === 'mensual') {
               <div>
                 <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidades</p>
-                <div class="grid grid-cols-3 md:grid-cols-3 gap-4">
-                  @for (pagos of selectedCustomer.pagos; track pagos.id; let idx = $index) {
-                    <div style="border: 1px dashed orange; padding: 5px">
-                      <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidad</p>
-                      <div class="flex gap-3">
-                        <p class="font-medium font-bold text-gray-800">Monto: </p>
-                        <p>{{ pagos.monto }}</p>
-                      </div>
-
-                      <div class="flex gap-3">
-                        <p class="font-medium font-bold text-gray-800">Fecha: </p>
-                        <p>{{ pagos.fechaPago }}</p>
-                      </div>
-                    </div>
-                  }
-                  <div>
-                  </div>
-                </div>
+                <p>Pago por mes</p>
               </div>
             }
           </div>
+<!--          <p class="font-bold text-gray-800" style="padding: 12px 0 5px 0; font-size: 15px">Pagos</p>-->
+<!--          <div class="grid grid-cols-1 md:grid-cols-1 gap-4">-->
+<!--            @if (selectedCustomer.tipoInscripcion === 'total') {-->
+<!--              <div>-->
+<!--                <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidades</p>-->
+<!--                <p>Pago del curso completo</p>-->
+<!--              </div>-->
+<!--            }-->
+<!--            @if (selectedCustomer.tipoInscripcion === 'mensual') {-->
+<!--              <div>-->
+<!--                <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidades</p>-->
+<!--                <div class="grid grid-cols-3 md:grid-cols-3 gap-4">-->
+<!--                  @for (pagos of selectedCustomer.pagos; track pagos.id; let idx = $index) {-->
+<!--                    <div style="border: 1px dashed orange; padding: 5px">-->
+<!--                      <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidad</p>-->
+<!--                      <div class="flex gap-3">-->
+<!--                        <p class="font-medium font-bold text-gray-800">Monto: </p>-->
+<!--                        <p>{{ pagos.monto }}</p>-->
+<!--                      </div>-->
+
+<!--                      <div class="flex gap-3">-->
+<!--                        <p class="font-medium font-bold text-gray-800">Fecha: </p>-->
+<!--                        <p>{{ pagos.fechaPago }}</p>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  }-->
+<!--                  <div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            }-->
+<!--          </div>-->
         </div>
 
         <div>
           <p class="font-medium font-bold text-gray-800">Estado de certificado</p>
           <p>{{ selectedCustomer.estadoCertificado }}</p>
         </div>
+
+<!--        <div>-->
+<!--          <p class="font-medium font-bold text-gray-800">Observaciones</p>-->
+<!--          <p>{{ selectedCustomer.ins }}</p>-->
+<!--        </div>-->
 
       </div>
     </div>

@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {Course, CourseDTO, ScheduleDTO} from '../interfaces/course.interface';
 import {Observable} from 'rxjs';
-import {PagoDTO} from '../interfaces/inscripcion.interface';
+import {DeudaDTO, PagoDTO} from '../interfaces/inscripcion.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,9 @@ export class PagosService {
 
   public obtenerTodosPagos(): Observable<PagoDTO[]> {
     return this._http.get<PagoDTO[]>(`${this._url}/pagos`);
+  }
+
+  public crearDeuda(deuda: DeudaDTO): Observable<DeudaDTO> {
+    return this._http.post<DeudaDTO>(`${this._url}/deudas`, deuda);
   }
 }

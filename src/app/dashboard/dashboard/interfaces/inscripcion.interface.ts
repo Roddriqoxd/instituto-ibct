@@ -48,3 +48,24 @@ export interface PagoDTO {
   tipoDescuento: string;
   inscripcionId?: number;
 }
+
+export interface DeudaDTO {
+  id?: number;
+  monto: number;
+  fechaPago: Date;
+  detalle?: string;
+  fechaLimite: Date;
+  estaPagado: boolean;
+  inscripcionId?: number;
+}
+
+export interface Pago {
+  id?: number;
+  monto: number;
+  fechaPago: Date;
+  tipoPago: string;
+  detalle?: string;
+  tipoDescuento: string;
+  inscripcion?: InscripcionResponseDTO;
+  curso: CourseDTO;
+}

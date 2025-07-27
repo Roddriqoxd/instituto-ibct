@@ -1,16 +1,19 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {CourseService} from '../../services/course.service';
 import {InscripcionService} from '../../services/inscripcion.service';
-import {EstudianteDTO, InscripcionDTO, PagoDTO} from '../../interfaces/inscripcion.interface';
-import {take} from 'rxjs';
+import {DeudaDTO, EstudianteDTO, InscripcionDTO, PagoDTO} from '../../interfaces/inscripcion.interface';
+import {take, timer} from 'rxjs';
 import {Course} from '../../interfaces/course.interface';
 import {SelectInterface} from '../../interfaces/select.interface';
 import {DatePickerModule} from 'primeng/datepicker';
-import {ACTIVO, MENSUALIDAD, NINGUNO, PAGADO, TOTAL} from '../../utils/constantes';
+import {ACTIVO, LUNES_A_VIERNES, MENSUALIDAD, NINGUNO, PAGADO, SABADOS, TOTAL} from '../../utils/constantes';
+import {ToggleSwitch} from 'primeng/toggleswitch';
+import {Textarea} from 'primeng/textarea';
+import {PagosService} from '../../services/pagos.service';
 
 @Component({
   selector: 'app-student-form',
@@ -19,14 +22,20 @@ import {ACTIVO, MENSUALIDAD, NINGUNO, PAGADO, TOTAL} from '../../utils/constante
     DatePickerModule,
     DropdownModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    ToggleSwitch,
+    FormsModule,
+    Textarea
   ],
   templateUrl: './student-form.component.html',
   styleUrl: './student-form.component.css'
 })
 export class StudentFormComponent implements OnInit {
+  @ViewChild('saldo') saldoRef!: ElementRef<HTMLInputElement>;
+
   private _courseService: CourseService = inject(CourseService);
   private _inscripcionService: InscripcionService = inject(InscripcionService);
+  private _pagosService: PagosService = inject(PagosService);
   private cursosData: Course[] = []
 
   ciExtensiones = [
@@ -38,10 +47,13 @@ export class StudentFormComponent implements OnInit {
     {label: 'TJ', value: 'TJ'},
     {label: 'CH', value: 'CH'},
     {label: 'BN', value: 'BN'},
-    {label: 'PA', value: 'PA'}
+    {label: 'PA', value: 'PA'},
+    {label: 'S/N', value: 'S/N'}
   ];
 
-  formulario: FormGroup;
+  inscripcionForm: FormGroup;
+
+  checked: boolean = false;
 
   tipoPagoOptions = [
     {label: 'Total', value: TOTAL},
@@ -57,14 +69,14 @@ export class StudentFormComponent implements OnInit {
   horarioOptions: SelectInterface[] = [];
 
   modalidadOptions = [
-    {label: 'Lunes a Viernes', value: 'Lunes a Viernes'},
-    {label: 'Sábados', value: 'Sabados'}
+    {label: 'Lunes a Viernes', value: LUNES_A_VIERNES},
+    {label: 'Sábados', value: SABADOS}
   ];
 
   cursos: SelectInterface[] = [];
 
   constructor(private _formBuilder: FormBuilder) {
-    this.formulario = this._formBuilder.group({
+    this.inscripcionForm = this._formBuilder.group({
       // Registro Estudiante
       nombre: ['', Validators.required],
       apellidoPaterno: ['', Validators.required],
@@ -82,7 +94,8 @@ export class StudentFormComponent implements OnInit {
       // Inscripción
       tipoPago: ['', Validators.required],
       monto: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      descuento: ['']
+      descuento: ['', Validators.required],
+      descripcion: ['', Validators.required],
     });
   }
 
@@ -94,9 +107,9 @@ export class StudentFormComponent implements OnInit {
         this.cursosData = cursos;
       })
 
-    this.formulario.get('modalidad')?.valueChanges.subscribe(nuevoValor => {
+    this.inscripcionForm.get('modalidad')?.valueChanges.subscribe(nuevoValor => {
       console.log('El valor del curso cambió:', nuevoValor);
-      this.formulario.get('curso')?.reset();
+      this.inscripcionForm.get('curso')?.reset();
       this.cursos = [];
       const data = this.cursosData.filter(value => {
         return value.modalidad == nuevoValor
@@ -109,9 +122,9 @@ export class StudentFormComponent implements OnInit {
       }
     });
 
-    this.formulario.get('curso')?.valueChanges.subscribe(nuevoValor => {
+    this.inscripcionForm.get('curso')?.valueChanges.subscribe(nuevoValor => {
       console.log('El valor del curso cambió:', nuevoValor);
-      this.formulario.get('horario')?.reset();
+      this.inscripcionForm.get('horario')?.reset();
       this.horarioOptions = [];
       const data = this.cursosData.find(value => value.id == nuevoValor);
       if (data) {
@@ -124,20 +137,20 @@ export class StudentFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formulario);
-    if (this.formulario.invalid) {
-      this.formulario.markAllAsTouched();
+    console.log(this.inscripcionForm);
+    if (this.inscripcionForm.invalid) {
+      this.inscripcionForm.markAllAsTouched();
       return;
     }
 
-    const form = this.formulario.value;
+    const inscripcionForm = this.inscripcionForm.value;
 
     const estudiante: EstudianteDTO = {
-      nombre: form.nombre,
-      apellidoPaterno: form.apellidoPaterno,
-      apellidoMaterno: form.apellidoMaterno,
-      telefono: form.celular,
-      ci: `${form.ci} ${form.extensionCI}`,
+      nombre: inscripcionForm.nombre,
+      apellidoPaterno: inscripcionForm.apellidoPaterno,
+      apellidoMaterno: inscripcionForm.apellidoMaterno,
+      telefono: inscripcionForm.celular,
+      ci: `${inscripcionForm.ci} ${inscripcionForm.extensionCI}`,
       rol: 'ESTUDIANTE',
       fechaRegistro: new Date()
     };
@@ -147,15 +160,15 @@ export class StudentFormComponent implements OnInit {
         const estudianteId = resEstudiante.id;
 
         const inscripcion: InscripcionDTO = {
-          fechaInicio: form.fechaInicio,
+          fechaInicio: inscripcionForm.fechaInicio,
           estado: ACTIVO,
           estadoCurso: ACTIVO,
           estadoCertificado: NINGUNO,
           estudianteId: estudianteId!,
-          tipoInscripcion: form.tipoPago,
+          tipoInscripcion: inscripcionForm.tipoPago,
           estadoPago: PAGADO,
-          horarioId: form.horario,
-          cursoId: form.curso
+          horarioId: inscripcionForm.horario,
+          cursoId: inscripcionForm.curso
         };
 
         this._inscripcionService.crearInscripcion(inscripcion).subscribe({
@@ -163,18 +176,46 @@ export class StudentFormComponent implements OnInit {
             const inscripcionId = resInscripcion.id;
 
             const pago: PagoDTO = {
-              id: 0,
-              monto: parseFloat(form.monto),
+              monto: parseFloat(inscripcionForm.monto),
               fechaPago: new Date(),
-              tipoPago: form.tipoPago,
-              tipoDescuento: form.descuento || NINGUNO,
-              inscripcionId: inscripcionId!
+              tipoPago: inscripcionForm.tipoPago,
+              tipoDescuento: inscripcionForm.descuento || NINGUNO,
+              inscripcionId: inscripcionId!,
+              detalle: inscripcionForm.descripcion || NINGUNO,
             };
 
             this._inscripcionService.crearPago(pago).subscribe({
               next: () => {
-                this.formulario.reset();
-                alert('Registro exitoso')
+                const hoy = new Date();
+                const enUnaSemana = new Date(hoy);
+                enUnaSemana.setDate(hoy.getDate() + 7);
+
+
+                if (this.checked && this.saldoRef) {
+                  const saldo = this.saldoRef.nativeElement.value;
+
+                  const deuda: DeudaDTO = {
+                    monto: Number(saldo),
+                    fechaPago: this._formatDate(hoy),
+                    estaPagado: false,
+                    fechaLimite: this._formatDate(enUnaSemana),
+                    inscripcionId: inscripcionId!,
+                    detalle: inscripcionForm.descripcion || NINGUNO,
+                  }
+
+                  this._pagosService.crearDeuda(deuda).subscribe({
+                    next: () => {
+                      this.inscripcionForm.reset();
+                      alert('Registro exitoso')
+                    },
+                    error: (err) => {
+                      console.error(err);
+                    }
+                  })
+                } else {
+                  this.inscripcionForm.reset();
+                  alert('Registro exitoso')
+                }
               },
               error: (err) => {
                 console.error(err);
@@ -190,5 +231,20 @@ export class StudentFormComponent implements OnInit {
         console.error(err);
       }
     });
+  }
+
+  private _formatDate(date: Date): Date{
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}` as unknown as Date;
+  }
+
+  public onchange(event: boolean): void {
+    timer(100).pipe(take(1)).subscribe(() => this.checked = event)
+  }
+
+  public sumarTotal(cuenta: string = '0', saldo: string = '0'): number {
+    return Number(cuenta) + Number(saldo);
   }
 }

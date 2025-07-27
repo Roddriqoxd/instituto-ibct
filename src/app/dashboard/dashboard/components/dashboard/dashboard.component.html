@@ -37,33 +37,23 @@
           </ul>
         </li>
         <li>
-          <div (click)="toggleSubmenu('estudiantes')"
+          <div routerLink="registrar-estudiantes" routerLinkActive="bg-blue-50 text-blue-600"
                class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
             <div class="flex items-center">
-              <i class="pi pi-address-book mr-3"></i>
+              <i class="pi pi-file-edit mr-3"></i>
+              <span>Inscripciones</span>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div routerLink="lista-estudiantes" routerLinkActive="bg-blue-50 text-blue-600"
+               class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-users mr-3"></i>
               <span>Estudiantes</span>
             </div>
-
-            <i class="pi" [ngClass]="submenuOpen === 'estudiantes'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
           </div>
-
-          <ul *ngIf="submenuOpen === 'estudiantes'" class="pl-8 mt-1">
-            <li>
-              <a routerLink="lista-estudiantes"
-                 routerLinkActive="bg-blue-50 text-blue-600"
-                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
-                Lista de estudiantes
-              </a>
-            </li>
-
-            <li>
-              <a routerLink="registrar-estudiantes"
-                 routerLinkActive="bg-blue-50 text-blue-600"
-                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
-                Registrar estudiantes
-              </a>
-            </li>
-          </ul>
         </li>
 
         <li>
@@ -117,18 +107,18 @@
 
           <ul *ngIf="submenuOpen === 'ingresos'" class="pl-8 mt-1">
             <li>
-              <a routerLink="ingresos-egresos"
-                 routerLinkActive="bg-blue-50 text-blue-600"
-                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
-                Lista de ingresos y egresos
-              </a>
-            </li>
-
-            <li>
               <a routerLink="registrar-ingreso-egreso"
                  routerLinkActive="bg-blue-50 text-blue-600"
                  class="block p-2 rounded hover:bg-gray-100 text-gray-700">
                 Registrar ingreso / egreso
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="ingresos-egresos"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Lista de ingresos y egresos
               </a>
             </li>
           </ul>
@@ -182,14 +172,6 @@
               </a>
             </li>
 
-<!--            <li>-->
-<!--              <a routerLink="registrar-estudiantes"-->
-<!--                 routerLinkActive="bg-blue-50 text-blue-600"-->
-<!--                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">-->
-<!--                Registrar precio-->
-<!--              </a>-->
-<!--            </li>-->
-
             <li>
               <a routerLink="registrar-estudiantes"
                  routerLinkActive="bg-blue-50 text-blue-600"
@@ -201,11 +183,25 @@
         </li>
 
         <li>
-          <a routerLink="/reports" routerLinkActive="bg-blue-50 text-blue-600"
-             class=" disabled flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700">
-            <i class="pi pi-chart-bar mr-3"></i>
-            <span>Reportes</span>
-          </a>
+          <div (click)="toggleSubmenu('reportes')"
+               class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-chart-bar mr-3"></i>
+              <span>Reportes</span>
+            </div>
+
+            <i class="pi" [ngClass]="submenuOpen === 'reportes'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </div>
+
+          <ul *ngIf="submenuOpen === 'reportes'" class="pl-8 mt-1">
+            <li>
+              <a routerLink="lista-reportes"
+                 routerLinkActive="bg-blue-50 text-blue-600"
+                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
+                Reportes
+              </a>
+            </li>
+          </ul>
         </li>
 
       </ul>
