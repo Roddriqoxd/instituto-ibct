@@ -50,6 +50,7 @@ export class ExpensesIncomeFormComponent {
         tipoPago: form.tipoRegistro,
         monto: form.tipoRegistro === EGRESO ? form.monto*-1 : form.monto,
         fechaPago: new Date(),
+        categoria: 'Test',
         detalle: form.detalle,
         tipoDescuento: NINGUNO
       }

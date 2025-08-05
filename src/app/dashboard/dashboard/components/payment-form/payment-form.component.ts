@@ -9,10 +9,19 @@ import {take, timer} from 'rxjs';
 import {InscripcionService} from '../../services/inscripcion.service';
 import {DeudaDTO, InscripcionResponseDTO, Pago, PagoDTO} from '../../interfaces/inscripcion.interface';
 import {TiempoCursoPipe} from '../../pipes/tiempo-curso.pipe';
-import {CERTIFICACION, MENSUALIDAD, NINGUNO, RECURSAMIENTO, TOTAL} from '../../utils/constantes';
+import {
+  A_CUENTA,
+  CERTIFICACION,
+  COMPLETO,
+  MENSUALIDAD,
+  NINGUNO,
+  PAGO_PENDIENTE,
+  RECURSAMIENTO
+} from '../../utils/constantes';
 import {PagosService} from '../../services/pagos.service';
 import {ToggleSwitch} from 'primeng/toggleswitch';
 import {ReciboPagoComponent} from '../recibo-pago/recibo-pago.component';
+import {RegistroExitosoComponent} from '../registro-exitoso/registro-exitoso.component';
 
 @Component({
   selector: 'app-payment-form',
@@ -27,6 +36,7 @@ import {ReciboPagoComponent} from '../recibo-pago/recibo-pago.component';
     TiempoCursoPipe,
     ToggleSwitch,
     ReciboPagoComponent,
+    RegistroExitosoComponent,
   ],
   templateUrl: './payment-form.component.html',
   styleUrl: './payment-form.component.css'
@@ -34,31 +44,15 @@ import {ReciboPagoComponent} from '../recibo-pago/recibo-pago.component';
 export class PaymentFormComponent implements OnInit {
   @ViewChild('saldo') saldoRef!: ElementRef<HTMLInputElement>;
 
-  pagoForm;
+  public showModal: boolean = false;
+  public pagoForm;
+  public estudiantes: InscripcionResponseDTO[] = [];
 
-  estudiantes: InscripcionResponseDTO[] = [];
-
-  mensualidadesDisplay: {
-    pagado: boolean;
-    monto?: number;
-    fecha?: Date;
-  }[] = [];
-
-  certificadoDisplay: {
-    pagado: boolean;
-    monto?: number;
-    fecha?: Date;
-  } | null = null;
+  mensualidadesDisplay: PagoDTO[] = [];
 
   checked: boolean = false;
 
   estudianteSeleccionado: InscripcionResponseDTO | null = null;
-
-  tiposPago = [
-    {label: 'Mensualidad', value: MENSUALIDAD},
-    {label: 'Certificado', value: CERTIFICACION},
-    {label: 'Recursamiento', value: RECURSAMIENTO}
-  ];
 
   private _inscripcionService: InscripcionService = inject(InscripcionService);
   private _pagosService: PagosService = inject(PagosService);
@@ -66,12 +60,18 @@ export class PaymentFormComponent implements OnInit {
 
   pagos: Pago[] = [];
 
+  public readonly CATEGORIA_DE_PAGO = [
+    {label: 'Mensualidad', value: MENSUALIDAD},
+    {label: 'Certificado', value: CERTIFICACION},
+    {label: 'Recursamiento', value: RECURSAMIENTO}
+  ];
+
   constructor(private fb: FormBuilder) {
     this.pagoForm = this.fb.group({
       estudianteId: [null, Validators.required],
       tipoPago: [null, Validators.required],
       monto: [null, [Validators.required, Validators.min(0.01)]],
-      descripcion: ['']
+      descripcion: ['Pago realizado por concepto de servicios académicos del estudiante.']
     });
   }
 
@@ -121,6 +121,7 @@ export class PaymentFormComponent implements OnInit {
         monto: pagoDTO.monto,
         fechaPago: pagoDTO.fechaPago,
         tipoPago: pagoDTO.tipoPago,
+        categoria: pagoDTO.categoria,
         detalle: pagoDTO?.detalle,
         tipoDescuento: pagoDTO?.tipoDescuento,
         inscripcion: inscripcion,
@@ -135,48 +136,7 @@ export class PaymentFormComponent implements OnInit {
     if (!this.estudianteSeleccionado) return;
     const insc = this.estudianteSeleccionado;
     const duracion = insc.curso.duracionMeses || 0;
-    const pagosCertificado = insc.pagos?.find(p => p.tipoPago === CERTIFICACION) || null;
-
-    if (pagosCertificado) {
-      this.certificadoDisplay = {
-        pagado: true,
-        monto: pagosCertificado.monto,
-        fecha: pagosCertificado.fechaPago,
-      }
-    } else {
-      this.certificadoDisplay = {pagado: false};
-    }
-
-    const esPagoTotal = insc.pagos?.find(p => p.tipoPago === TOTAL) || [];
-
-    // if (esPagoTotal) {
-    //   this.esPagoTotal = true;
-    //   return;
-    // } else {
-    //   this.esPagoTotal = false;
-    // }
-
-    const pagosMensualidad = insc.pagos?.filter(p => p.tipoPago === MENSUALIDAD) || [];
-
-    const mensualidades: {
-      pagado: boolean;
-      monto?: number;
-      fecha?: Date;
-    }[] = [];
-
-    for (let i = 0; i < duracion; i++) {
-      if (i < pagosMensualidad.length) {
-        mensualidades.push({
-          pagado: true,
-          monto: pagosMensualidad[i].monto,
-          fecha: pagosMensualidad[i].fechaPago
-        });
-      } else {
-        mensualidades.push({pagado: false});
-      }
-    }
-
-    this.mensualidadesDisplay = mensualidades;
+    this.mensualidadesDisplay = insc.pagos;
   }
 
   onSubmitPago() {
@@ -186,7 +146,8 @@ export class PaymentFormComponent implements OnInit {
       const nuevoPago: PagoDTO = {
         monto: formValues.monto!,
         fechaPago: new Date(),
-        tipoPago: formValues.tipoPago!,
+        categoria: formValues.tipoPago!,
+        tipoPago: this.checked ? A_CUENTA : COMPLETO,
         tipoDescuento: NINGUNO,
         detalle: formValues.descripcion!,
         inscripcionId: this.estudianteSeleccionado!.id!
@@ -205,9 +166,8 @@ export class PaymentFormComponent implements OnInit {
 
             const deuda: DeudaDTO = {
               monto: Number(saldo),
-              fechaPago: this._formatDate(hoy),
-              estaPagado: false,
-              fechaLimite: this._formatDate(enUnaSemana),
+              fechaPago: this._formatDate(enUnaSemana),
+              estadoDePago: PAGO_PENDIENTE,
               inscripcionId: this.estudianteSeleccionado!.id!,
               detalle: formValues.descripcion!,
             }
@@ -215,7 +175,7 @@ export class PaymentFormComponent implements OnInit {
             this._pagosService.crearDeuda(deuda).subscribe({
               next: () => {
                 this.pagoForm.reset();
-                alert('Registro exitoso')
+                this.showModal = true;
               },
               error: (err) => {
                 console.error(err);
@@ -223,7 +183,7 @@ export class PaymentFormComponent implements OnInit {
             })
           } else {
             this.pagoForm.reset();
-            alert('Registro exitoso')
+            this.showModal = true;
           }
         }
       })

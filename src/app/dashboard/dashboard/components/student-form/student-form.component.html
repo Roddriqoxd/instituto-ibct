@@ -16,28 +16,33 @@
           <label class="block text-sm font-medium">Nombre</label>
           <input pInputText formControlName="nombre" class="w-full"/>
         </div>
+
         <div>
           <label class="block text-sm font-medium">Apellido Paterno</label>
           <input pInputText formControlName="apellidoPaterno" class="w-full"/>
         </div>
+
         <div>
           <label class="block text-sm font-medium">Apellido Materno</label>
           <input pInputText formControlName="apellidoMaterno" class="w-full"/>
         </div>
+
         <div>
           <label class="block text-sm font-medium">Celular</label>
-          <input pInputText formControlName="celular" class="w-full"/>
+          <input pInputText type="number" formControlName="celular" class="w-full"/>
         </div>
+
         <div class="col-span-2 grid grid-cols-6 gap-4">
           <div class="col-span-2">
             <label class="block text-sm font-medium">CI</label>
-            <input pInputText formControlName="ci" class="w-full"/>
+            <input type="number" pInputText formControlName="ci" class="w-full"/>
           </div>
+
           <div>
             <label class="block text-sm font-medium">Extensión</label>
             <p-dropdown
               class="w-full"
-              [options]="ciExtensiones"
+              [options]="EXTENSIONES"
               formControlName="extensionCI"
               [optionValue]="'value'"
               placeholder="Seleccionar">
@@ -81,15 +86,14 @@
       <h2 class="text-lg font-semibold text-gray-700 mb-4">Cuota</h2>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium">Tipo de pago</label>
-          <p-dropdown [optionValue]="'value'" class="w-full" [options]="tipoPagoOptions" formControlName="tipoPago"
+          <label class="block text-sm font-medium">Pago de curso</label>
+          <p-dropdown [optionValue]="'value'" class="w-full" [options]="tipoPagoOptions" formControlName="categoria"
                       placeholder="Seleccionar"></p-dropdown>
         </div>
 
         <div>
           <label class="block text-sm font-medium">Descuento</label>
-          <p-dropdown [optionValue]="'value'" class="w-full" [options]="descuentoOptions" formControlName="descuento"
-                      placeholder="Seleccionar"></p-dropdown>
+          <p-dropdown [optionValue]="'value'" class="w-full" [options]="TIPOS_DESCUENTOS" formControlName="descuento" placeholder="Seleccionar"></p-dropdown>
         </div>
       </div>
 
@@ -113,31 +117,34 @@
 
           <div>
             <label class="block text-sm font-medium">Cuenta</label>
-            <input #cuenta formControlName="monto" type="number" pInputText class="w-full" />
+            <input #cuenta formControlName="monto" type="number" pInputText class="w-full"/>
           </div>
 
           <div>
             <label class="block text-sm font-medium">Saldo (Pago pendiente)</label>
-            <input #saldo type="number" pInputText class="w-full" />
+            <input #saldo type="number" pInputText class="w-full"/>
           </div>
 
           <div>
             <label class="block text-sm font-medium">Total</label>
-            <input pInputText  class="w-full" [value]="sumarTotal(cuenta.value , saldo.value)" readonly/>
+            <input pInputText class="w-full" [value]="sumarTotal(cuenta.value , saldo.value)" readonly/>
           </div>
         </div>
       }
 
       <div class="grid grid-cols-1" style="padding-top: 20px">
         <label class="block text-sm font-medium">Detalle (opcional):</label>
-        <textarea pInputTextarea formControlName="descripcion" class="w-full" rows="3" placeholder="Opcional..."></textarea>
+        <textarea pInputTextarea formControlName="descripcion" class="w-full" rows="3"
+                  placeholder="Opcional..."></textarea>
       </div>
 
     </div>
 
     <button pButton type="submit"
             label="Enviar"
+            [disabled] = "!inscripcionForm.valid"
             class="w-full mt-6"></button>
   </form>
 </div>
 
+<app-registro-exitoso [(visible)]="showModal"></app-registro-exitoso>

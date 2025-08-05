@@ -9,6 +9,8 @@ import {CourseService} from '../../services/course.service';
 import {generarHoras} from '../../utils/generar-horas.function';
 import {CourseDTO, ScheduleDTO} from '../../interfaces/course.interface';
 import {forkJoin, switchMap, take} from 'rxjs';
+import {LUNES_A_VIERNES, SABADOS} from '../../utils/constantes';
+import {RegistroExitosoComponent} from '../registro-exitoso/registro-exitoso.component';
 
 @Component({
   selector: 'app-create-course',
@@ -19,6 +21,7 @@ import {forkJoin, switchMap, take} from 'rxjs';
     InputTextModule,
     ButtonModule,
     CommonModule,
+    RegistroExitosoComponent
   ],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css',
@@ -26,29 +29,25 @@ import {forkJoin, switchMap, take} from 'rxjs';
 export class CreateCourseComponent implements OnInit {
   private _courseService: CourseService = inject(CourseService);
 
-  cursoForm!: FormGroup;
+  public cursoForm!: FormGroup;
+  public horas = generarHoras('06:00', '23:00');
+  public showModal = false;
 
-  modalidades = [
-    {label: 'Lunes a Viernes', value: 'Lunes a Viernes'},
-    {label: 'Sábados', value: 'Sabados'}
+
+  public readonly MODALIDADES = [
+    {label: 'Lunes a Viernes', value: LUNES_A_VIERNES},
+    {label: 'Sábados', value: SABADOS}
   ];
-
-  duraciones = [
-    {label: '1 mes', value: '1'},
-    {label: '2 meses', value: '2'},
+  public readonly DURACION = [
     {label: '3 meses', value: '3'},
     {label: '4 meses', value: '4'},
-    {label: '5 meses', value: '5'},
     {label: '6 meses', value: '6'}
   ];
-
-  turnos = [
+  public readonly TURNOS = [
     {label: 'Mañana', value: 'mañana'},
     {label: 'Tarde', value: 'tarde'},
     {label: 'Noche', value: 'noche'}
   ];
-
-  horas = generarHoras('06:00', '23:00');
 
   constructor(private fb: FormBuilder) {
   }
@@ -58,6 +57,8 @@ export class CreateCourseComponent implements OnInit {
       nombre: ['', Validators.required],
       modalidad: [null, Validators.required],
       duracion: [null, Validators.required],
+      costoCompleto: [null, Validators.required],
+      costoMensual: [null, Validators.required],
       horarios: this.fb.array([this.createHorarioGroup()])
     });
   }
@@ -88,6 +89,8 @@ export class CreateCourseComponent implements OnInit {
       const curso: CourseDTO = {
         nombre: formValue.nombre,
         modalidad: formValue.modalidad,
+        costoMensual: formValue.costoMensual,
+        costoCompleto: formValue.costoCompleto,
         duracionMeses: Number(formValue.duracion),
         estado: 'ACTIVO'
       };
@@ -117,8 +120,8 @@ export class CreateCourseComponent implements OnInit {
             return forkJoin(solicitudesHorarios);
           })
         ).subscribe({
-        next: (horariosCreados) => {
-          console.log('Curso y horarios creados:', horariosCreados);
+        next: () => {
+          this.showModal = true;
           this.cursoForm.reset();
         },
         error: (err) => {

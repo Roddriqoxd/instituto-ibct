@@ -69,8 +69,8 @@
           <td class="p-4 text-gray-600">{{ customer.estudiante.telefono }}</td>
           <td class="p-4">
                   <span [ngClass]="{
-                    'bg-orange-100 text-orange-800': customer.curso.modalidad === 'Lunes a Viernes',
-                    'bg-purple-100 text-purple-800': customer.curso.modalidad === 'Sabados',
+                    'bg-orange-100 text-orange-800': customer.curso.modalidad === LUNES_A_VIERNES,
+                    'bg-purple-100 text-purple-800': customer.curso.modalidad === SABADOS,
                   }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
                     {{ customer.curso.modalidad }}
                   </span>
@@ -149,12 +149,7 @@
                     {{ selectedCustomer.estado | titlecase }}
                   </span>
       </div>
-      <!--      <div class="md:col-span-2">-->
-      <!--        <p class="font-medium font-bold text-gray-800">Fecha de Registro</p>-->
-      <!--        <p>{{ selectedCustomer.estudiante.fechaRegistro | date: 'longDate' }}</p>-->
-      <!--      </div>-->
 
-      <!-- Curso -->
       <div>
         <p class="font-medium font-bold text-gray-800">Curso</p>
         <p>{{ selectedCustomer.curso.nombre }}</p>
@@ -215,50 +210,32 @@
               </div>
             }
           </div>
-<!--          <p class="font-bold text-gray-800" style="padding: 12px 0 5px 0; font-size: 15px">Pagos</p>-->
-<!--          <div class="grid grid-cols-1 md:grid-cols-1 gap-4">-->
-<!--            @if (selectedCustomer.tipoInscripcion === 'total') {-->
-<!--              <div>-->
-<!--                <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidades</p>-->
-<!--                <p>Pago del curso completo</p>-->
-<!--              </div>-->
-<!--            }-->
-<!--            @if (selectedCustomer.tipoInscripcion === 'mensual') {-->
-<!--              <div>-->
-<!--                <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidades</p>-->
-<!--                <div class="grid grid-cols-3 md:grid-cols-3 gap-4">-->
-<!--                  @for (pagos of selectedCustomer.pagos; track pagos.id; let idx = $index) {-->
-<!--                    <div style="border: 1px dashed orange; padding: 5px">-->
-<!--                      <p class="font-medium font-bold text-gray-800" style="padding: 0 0 5px 0; font-size: 15px">Mensualidad</p>-->
-<!--                      <div class="flex gap-3">-->
-<!--                        <p class="font-medium font-bold text-gray-800">Monto: </p>-->
-<!--                        <p>{{ pagos.monto }}</p>-->
-<!--                      </div>-->
 
-<!--                      <div class="flex gap-3">-->
-<!--                        <p class="font-medium font-bold text-gray-800">Fecha: </p>-->
-<!--                        <p>{{ pagos.fechaPago }}</p>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  }-->
-<!--                  <div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            }-->
-<!--          </div>-->
+          <div class="mt-6">
+            <h3 class="font-semibold text-gray-700 mb-2">Pagos realizados:</h3>
+            <table class="min-w-full border border-gray-300 text-sm">
+              <thead class="bg-gray-100">
+              <tr>
+                <th class="px-4 py-2 border">Monto</th>
+                <th class="px-4 py-2 border">Motivo</th>
+                <th class="px-4 py-2 border">Fecha</th>
+                <th class="px-4 py-2 border">Tipo de Pago</th>
+              </tr>
+              </thead>
+              <tbody>
+                @for (mensualidad of selectedCustomer.pagos; track mensualidad.id) {
+                  <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-2 border">{{ mensualidad.monto }}</td>
+                    <td class="px-4 py-2 border">{{ mensualidad.categoria }}</td>
+                    <td class="px-4 py-2 border">{{ mensualidad.fechaPago }}</td>
+                    <td class="px-4 py-2 border">{{ mensualidad.tipoPago }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+
+          </div>
         </div>
-
-        <div>
-          <p class="font-medium font-bold text-gray-800">Estado de certificado</p>
-          <p>{{ selectedCustomer.estadoCertificado }}</p>
-        </div>
-
-<!--        <div>-->
-<!--          <p class="font-medium font-bold text-gray-800">Observaciones</p>-->
-<!--          <p>{{ selectedCustomer.ins }}</p>-->
-<!--        </div>-->
-
       </div>
     </div>
   </div>

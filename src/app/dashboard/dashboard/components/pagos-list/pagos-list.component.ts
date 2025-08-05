@@ -10,7 +10,7 @@ import {RouterModule} from '@angular/router';
 import {CalendarModule} from 'primeng/calendar';
 import {InscripcionService} from '../../services/inscripcion.service';
 import {take} from 'rxjs';
-import {InscripcionResponseDTO} from '../../interfaces/inscripcion.interface';
+import {DeudaDTO, InscripcionResponseDTO} from '../../interfaces/inscripcion.interface';
 import {DialogModule} from 'primeng/dialog';
 import {EstimacionFechaPipe} from '../../pipes/estimacion-fecha.pipe';
 import {
@@ -19,6 +19,7 @@ import {
   INACTIVO,
   LUNES_A_VIERNES,
   PAGADO,
+  PAGO_NO_GENERADO,
   PAGO_PENDIENTE,
   PAGO_VENCIDO,
   SABADOS
@@ -26,6 +27,8 @@ import {
 import {CourseService} from '../../services/course.service';
 import {SelectInterface} from '../../interfaces/select.interface';
 import {Course} from '../../interfaces/course.interface';
+import {PagosService} from '../../services/pagos.service';
+import {EstadoPagoPipe} from '../../pipes/estado-pago.pipe';
 
 @Component({
   selector: 'app-pagos-list',
@@ -41,18 +44,25 @@ import {Course} from '../../interfaces/course.interface';
     ReactiveFormsModule,
     CalendarModule,
     DialogModule,
-    EstimacionFechaPipe
+    EstimacionFechaPipe,
+    EstadoPagoPipe,
   ],
   templateUrl: './pagos-list.component.html',
-  styleUrl: './pagos-list.component.css'
+  styleUrl: './pagos-list.component.css',
+  providers: [
+    EstadoPagoPipe,
+  ]
 })
 export class PagosListComponent implements OnInit {
   private _inscripcionService: InscripcionService = inject(InscripcionService);
   private _courseService: CourseService = inject(CourseService);
+  private _deudasService: PagosService = inject(PagosService);
+  private _estadoPago: EstadoPagoPipe = inject(EstadoPagoPipe);
 
   estudiantes: InscripcionResponseDTO[] = [];
 
-  filteredCustomers: InscripcionResponseDTO[] = [];
+  listaInscritos: InscripcionResponseDTO[] = [];
+  deudasCustomers: DeudaDTO[] = [];
 
   modalidadSeleccionada: string | null = null;
   cursoSeleccionado: string | null = null;
@@ -62,6 +72,7 @@ export class PagosListComponent implements OnInit {
   private cursosData: Course[] = []
 
   cursos: SelectInterface[] = [];
+  private deudas: DeudaDTO[] = []
 
   modalidad = [
     {label: 'Fin de semana', value: SABADOS},
@@ -75,6 +86,7 @@ export class PagosListComponent implements OnInit {
     {label: 'Pagado', value: PAGADO},
     {label: 'Pago pendiente', value: PAGO_PENDIENTE},
     {label: 'Pago vencido', value: PAGO_VENCIDO},
+    {label: 'Pago vencido', value: PAGO_NO_GENERADO},
     {label: 'Todas', value: ''},
   ];
 
@@ -89,6 +101,7 @@ export class PagosListComponent implements OnInit {
   public readonly PAGADO = PAGADO;
   public readonly PAGO_PENDIENTE = PAGO_PENDIENTE;
   public readonly PAGO_VENCIDO = PAGO_VENCIDO;
+  protected readonly PAGO_NO_GENERADO = PAGO_NO_GENERADO;
 
   constructor() {
   }
@@ -102,67 +115,31 @@ export class PagosListComponent implements OnInit {
 
     this._inscripcionService.listaInscritos()
       .pipe(take(1))
-      .subscribe((inscritos) => {
-        console.log(inscritos);
-        this.estudiantes = inscritos;
-        this.filteredCustomers = inscritos;
-        this.verificarPagosMensuales(inscritos);
+      .subscribe((incripcion) => {
+        this.listaInscritos = incripcion;
+      })
+
+    this._deudasService.listarDeudas()
+      .pipe(
+        take(1))
+      .subscribe((deudas) => {
+        console.log(deudas);
+        this.deudas = deudas;
+        this.deudasCustomers = deudas;
       })
   }
 
-  public verificarPagosMensuales(inscripciones: InscripcionResponseDTO[]) {
-    const hoy = new Date();
-
-    inscripciones
-      .filter(inscripcion => inscripcion.estado === 'ACTIVO')
-      .forEach(inscripcion => {
-        const { fechaInicio, pagos, estudiante } = inscripcion;
-
-        const pagosMensualidad = pagos.filter(pago => pago.tipoPago === 'MENSUALIDAD');
-
-        const fechaInicioCopia = new Date(fechaInicio);
-        const anioInicio = fechaInicioCopia.getFullYear();
-        const mesInicio = fechaInicioCopia.getMonth();
-
-        const anioActual = hoy.getFullYear();
-        const mesActual = hoy.getMonth();
-
-        for (let y = anioInicio; y <= anioActual; y++) {
-          const mesInicioLoop = y === anioInicio ? mesInicio : 0;
-          const mesFinLoop = y === anioActual ? mesActual : 11;
-
-          for (let m = mesInicioLoop; m <= mesFinLoop; m++) {
-            const mesReferencia = new Date(y, m, 1);
-
-            const pagoRealizado = pagosMensualidad.some(pago => {
-              const fechaPago = new Date(pago.fechaPago);
-              return (
-                fechaPago.getFullYear() === mesReferencia.getFullYear() &&
-                fechaPago.getMonth() === mesReferencia.getMonth()
-              );
-            });
-
-            if (!pagoRealizado) {
-              const nombreEstudiante = `${estudiante.nombre}`;
-              const nombreMes = mesReferencia.toLocaleString('es-BO', { month: 'long' });
-              console.log(`El estudiante ${nombreEstudiante.trim()} no realizó el pago del mes de ${nombreMes} de ${mesReferencia.getFullYear()}`);
-            }
-          }
-        }
-      });
-  }
-
-
   filterCustomers() {
-    this.filteredCustomers = this.estudiantes.filter(customer => {
+    this.deudasCustomers = this.deudas.filter(customer => {
+      debugger
 
-      const matchesModalidad = !this.modalidadSeleccionada || customer.curso.modalidad === this.modalidadSeleccionada;
-      const matchesCurso = !this.cursoSeleccionado || customer.curso.id == parseInt(this.cursoSeleccionado);
-      const matchesHorarios = !this.horarioSeleccionado || customer.horario.id == parseInt(this.horarioSeleccionado);
-      const matchesStatus = !this.selectedStatus || customer.estadoPago == this.selectedStatus;
+      // const matchesModalidad = !this.modalidadSeleccionada || customer.curso.modalidad === this.modalidadSeleccionada;
+      const matchesCurso = !this.cursoSeleccionado || this.getCursoIdPorInscripcionId(customer!.inscripcionId!) == Number(this.cursoSeleccionado);
+      // const matchesHorarios = !this.horarioSeleccionado || customer.horario.id == parseInt(this.horarioSeleccionado);
+      const matchesStatus= !this.selectedStatus ||  this._estadoPago.transform(customer.fechaPago, customer.estadoDePago ) === this.selectedStatus;
 
 
-      return matchesModalidad && matchesCurso && matchesHorarios && matchesStatus;
+      return matchesCurso && matchesStatus;
     });
   }
 
@@ -208,6 +185,7 @@ export class PagosListComponent implements OnInit {
   }
 
   onSourceChange(event: any) {
+    debugger
     this.selectedStatus = event.value;
     this.filterCustomers();
   }
@@ -228,5 +206,15 @@ export class PagosListComponent implements OnInit {
   openCustomerDetails(customer: any) {
     this.selectedCustomer = customer;
     this.showDialog = true;
+  }
+
+  getNombreCursoPorInscripcionId(inscripcionId: number): string {
+    const inscripcion = this.listaInscritos.find(i => i.id === inscripcionId);
+    return inscripcion?.curso?.nombre || 'Desconocido';
+  }
+
+  getCursoIdPorInscripcionId(inscripcionId: number): number {
+    const inscripcion = this.listaInscritos.find(i => i.id === inscripcionId);
+    return inscripcion?.curso?.id || 0;
   }
 }

@@ -32,11 +32,11 @@
                     optionLabel="label"
                     optionValue="value"></p-dropdown>
 
-        <p-dropdown [options]="horarios" placeholder="Horario"
-                    [(ngModel)]="horarioSeleccionado"
-                    (onChange)="onHorarioChange($event)"
-                    optionLabel="label"
-                    optionValue="value"></p-dropdown>
+<!--        <p-dropdown [options]="horarios" placeholder="Horario"-->
+<!--                    [(ngModel)]="horarioSeleccionado"-->
+<!--                    (onChange)="onHorarioChange($event)"-->
+<!--                    optionLabel="label"-->
+<!--                    optionValue="value"></p-dropdown>-->
 
         <p-dropdown [options]="status"
                     placeholder="Estado de pago"
@@ -57,7 +57,7 @@
   <!-- Customer Table -->
   <div class="overflow-x-visible">
     <p-table #table
-             [value]="filteredCustomers"
+             [value]="deudasCustomers"
              [paginator]="true"
              [rows]=25
              [showCurrentPageReport]="true"
@@ -67,47 +67,51 @@
       <ng-template #header>
         <tr>
           <th class="p-4 text-left">Estado de pago</th>
-          <th class="p-4 text-left">Nombre</th>
+          <th class="p-4 text-left">Monto</th>
+          <th class="p-4 text-left">Fecha de pago</th>
           <th class="p-4 text-left">Curso</th>
-          <th class="p-4 text-left">Horario</th>
-          <th class="p-4 text-left">Modalidad</th>
-          <th class="p-4 text-left">Estatus</th>
-          <th class="p-4 text-left">Detalles</th>
+          <th class="p-4 text-left">Detalle</th>
+          <th class="p-4 text-left">Acciones</th>
+<!--          <th class="p-4 text-left">Estatus</th>-->
+<!--          <th class="p-4 text-left">Detalles</th>-->
         </tr>
       </ng-template>
       <ng-template #body let-customer>
         <tr class="hover:bg-gray-50">
           <td class="p-4">
                   <span [ngClass]="{
-                    'bg-green-100 text-green-800': customer.estadoPago === PAGADO,
-                    'bg-yellow-100 text-yellow-800': customer.estadoPago === PAGO_PENDIENTE,
-                    'bg-red-100 text-red-800': customer.estadoPago === PAGO_VENCIDO,
+                    'bg-green-100 text-green-800': (customer.fechaPago | estadoPago : customer.estadoDePago) === PAGADO,
+                    'bg-yellow-100 text-yellow-800': (customer.fechaPago | estadoPago : customer.estadoDePago) === PAGO_PENDIENTE,
+                    'bg-red-100 text-red-800': (customer.fechaPago | estadoPago : customer.estadoDePago) === PAGO_VENCIDO,
+                    'bg-blue-100 text-blue-800': (customer.fechaPago | estadoPago : customer.estadoDePago) === PAGO_NO_GENERADO,
                   }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
-                    {{ customer.estadoPago }}
+                    {{ customer.fechaPago | estadoPago : customer.estadoDePago }}
                   </span>
           </td>
-          <td
-            class="p-4 font-medium text-gray-900">{{ customer.estudiante.nombre }} {{ customer.estudiante.apellidoPaterno }} {{ customer.estudiante.apellidoMaterno }}
-          </td>
-          <td class="p-4 text-gray-600">{{ customer.curso.nombre }}</td>
-          <td class="p-4 text-gray-600">{{ customer.horario.horaInicio }} - {{ customer.horario.horaFin }}</td>
-          <td class="p-4">
-                  <span [ngClass]="{
-                    'bg-orange-100 text-orange-800': customer.curso.modalidad === LUNES_A_VIERNES,
-                    'bg-purple-100 text-purple-800': customer.curso.modalidad === SABADOS,
-                  }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
-                    {{ customer.curso.modalidad }}
-                  </span>
-          </td>
-          <td class="p-4">
-                  <span [ngClass]="{
-                    'bg-green-100 text-green-800': customer.estado === ACTIVO,
-                    'bg-red-100 text-red-800': customer.estado === INACTIVO,
-                    'bg-yellow-100 text-yellow-800': customer.estado === CONGELADO
-                  }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
-                    {{ customer.estado | titlecase }}
-                  </span>
-          </td>
+<!--          <td class="p-4 font-medium text-gray-900">{{ customer.fechaPago | estadoPago : customer.estadoDePago }}</td>-->
+          <td class="p-4 font-medium text-gray-900">{{ customer.monto }}</td>
+          <td class="p-4 font-medium text-gray-900">{{ customer.fechaPago | date: 'dd MM yyyy' }}</td>
+          <td class="p-4 font-medium text-gray-900">{{ getNombreCursoPorInscripcionId(customer!.inscripcionId) }}</td>
+          <td class="p-4 font-medium text-gray-900">{{ customer.detalle }}</td>
+<!--          <td class="p-4 text-gray-600">{{ customer.curso.nombre }}</td>-->
+<!--          <td class="p-4 text-gray-600">{{ customer.horario.horaInicio }} - {{ customer.horario.horaFin }}</td>-->
+<!--          <td class="p-4">-->
+<!--                  <span [ngClass]="{-->
+<!--                    'bg-orange-100 text-orange-800': customer.curso.modalidad === LUNES_A_VIERNES,-->
+<!--                    'bg-purple-100 text-purple-800': customer.curso.modalidad === SABADOS,-->
+<!--                  }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">-->
+<!--                    {{ customer.monto }}-->
+<!--                  </span>-->
+<!--          </td>-->
+<!--          <td class="p-4">-->
+<!--                  <span [ngClass]="{-->
+<!--                    'bg-green-100 text-green-800': customer.estado === ACTIVO,-->
+<!--                    'bg-red-100 text-red-800': customer.estado === INACTIVO,-->
+<!--                    'bg-yellow-100 text-yellow-800': customer.estado === CONGELADO-->
+<!--                  }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">-->
+<!--                    {{ customer.estado | titlecase }}-->
+<!--                  </span>-->
+<!--          </td>-->
           <td class="p-4">
             <button
               pButton

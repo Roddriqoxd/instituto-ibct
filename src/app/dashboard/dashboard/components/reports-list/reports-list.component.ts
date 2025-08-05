@@ -79,6 +79,7 @@ export class ReportsListComponent implements OnInit {
         monto: pagoDTO.monto,
         fechaPago: pagoDTO.fechaPago,
         tipoPago: pagoDTO.tipoPago,
+        categoria: 'test',
         detalle: pagoDTO?.detalle,
         tipoDescuento: pagoDTO?.tipoDescuento,
         inscripcion: inscripcion,

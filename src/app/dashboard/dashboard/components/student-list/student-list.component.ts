@@ -71,6 +71,9 @@ export class StudentListComponent implements OnInit {
   selectedCustomer: any = null;
   showDialog: boolean = false;
 
+  public readonly SABADOS: string = SABADOS;
+  public readonly LUNES_A_VIERNES: string = LUNES_A_VIERNES
+
   constructor() {
   }
 
@@ -78,7 +81,6 @@ export class StudentListComponent implements OnInit {
     this._inscripcionService.listaInscritos()
       .pipe(take(1))
       .subscribe((inscritos)=>{
-        console.log(inscritos);
         this.estudiantes = inscritos;
         this.filteredCustomers =  inscritos;
       })

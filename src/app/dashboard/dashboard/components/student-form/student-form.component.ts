@@ -6,14 +6,28 @@ import {ButtonModule} from 'primeng/button';
 import {CourseService} from '../../services/course.service';
 import {InscripcionService} from '../../services/inscripcion.service';
 import {DeudaDTO, EstudianteDTO, InscripcionDTO, PagoDTO} from '../../interfaces/inscripcion.interface';
-import {take, timer} from 'rxjs';
+import {forkJoin, switchMap, take, tap, timer} from 'rxjs';
 import {Course} from '../../interfaces/course.interface';
 import {SelectInterface} from '../../interfaces/select.interface';
 import {DatePickerModule} from 'primeng/datepicker';
-import {ACTIVO, LUNES_A_VIERNES, MENSUALIDAD, NINGUNO, PAGADO, SABADOS, TOTAL} from '../../utils/constantes';
+import {
+  A_CUENTA,
+  ACTIVO,
+  COMPLETO,
+  LUNES_A_VIERNES,
+  MENSUALIDAD,
+  NINGUNO,
+  PAGADO,
+  PAGO_PENDIENTE,
+  PAGO_TOTAL,
+  SABADOS,
+  SIN_MATRICULA,
+  TOTAL
+} from '../../utils/constantes';
 import {ToggleSwitch} from 'primeng/toggleswitch';
 import {Textarea} from 'primeng/textarea';
 import {PagosService} from '../../services/pagos.service';
+import {RegistroExitosoComponent} from '../registro-exitoso/registro-exitoso.component';
 
 @Component({
   selector: 'app-student-form',
@@ -25,7 +39,8 @@ import {PagosService} from '../../services/pagos.service';
     ButtonModule,
     ToggleSwitch,
     FormsModule,
-    Textarea
+    Textarea,
+    RegistroExitosoComponent
   ],
   templateUrl: './student-form.component.html',
   styleUrl: './student-form.component.css'
@@ -33,14 +48,16 @@ import {PagosService} from '../../services/pagos.service';
 export class StudentFormComponent implements OnInit {
   @ViewChild('saldo') saldoRef!: ElementRef<HTMLInputElement>;
 
+  public showModal: boolean = false;
+
   private _courseService: CourseService = inject(CourseService);
   private _inscripcionService: InscripcionService = inject(InscripcionService);
   private _pagosService: PagosService = inject(PagosService);
   private cursosData: Course[] = []
 
-  ciExtensiones = [
-    {label: 'LP', value: 'LP'},
+  public readonly EXTENSIONES = [
     {label: 'CB', value: 'CB'},
+    {label: 'LP', value: 'LP'},
     {label: 'SC', value: 'SC'},
     {label: 'OR', value: 'OR'},
     {label: 'PT', value: 'PT'},
@@ -60,10 +77,10 @@ export class StudentFormComponent implements OnInit {
     {label: 'Mensual', value: MENSUALIDAD}
   ];
 
-  descuentoOptions = [
-    {label: 'Ninguna', value: 'NINGUNA'},
-    {label: 'Sin matrícula', value: 'SIN_MATRICULA'},
-    {label: 'Pago total', value: 'PAGO_TOTAL'}
+  public readonly TIPOS_DESCUENTOS = [
+    {label: 'Ninguna', value: NINGUNO},
+    {label: 'Sin matrícula', value: SIN_MATRICULA},
+    {label: 'Pago total', value: PAGO_TOTAL}
   ];
 
   horarioOptions: SelectInterface[] = [];
@@ -92,10 +109,10 @@ export class StudentFormComponent implements OnInit {
       fechaInicio: ['', Validators.required],
 
       // Inscripción
-      tipoPago: ['', Validators.required],
+      categoria: ['', Validators.required],
       monto: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       descuento: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: ['Pago por inscripción de estudiante.', Validators.required],
     });
   }
 
@@ -155,8 +172,8 @@ export class StudentFormComponent implements OnInit {
       fechaRegistro: new Date()
     };
 
-    this._inscripcionService.crearEstudiante(estudiante).subscribe({
-      next: (resEstudiante) => {
+    this._inscripcionService.crearEstudiante(estudiante).pipe(
+      switchMap((resEstudiante) => {
         const estudianteId = resEstudiante.id;
 
         const inscripcion: InscripcionDTO = {
@@ -165,75 +182,83 @@ export class StudentFormComponent implements OnInit {
           estadoCurso: ACTIVO,
           estadoCertificado: NINGUNO,
           estudianteId: estudianteId!,
-          tipoInscripcion: inscripcionForm.tipoPago,
+          tipoInscripcion: inscripcionForm.categoria,
           estadoPago: PAGADO,
           horarioId: inscripcionForm.horario,
-          cursoId: inscripcionForm.curso
+          cursoId: inscripcionForm.curso,
         };
 
-        this._inscripcionService.crearInscripcion(inscripcion).subscribe({
-          next: (resInscripcion) => {
-            const inscripcionId = resInscripcion.id;
+        return this._inscripcionService.crearInscripcion(inscripcion);
+      }),
+      switchMap((resInscripcion) => {
+        const inscripcionId = resInscripcion.id;
 
-            const pago: PagoDTO = {
-              monto: parseFloat(inscripcionForm.monto),
-              fechaPago: new Date(),
-              tipoPago: inscripcionForm.tipoPago,
-              tipoDescuento: inscripcionForm.descuento || NINGUNO,
-              inscripcionId: inscripcionId!,
-              detalle: inscripcionForm.descripcion || NINGUNO,
-            };
+        const pago: PagoDTO = {
+          monto: parseFloat(inscripcionForm.monto),
+          fechaPago: new Date(),
+          tipoPago: this.checked ? A_CUENTA : COMPLETO,
+          categoria: inscripcionForm.categoria,
+          tipoDescuento: inscripcionForm.descuento || NINGUNO,
+          inscripcionId: inscripcionId!,
+          detalle: inscripcionForm.descripcion || NINGUNO,
+        };
 
-            this._inscripcionService.crearPago(pago).subscribe({
-              next: () => {
-                const hoy = new Date();
-                const enUnaSemana = new Date(hoy);
-                enUnaSemana.setDate(hoy.getDate() + 7);
+        return this._inscripcionService.crearPago(pago).pipe(
+          switchMap(() => {
+            const fechaInicio = new Date(inscripcionForm.fechaInicio);
+            const deudasMensuales: DeudaDTO[] = [1, 2].map((mes) => {
+            // 📌 fechaPago depende de la cantidad de meses
+              const fechaPago = new Date(fechaInicio);
+              fechaPago.setMonth(fechaPago.getMonth() + mes);
 
-
-                if (this.checked && this.saldoRef) {
-                  const saldo = this.saldoRef.nativeElement.value;
-
-                  const deuda: DeudaDTO = {
-                    monto: Number(saldo),
-                    fechaPago: this._formatDate(hoy),
-                    estaPagado: false,
-                    fechaLimite: this._formatDate(enUnaSemana),
-                    inscripcionId: inscripcionId!,
-                    detalle: inscripcionForm.descripcion || NINGUNO,
-                  }
-
-                  this._pagosService.crearDeuda(deuda).subscribe({
-                    next: () => {
-                      this.inscripcionForm.reset();
-                      alert('Registro exitoso')
-                    },
-                    error: (err) => {
-                      console.error(err);
-                    }
-                  })
-                } else {
-                  this.inscripcionForm.reset();
-                  alert('Registro exitoso')
-                }
-              },
-              error: (err) => {
-                console.error(err);
-              }
+              return {
+                monto: 300,
+                fechaPago: this._formatDate(fechaPago),
+                estadoDePago: PAGO_PENDIENTE,
+                inscripcionId: inscripcionId!,
+                detalle: `Pago mensualidad ${mes}`,
+              };
             });
-          },
-          error: (err) => {
-            console.error(err);
-          }
-        });
-      },
-      error: (err) => {
-        console.error(err);
-      }
+
+            // ✅ Crear deuda inicial solo si aplica
+            if (this.checked && this.saldoRef) {
+              const hoy = new Date();
+              const enUnaSemana = new Date(hoy);
+              enUnaSemana.setDate(hoy.getDate() + 7);
+
+              const saldo = this.saldoRef.nativeElement.value;
+
+              const deudaInicial: DeudaDTO = {
+                monto: Number(saldo),
+                fechaPago: this._formatDate(enUnaSemana),
+                estadoDePago: PAGO_PENDIENTE,
+                inscripcionId: inscripcionId!,
+                detalle: inscripcionForm.descripcion || NINGUNO,
+              };
+
+              // Crear deuda inicial y luego las 3 deudas
+              return this._pagosService.crearDeuda(deudaInicial).pipe(
+                switchMap(() =>
+                  forkJoin(deudasMensuales.map((d) => this._pagosService.crearDeuda(d)))
+                )
+              );
+            }
+
+            // Si no aplica deuda inicial, solo crear las 3 deudas
+            return forkJoin(deudasMensuales.map((d) => this._pagosService.crearDeuda(d)));
+          })
+        );
+      }),
+      tap(() => {
+        this.inscripcionForm.reset();
+        this.showModal = true;
+      })
+    ).subscribe({
+      error: (err) => console.error(err),
     });
   }
 
-  private _formatDate(date: Date): Date{
+  private _formatDate(date: Date): Date {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const dd = String(date.getDate()).padStart(2, '0');

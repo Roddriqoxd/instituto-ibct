@@ -44,6 +44,7 @@ export interface PagoDTO {
   monto: number;
   fechaPago: Date;
   tipoPago: string;
+  categoria: string;
   detalle?: string;
   tipoDescuento: string;
   inscripcionId?: number;
@@ -54,8 +55,7 @@ export interface DeudaDTO {
   monto: number;
   fechaPago: Date;
   detalle?: string;
-  fechaLimite: Date;
-  estaPagado: boolean;
+  estadoDePago: string;
   inscripcionId?: number;
 }
 
@@ -64,6 +64,7 @@ export interface Pago {
   monto: number;
   fechaPago: Date;
   tipoPago: string;
+  categoria: string;
   detalle?: string;
   tipoDescuento: string;
   inscripcion?: InscripcionResponseDTO;

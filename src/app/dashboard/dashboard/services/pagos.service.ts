@@ -24,4 +24,8 @@ export class PagosService {
   public crearDeuda(deuda: DeudaDTO): Observable<DeudaDTO> {
     return this._http.post<DeudaDTO>(`${this._url}/deudas`, deuda);
   }
+
+  public listarDeudas(): Observable<DeudaDTO[]> {
+    return this._http.get<DeudaDTO[]>(`${this._url}/deudas`);
+  }
 }

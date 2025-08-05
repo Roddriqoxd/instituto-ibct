@@ -3,6 +3,8 @@ export interface Course {
   nombre: string;
   modalidad: string;
   duracionMeses: string;
+  costoMensual: number;
+  costoCompleto: number;
   horarios: Schedule[];
   estado: string;
 }
@@ -19,6 +21,8 @@ export interface CourseDTO {
   id?: number;
   nombre: string;
   modalidad: string;
+  costoMensual: number;
+  costoCompleto: number;
   duracionMeses: number;
   estado: string;
 }

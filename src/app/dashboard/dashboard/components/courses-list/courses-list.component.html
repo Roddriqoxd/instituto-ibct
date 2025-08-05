@@ -21,18 +21,10 @@
       <!-- Filtros dropdown -->
       <div class="flex flex-wrap space-x-2">
         <p-dropdown
-          [options]="modalidadOptions"
+          [options]="MODALIDAD"
           [(ngModel)]="selectedModalidad"
           (onChange)="aplicarFiltros()"
           placeholder="Modalidad"
-          optionLabel="label" optionValue="value">
-        </p-dropdown>
-
-        <p-dropdown
-          [options]="duracionOptions"
-          [(ngModel)]="selectedDuracion"
-          (onChange)="aplicarFiltros()"
-          placeholder="Duración"
           optionLabel="label" optionValue="value">
         </p-dropdown>
 
@@ -58,6 +50,7 @@
         <th>Modalidad</th>
         <th>Duración</th>
         <th>Horarios</th>
+        <th>Costo</th>
         <th>Estado</th>
         <th class="text-center">Acciones</th>
       </tr>
@@ -66,17 +59,36 @@
     <ng-template pTemplate="body" let-curso let-i="rowIndex">
       <tr>
         <td>{{ curso.nombre }}</td>
-        <td>{{ curso.modalidad}}</td>
+        <td>
+          <span [ngClass]="{
+          'bg-orange-100 text-orange-800': curso.modalidad === LUNES_A_VIERNES,
+          'bg-purple-100 text-purple-800': curso.modalidad === SABADOS,
+           }" class="px-2.5 py-0.5 rounded-full text-xs font-medium">
+            {{ curso.modalidad }}
+          </span>
+        </td>
         <td>{{ curso.duracionMeses }} meses</td>
         <td>
           <ul>
             @for (h of curso.horarios; track h.id) {
               <li class="flex justify-between">
-                <span>{{ h.turno | titlecase}}:</span>
+                <span>{{ h.turno | titlecase }}:</span>
                 <span>{{ h.horaInicio }} - {{ h.horaFin }}</span>
               </li>
             }
           </ul>
+        </td>
+
+        <td>
+          <div class="flex gap-2 justify-between">
+            <span>Mensual:</span>
+            <label>{{ curso.costoMensual }} bs.</label>
+          </div>
+
+          <div class="flex  gap-2 justify-between">
+            <span>Completo:</span>
+            <label>{{ curso.costoCompleto }} bs.</label>
+          </div>
         </td>
         <td>
           <span [ngClass]="{

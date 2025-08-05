@@ -5,7 +5,7 @@ import {InputText} from 'primeng/inputtext';
 import {PrimeTemplate} from 'primeng/api';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TableModule} from 'primeng/table';
-import {Course, Schedule} from '../../interfaces/course.interface';
+import {Course} from '../../interfaces/course.interface';
 import {CommonModule} from '@angular/common';
 import {CourseService} from '../../services/course.service';
 import {take} from 'rxjs';
@@ -29,27 +29,18 @@ import {LUNES_A_VIERNES, SABADOS} from '../../utils/constantes';
 })
 export class CoursesListComponent implements OnInit {
   private _courseService: CourseService = inject(CourseService);
+  private _cursos: Course[] = [];
 
-  cursos: Course[] = [];
+  public cursosFiltrados: Course[] = [];
+  public searchText: string = '';
+  public selectedModalidad: string | null = null;
 
-  cursosFiltrados: Course[] = [];
-
-  searchText: string = '';
-  selectedModalidad: string | null = null;
-  selectedDuracion: string | null = null;
-
-  modalidadOptions = [
+  public readonly MODALIDAD = [
     {label: 'Lunes a Viernes', value: LUNES_A_VIERNES},
     {label: 'Sábados', value: SABADOS}
   ];
-
-  duracionOptions = [
-    {label: '2 meses', value: '2'},
-    {label: '3 meses', value: '3'},
-    {label: '4 meses', value: '4'}
-  ];
-
-  expandedRows: { [key: number]: boolean } = {};
+  public readonly SABADOS: string = SABADOS;
+  public readonly LUNES_A_VIERNES: string = LUNES_A_VIERNES
 
   constructor() {
   }
@@ -58,44 +49,32 @@ export class CoursesListComponent implements OnInit {
     this._courseService.obtenerTodosCursos()
       .pipe(take(1))
       .subscribe(cursos => {
-        this.cursos = cursos;
-        this.cursosFiltrados = [...this.cursos];
+        console.log(cursos);
+        this._cursos = cursos;
+        this.cursosFiltrados = [...this._cursos];
       })
   }
 
   aplicarFiltros() {
-    this.cursosFiltrados = this.cursos.filter(curso => {
+    this.cursosFiltrados = this._cursos.filter(curso => {
       const coincideNombre = curso.nombre.toLowerCase().includes(this.searchText.toLowerCase());
       const coincideModalidad = this.selectedModalidad ? curso.modalidad === this.selectedModalidad : true;
-      const coincideDuracion = this.selectedDuracion ? curso.duracionMeses === this.selectedDuracion : true;
 
-      return coincideNombre && coincideModalidad && coincideDuracion;
+      return coincideNombre && coincideModalidad;
     });
   }
 
   limpiarFiltros() {
     this.searchText = '';
     this.selectedModalidad = null;
-    this.selectedDuracion = null;
     this.aplicarFiltros();
   }
 
-  toggleHorarios(index: number): void {
-    this.expandedRows[index] = !this.expandedRows[index];
-  }
-
-  getVisibleHorarios(horarios: Schedule[], index: number): Schedule[] {
-    return this.expandedRows[index] ? horarios : horarios.slice(0, 2);
-  }
-
   editarCurso(curso: Course, index: number): void {
-    console.log('Editar curso', curso);
+    // TODO: Implementacion pendiente
   }
 
   eliminarCurso(index: number): void {
-    if (confirm('¿Eliminar curso?')) {
-      this.cursos.splice(index, 1);
-      this.aplicarFiltros();
-    }
+    // TODO: Implementacion pendiente
   }
 }

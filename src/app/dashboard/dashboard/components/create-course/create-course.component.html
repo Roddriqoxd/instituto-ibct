@@ -16,13 +16,29 @@
     <!-- Modalidad -->
     <div>
       <label class="block text-gray-700 font-semibold mb-1">Modalidad:</label>
-      <p-dropdown [optionValue]="'value'" [options]="modalidades" optionLabel="label" formControlName="modalidad" class="w-full" placeholder="Seleccione modalidad"></p-dropdown>
+      <p-dropdown [optionValue]="'value'" [options]="MODALIDADES" optionLabel="label" formControlName="modalidad" class="w-full" placeholder="Seleccione modalidad"></p-dropdown>
     </div>
 
     <!-- Duración -->
     <div>
       <label class="block text-gray-700 font-semibold mb-1">Duración:</label>
-      <p-dropdown  [optionValue]="'value'" [options]="duraciones" optionLabel="label" formControlName="duracion" class="w-full" placeholder="Seleccione duración"></p-dropdown>
+      <p-dropdown [optionValue]="'value'" [options]="DURACION" optionLabel="label" formControlName="duracion" class="w-full" placeholder="Seleccione duración"></p-dropdown>
+    </div>
+
+    <div>
+      <label class="block text-gray-700 font-semibold mb-1">Costo mensual:</label>
+      <div class="flex items-end gap-2">
+        <input pInputText type="number" formControlName="costoMensual" class="w-[150px]" placeholder="Ej: 200"/>
+        <label class="block text-gray-700 font-semibold mb-1">Bs.</label>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-gray-700 font-semibold mb-1">Costo curso completo:</label>
+      <div class="flex items-end gap-2">
+        <input pInputText type="number" formControlName="costoCompleto" class="w-[150px]" placeholder="Ej: 600"/>
+        <label class="block text-gray-700 font-semibold mb-1">Bs.</label>
+      </div>
     </div>
 
     <!-- Lista de horarios -->
@@ -37,7 +53,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="text-sm text-gray-600">Turno:</label>
-            <p-dropdown  [optionValue]="'value'" [options]="turnos" optionLabel="label" formControlName="turno" placeholder="Turno" class="w-full"></p-dropdown>
+            <p-dropdown [optionValue]="'value'" [options]="TURNOS" optionLabel="label" formControlName="turno" placeholder="Turno" class="w-full"></p-dropdown>
           </div>
           <div>
             <label class="text-sm text-gray-600">Hora de inicio:</label>
@@ -65,3 +81,5 @@
     </div>
   </form>
 </div>
+
+<app-registro-exitoso [(visible)]="showModal"></app-registro-exitoso>
