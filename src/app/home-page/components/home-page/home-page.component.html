@@ -2,9 +2,17 @@
   <i class="pi pi-whatsapp" style="font-size: 2.2rem"></i>
 </div>
 <div class="barra z-10">
-  <div class="logo cursor-pointer" (click)="irRuta('inicio')">
-    <img src="assets/images/LOGO%20IBCT.png" alt="IBCT logo"/>
-    <span class="nombre-inst">Centro de Capacitación <br/>TECNICA PRIVADA</span>
+  <div class="logos-container">
+    <div class="logo cursor-pointer" (click)="irRuta('inicio')">
+      <img src="assets/images/LOGO%20IBCT.png" alt="IBCT logo"/>
+      <span class="nombre-inst">Centro de Capacitación <br/>TECNICA PRIVADA</span>
+    </div>
+
+    <div class="logo-ministerio cursor-pointer">
+      <span style="font-weight: 500; font-size: 15px; font-style: oblique" class="nombre-inst">Autorizado por:</span>
+      <img style="width: 50px" src="assets/images/logo-ministerio.webp" alt="Ministerio de educacion"/>
+      <img style="width:70px" src="assets/images/letras-logo.webp" alt="Ministerio de educacion"/>
+    </div>
   </div>
   <div class="enlaces">
     <a (click)="irRuta('inicio')">Inicio</a>
@@ -120,6 +128,7 @@
     <hr>
   </div>
   <div class="flex justify-center">
-    <span style="font-size: 13px; text-align: center" class="p-6">{{ "@copyright 2025 Centro de Capacitacion Tecnica Privada I.B.C.T." }}</span>
+    <span style="font-size: 13px; text-align: center"
+          class="p-6">{{ "@copyright 2025 Centro de Capacitacion Tecnica Privada IBCT" }}</span>
   </div>
 </div>
