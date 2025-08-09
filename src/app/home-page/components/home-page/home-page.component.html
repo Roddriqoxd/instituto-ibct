@@ -1,51 +1,134 @@
+<div class="icono-whatsapp" (click)="redesSociales('w')">
+  <i class="pi pi-whatsapp" style="font-size: 2.2rem"></i>
+</div>
 <div class="barra z-10">
-  <div class="logo">
-    <img src="assets/images/LOGO%20IBCT.png" alt="IBCT logo"/>
-    <span>Centro de Capacitacion <br/>TECNICA PRIVADA</span>
+  <div class="logos-container">
+    <div class="logo cursor-pointer" (click)="irRuta('inicio')">
+      <img src="assets/images/LOGO%20IBCT.png" alt="IBCT logo"/>
+      <span class="nombre-inst">Centro de Capacitación <br/>TECNICA PRIVADA</span>
+    </div>
+
+    <div class="logo-ministerio cursor-pointer">
+      <span style="font-weight: 500; font-size: 15px; font-style: oblique" class="nombre-inst">Autorizado por:</span>
+      <img style="width: 50px" src="assets/images/logo-ministerio.webp" alt="Ministerio de educacion"/>
+      <img style="width:70px" src="assets/images/letras-logo.webp" alt="Ministerio de educacion"/>
+    </div>
   </div>
   <div class="enlaces">
-    <a>inicio</a>
-    <a>cursos</a>
-    <a>administrativos</a>
-    <a>contacto</a>
+    <a (click)="irRuta('inicio')">Inicio</a>
+
+    <div class="relative group inline-block">
+      <a class="cursor-pointer">Cursos</a>
+
+      <div
+        class="absolute top-4 left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300 z-50"
+      >
+        <ul class="py-2">
+          <li><a (click)="irRuta('computacion')" class="block px-4 py-2 hover:bg-gray-100">Computación</a></li>
+          <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de
+            celulares</a></li>
+          <li><a (click)="irRuta('diseño-grafico')" class="block px-4 py-2 hover:bg-gray-100">Diseño gráfico</a></li>
+          <li><a (click)="irRuta('bartender')" class="block px-4 py-2 hover:bg-gray-100">Bartender</a></li>
+          <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y
+            reparación de computadoras</a></li>
+        </ul>
+      </div>
+    </div>
+    <a (click)="irRuta('docentes')">Docentes</a>
+    <a [routerLink]="[]" fragment="footer">Contacto</a>
+  </div>
+
+  <i class="pi pi-bars cursor-pointer menu-bar" style="font-size: 20px" (click)="toggleMenu()"></i>
+  <div #menu class="menu-bar-opciones">
+    <ul class="py-2">
+      <li><a (click)="irRuta('inicio')" class="block px-4 py-2 hover:bg-gray-100">Inicio</a></li>
+      <li><a (click)="irRuta('computacion')" class="block px-4 py-2 hover:bg-gray-100">Computación</a></li>
+      <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de
+        celulares</a></li>
+      <li><a (click)="irRuta('diseño-grafico')" class="block px-4 py-2 hover:bg-gray-100">Diseño gráfico</a></li>
+      <li><a (click)="irRuta('bartender')" class="block px-4 py-2 hover:bg-gray-100">Bartender</a></li>
+      <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y
+        reparación de computadoras</a></li>
+      <li><a (click)="irRuta('docentes')" class="block px-4 py-2 hover:bg-gray-100">Docentes</a></li>
+    </ul>
   </div>
 </div>
+<div id="inicio"></div>
 <!-- BANNER -->
 
 <router-outlet></router-outlet>
 
 <!-- final -->
-<div class="columnas-texto">
-  <div class="columna fila-logo">
-    <div class="logo-footer">
-      <img src="/assets/images/LOGO%20IBCT.png" alt="Logo" class="imagen-columna">
-      <strong>Centro de capacitación TÉCNICA PRIVADO</strong>
-    </div>
-    <div class="texto-logo">
-      <span>Impulsa tu futuro con formación técnica de calidad.</span>
-      <div class="iconos-redes">
-        <i class="pi pi-whatsapp"
-           style="font-size: 20px; padding: 9px"></i>
-        <i class="pi pi-facebook"
-           style="font-size: 20px; padding: 9px"></i>
-        <i class="pi pi-instagram"
-           style="font-size: 20px; padding: 9px"></i>
+<div id="footer">
+  <div style="padding: 0 10%">
+    <hr>
+  </div>
+  <div class="columnas-texto">
+    <div class="columna fila-logo col-1">
+      <div class="logo-footer">
+        <img src="/assets/images/LOGO%20IBCT.png" alt="Logo" class="imagen-columna">
+        <strong>Centro de capacitación TÉCNICA PRIVADO</strong>
+      </div>
+      <div class="texto-logo">
+        <span>Impulsa tu futuro con formación técnica de calidad.</span>
+        <div class="iconos-redes">
+          <i class="pi pi-whatsapp"
+             style="font-size: 20px; padding: 9px" (click)="redesSociales('w')">
+          </i>
+          <i class="pi pi-facebook"
+             style="font-size: 20px; padding: 9px" (click)="redesSociales('f')"></i>
+          <i class="pi pi-instagram"
+             style="font-size: 20px; padding: 9px"></i>
+        </div>
       </div>
     </div>
+
+    <div class="columna col-2">
+      <strong>Links</strong>
+      <a (click)="irRuta('inicio')">Inicio</a>
+      <div class="relative group inline-block">
+
+        <a class="cursor-pointer">Cursos</a>
+
+        <div
+          class="absolute bottom-4 mb-2 left-0 w-48 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300 z-50"
+        >
+          <ul class="py-2">
+            <li><a (click)="irRuta('computacion')" class="block px-4 py-2 hover:bg-gray-100">Computación</a></li>
+            <li><a (click)="irRuta('reparacion-celulares')" class="block px-4 py-2 hover:bg-gray-100">Reparación de
+              celulares</a></li>
+            <li><a (click)="irRuta('diseño-grafico')" class="block px-4 py-2 hover:bg-gray-100">Diseño gráfico</a></li>
+            <li><a (click)="irRuta('bartender')" class="block px-4 py-2 hover:bg-gray-100">Bartender</a></li>
+            <li><a (click)="irRuta('ensamblado-computadoras')" class="block px-4 py-2 hover:bg-gray-100">Ensamblado y
+              reparación de computadoras</a></li>
+          </ul>
+        </div>
+      </div>
+      <a (click)="irRuta('docentes')">Docentes</a>
+    </div>
+
+    <div class="columna col-3">
+      <strong>Segmentos</strong>
+      @if (ruta === 'curso') {
+        <a [routerLink]="[]" fragment="horarios">Horarios</a>
+        <a [routerLink]="[]" fragment="contenido">Contenido</a>
+      } @else if (ruta === 'docentes') {
+        <a [routerLink]="[]" fragment="docentes">Docentes</a>
+      } @else {
+        <a [routerLink]="[]" fragment="ventajas">Ventajas</a>
+        <a [routerLink]="[]" fragment="docentes">Docentes</a>
+        <a [routerLink]="[]" fragment="cursos">Cursos</a>
+        <a [routerLink]="[]" fragment="comentarios">Comentarios</a>
+        <a [routerLink]="[]" fragment="ubicacion">Ubicacion</a>
+      }
+    </div>
   </div>
 
-  <div class="columna">
-    <strong>Links</strong>
-    <a>Inicio</a>
-    <a>Cursos</a>
-    <a>Administrativos</a>
+  <div style="padding: 0 10%">
+    <hr>
   </div>
-
-  <div class="columna">
-    <strong>Segmentos</strong>
-    <a>Ventajas</a>
-    <a>Docentes</a>
-    <a>Cursos</a>
-    <a>Comentarios</a>
+  <div class="flex justify-center">
+    <span style="font-size: 13px; text-align: center"
+          class="p-6">{{ "@copyright 2025 Centro de Capacitacion Tecnica Privada IBCT" }}</span>
   </div>
 </div>

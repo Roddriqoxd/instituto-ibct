@@ -5,11 +5,17 @@
   align-items: center;
   padding: 0px 100px 0px 100px;
   position: fixed;
-  width: 100%;
+  width: 100vw;
+  z-index: 9999;
   height: 50px;
-  background: rgba(255, 255, 255, 0.09);
+  background: rgb(255 255 255 / 66%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+.logos-container {
+  display: flex;
+  gap: 40px;
 }
 
 .logo {
@@ -24,8 +30,34 @@
 }
 
 .logo span {
-  font-weight: 600;
-  line-height: 15px;
+  font-weight: bold;
+  line-height: 16px;
+}
+
+.logo-ministerio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-ministerio img {
+  width: 300px;
+}
+
+.icono-whatsapp {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: #ffffff;
+  /*border: 1px solid #46af00;*/
+  padding: 10px 8px 7px 10px;
+  border-radius: 10px;
+  background-color: rgb(81, 207, 1);
+  cursor: pointer;
+}
+
+.icono-whatsapp i:hover {
+  font-size: 2.3rem
 }
 
 .enlaces {
@@ -429,4 +461,83 @@
 
 .iconos-redes {
   display: flex;
+}
+
+.iconos-redes i {
+  cursor: pointer;
+}
+
+.menu-bar {
+  display: none;
+}
+
+.menu-bar-opciones {
+  background-color: white;
+  position: absolute;
+  display: none;
+  left: 0;
+  width: 100%;
+  top: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-bar-opciones ul li {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border-bottom: 1px solid var(--azul);
+}
+
+.open {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .barra {
+    padding: 0 30px;
+  }
+
+  .nombre-inst {
+    display: none;
+  }
+
+  .enlaces {
+    display: none;
+  }
+
+  .menu-bar {
+    display: block;
+  }
+
+  .col-3 {
+    display: none;
+  }
+
+  .col-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 1108px) {
+  .col-3 {
+    display: none;
+  }
+
+  .logo-ministerio span {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .logo span {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .open {
+    display: none !important;
+  }
 }

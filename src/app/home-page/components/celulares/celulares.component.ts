@@ -1,0 +1,20 @@
+import { Component } from '@angular/core';
+import {ViewportScroller} from '@angular/common';
+import {RutasService} from '../../services/rutas.service';
+
+@Component({
+  selector: 'app-celulares',
+  imports: [],
+  templateUrl: './celulares.component.html',
+  styleUrl: './celulares.component.css'
+})
+export class CelularesComponent {
+
+  constructor(private viewportScroller: ViewportScroller, private _tipoRutaService: RutasService) {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
+  ngOnInit() {
+    this._tipoRutaService.setTipoRuta('curso')
+  }
+}
