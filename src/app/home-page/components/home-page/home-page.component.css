@@ -13,6 +13,11 @@
   -webkit-backdrop-filter: blur(20px);
 }
 
+.logos-container {
+  display: flex;
+  gap: 40px;
+}
+
 .logo {
   display: flex;
   flex-direction: row;
@@ -25,8 +30,18 @@
 }
 
 .logo span {
-  font-weight: 600;
+  font-weight: bold;
   line-height: 16px;
+}
+
+.logo-ministerio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-ministerio img {
+  width: 300px;
 }
 
 .icono-whatsapp {
@@ -506,6 +521,17 @@
 
 @media (max-width: 1108px) {
   .col-3 {
+    display: none;
+  }
+
+  .logo-ministerio span {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .logo span {
     display: none;
   }
 }

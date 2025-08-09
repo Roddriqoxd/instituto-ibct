@@ -564,6 +564,14 @@
   }
 
   .carousel-page {
+    display: block;
+  }
+
+  .p-carousel-indicator-list {
+    display: none !important;
+  }
+
+  .profesores-docentes {
     display: none;
   }
 
