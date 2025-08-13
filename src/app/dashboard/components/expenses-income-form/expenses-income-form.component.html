@@ -43,13 +43,18 @@
     </div>
 
     <!-- Botón Enviar -->
-    <button type="submit" class="w-full mt-4 p-3 border border-black-500 "
+    <button type="submit"
+            class="w-full mt-4 p-3 border border-black-500 "
             style="border-radius: 15px; cursor: pointer"
             [ngClass]="{
       'text-green-700 bg-green-100': formulario.get('tipoRegistro')?.value === 'INGRESO',
       'text-red-700 bg-red-100': formulario.get('tipoRegistro')?.value === 'EGRESO'
     }"
+            [style.opacity]="formulario.invalid ? 0.5 : 1"
+            [disabled]="formulario.invalid"
     >Registrar {{ formulario.get('tipoRegistro')?.value | lowercase }}
     </button>
   </form>
 </div>
+
+<app-registro-exitoso [(visible)]="showModal"></app-registro-exitoso>

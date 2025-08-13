@@ -47,6 +47,16 @@
         </li>
 
         <li>
+          <div routerLink="crear-pago" routerLinkActive="bg-blue-50 text-blue-600"
+               class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
+            <div class="flex items-center">
+              <i class="pi pi-credit-card mr-3"></i>
+              <span>Cobros</span>
+            </div>
+          </div>
+        </li>
+
+        <li>
           <div routerLink="lista-estudiantes" routerLinkActive="bg-blue-50 text-blue-600"
                class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
             <div class="flex items-center">
@@ -68,13 +78,13 @@
           </div>
 
           <ul *ngIf="submenuOpen === 'mensualidades'" class="pl-8 mt-1">
-            <li>
-              <a routerLink="crear-pago"
-                 routerLinkActive="bg-blue-50 text-blue-600"
-                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
-                Formulario de pago
-              </a>
-            </li>
+<!--            <li>-->
+<!--              <a routerLink="crear-pago"-->
+<!--                 routerLinkActive="bg-blue-50 text-blue-600"-->
+<!--                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">-->
+<!--                Formulario de pago-->
+<!--              </a>-->
+<!--            </li>-->
 
             <li>
               <a routerLink="lista-pagos"
@@ -183,25 +193,26 @@
         </li>
 
         <li>
-          <div (click)="toggleSubmenu('reportes')"
+          <div routerLink="lista-reportes"
+               routerLinkActive="bg-blue-50 text-blue-600"
                class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 text-gray-700 cursor-pointer">
             <div class="flex items-center">
               <i class="pi pi-chart-bar mr-3"></i>
               <span>Reportes</span>
             </div>
 
-            <i class="pi" [ngClass]="submenuOpen === 'reportes'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+<!--            <i class="pi" [ngClass]="submenuOpen === 'reportes'   ? 'pi-chevron-up' : 'pi-chevron-down'"></i>-->
           </div>
 
-          <ul *ngIf="submenuOpen === 'reportes'" class="pl-8 mt-1">
-            <li>
-              <a routerLink="lista-reportes"
-                 routerLinkActive="bg-blue-50 text-blue-600"
-                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">
-                Reportes
-              </a>
-            </li>
-          </ul>
+<!--          <ul *ngIf="submenuOpen === 'reportes'" class="pl-8 mt-1">-->
+<!--            <li>-->
+<!--              <a routerLink="lista-reportes"-->
+<!--                 routerLinkActive="bg-blue-50 text-blue-600"-->
+<!--                 class="block p-2 rounded hover:bg-gray-100 text-gray-700">-->
+<!--                Reportes-->
+<!--              </a>-->
+<!--            </li>-->
+<!--          </ul>-->
         </li>
 
       </ul>

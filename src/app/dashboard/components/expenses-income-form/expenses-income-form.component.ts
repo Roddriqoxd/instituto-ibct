@@ -6,9 +6,10 @@ import {DatePickerModule} from 'primeng/datepicker';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {TextareaModule} from 'primeng/textarea';
-import {EGRESO, INGRESO, NINGUNO} from '../../utils/constantes';
+import {EGRESO, INGRESO, NINGUNO, TOTAL} from '../../utils/constantes';
 import {PagosService} from '../../services/pagos.service';
 import {PagoDTO} from '../../interfaces/inscripcion.interface';
+import {RegistroExitosoComponent} from '../registro-exitoso/registro-exitoso.component';
 
 @Component({
   selector: 'app-expenses-income-form',
@@ -18,7 +19,8 @@ import {PagoDTO} from '../../interfaces/inscripcion.interface';
     DropdownModule,
     InputTextModule,
     TextareaModule,
-    ButtonModule
+    ButtonModule,
+    RegistroExitosoComponent
   ],
   templateUrl: './expenses-income-form.component.html',
   styleUrl: './expenses-income-form.component.css'
@@ -26,6 +28,7 @@ import {PagoDTO} from '../../interfaces/inscripcion.interface';
 export class ExpensesIncomeFormComponent {
   private _pagosService: PagosService = inject(PagosService);
 
+  public showModal = false;
   formulario: FormGroup;
   tipoRegistroOptions = [
     { label: 'Ingreso', value: 'INGRESO' },
@@ -47,15 +50,16 @@ export class ExpensesIncomeFormComponent {
     if (this.formulario.valid) {
       const form = this.formulario.value;
       const data: PagoDTO = {
-        tipoPago: form.tipoRegistro,
+        tipoPago: TOTAL,
         monto: form.tipoRegistro === EGRESO ? form.monto*-1 : form.monto,
         fechaPago: new Date(),
-        categoria: 'Test',
+        categoria: form.tipoRegistro,
         detalle: form.detalle,
         tipoDescuento: NINGUNO
       }
       this._pagosService.crearPago(data).subscribe(()=>{
-        console.log('Pagos creado');
+      this.showModal = true;
+      this.formulario.reset();
       })
     }
   }

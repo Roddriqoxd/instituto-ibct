@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import {ButtonDirective} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
-import {NombreByInscripcionIdPipe} from '../../pipes/nombre-by-inscripcion-id.pipe';
 import {PrimeTemplate} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {CommonModule, TitleCasePipe} from '@angular/common';
@@ -12,6 +11,10 @@ import {EstudianteDTO, InscripcionResponseDTO, Pago, PagoDTO} from '../../interf
 import {take} from 'rxjs';
 import {Course} from '../../interfaces/course.interface';
 import {EGRESO, INGRESO} from '../../utils/constantes';
+import {CalendarModule} from 'primeng/calendar';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import autoTable, {RowInput} from 'jspdf-autotable';
 
 @Component({
   selector: 'app-reports-list',
@@ -23,7 +26,7 @@ import {EGRESO, INGRESO} from '../../utils/constantes';
     PrimeTemplate,
     TableModule,
     TitleCasePipe,
-    NombreByInscripcionIdPipe
+    CalendarModule
   ],
   templateUrl: './reports-list.component.html',
   styleUrl: './reports-list.component.css'
@@ -38,8 +41,9 @@ export class ReportsListComponent implements OnInit {
   estudiantes: InscripcionResponseDTO[] = [];
 
   pagosFiltrados: PagoDTO[] = [];
-
-  selectedPago: string | null = null;
+  totalMonto: number = 0;
+  fechaInicio: Date | null = null;
+  fechaFin: Date | null = null;
 
   tipoRegistroOptions = [
     {label: 'Ingreso', value: 'INGRESO'},
@@ -63,7 +67,7 @@ export class ReportsListComponent implements OnInit {
           .subscribe(pagos => {
             this.pagos = this.mapPagos(pagos, inscritos);
             console.log(this.pagos);
-            this.pagosFiltrados = this.pagos;
+            // this.pagosFiltrados = this.pagos;
           })
       })
   }
@@ -79,7 +83,7 @@ export class ReportsListComponent implements OnInit {
         monto: pagoDTO.monto,
         fechaPago: pagoDTO.fechaPago,
         tipoPago: pagoDTO.tipoPago,
-        categoria: 'test',
+        categoria: pagoDTO.categoria,
         detalle: pagoDTO?.detalle,
         tipoDescuento: pagoDTO?.tipoDescuento,
         inscripcion: inscripcion,
@@ -90,31 +94,71 @@ export class ReportsListComponent implements OnInit {
     });
   }
 
-  getEstudianteLocal(inscripcionId: number): EstudianteDTO | undefined {
-    return this.estudiantes.find(i => i.id === inscripcionId)?.estudiante;
-  }
+  filtrarPorFecha() {
+    if (!this.fechaInicio || !this.fechaFin) {
+      this.pagosFiltrados = [...this.pagos];
+      return;
+    }
 
-  aplicarFiltros() {
-    this.pagosFiltrados = this.pagos.filter(curso => {
-      const coincidenciaPago = this.tipoRegistroOptions ? curso.tipoPago === this.selectedPago : true;
+    const inicio = new Date(this.fechaInicio);
+    const fin = new Date(this.fechaFin);
 
-      return coincidenciaPago;
+    // Normalizar fin para incluir todo el día
+    fin.setHours(23, 59, 59, 999);
+
+    this.pagosFiltrados = this.pagos.filter(pago => {
+      const fechaPago = new Date(pago.fechaPago);
+      return fechaPago >= inicio && fechaPago <= fin;
     });
+    this.calcularTotal();
   }
 
   limpiarFiltros() {
-    this.selectedPago = null;
-    this.pagosFiltrados = this.pagos;
+    this.fechaInicio = null;
+    this.fechaFin = null;
+    this.pagosFiltrados = [];
+    this.totalMonto = 0;
   }
 
-  editarCurso(curso: Course, index: number): void {
-    console.log('Editar curso', curso);
+  calcularTotal() {
+    this.totalMonto = this.pagosFiltrados.reduce((sum, pago) => sum + pago.monto, 0);
   }
 
-  eliminarCurso(index: number): void {
-    if (confirm('¿Eliminar curso?')) {
-      this.pagos.splice(index, 1);
-      this.aplicarFiltros();
-    }
+  /* Descargar Excel */
+  descargarReporteExcel() {
+    const wsData = [...this.pagosFiltrados, { id: '', categoria: '', fechaPago: '', detalle: '', tipoDescuento: 'TOTAL', monto: this.totalMonto }];
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(wsData);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Reporte');
+    XLSX.writeFile(wb, 'reporte_pagos.xlsx');
+  }
+
+  /* Descargar PDF */
+  descargarReportePDF() {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text('Reportes generados', 14, 15);
+
+    autoTable(doc, {
+      head: [['ID Pago', 'Tipo de pago', 'Fecha', 'Detalle', 'Tipo descuento', 'Monto']],
+      body: this.pagosFiltrados.map(pago => [
+        pago.id,
+        pago.categoria,
+        pago.fechaPago,
+        pago.detalle || 'Sin detalle',
+        pago.tipoDescuento,
+        pago.monto
+      ]) as unknown as RowInput[],
+      startY: 25,
+      theme: 'grid'
+    });
+
+    // Total al final
+    const finalY = (doc as any).lastAutoTable.finalY || 25;
+    doc.setFontSize(12);
+    doc.text(`Total: ${this.totalMonto}`, 14, finalY + 10);
+
+    doc.save('reporte_pagos.pdf');
   }
 }

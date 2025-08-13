@@ -49,6 +49,8 @@ export class PaymentFormComponent implements OnInit {
   public estudiantes: InscripcionResponseDTO[] = [];
 
   mensualidadesDisplay: PagoDTO[] = [];
+  deudaDisplay: DeudaDTO[] = [];
+  deuda: DeudaDTO | undefined = undefined;
 
   checked: boolean = false;
 
@@ -60,8 +62,12 @@ export class PaymentFormComponent implements OnInit {
 
   pagos: Pago[] = [];
 
+  public categoriadepago = [
+    {label: 'Certificado', value: CERTIFICACION},
+    {label: 'Recursamiento', value: RECURSAMIENTO}
+  ];
+
   public readonly CATEGORIA_DE_PAGO = [
-    {label: 'Mensualidad', value: MENSUALIDAD},
     {label: 'Certificado', value: CERTIFICACION},
     {label: 'Recursamiento', value: RECURSAMIENTO}
   ];
@@ -70,7 +76,7 @@ export class PaymentFormComponent implements OnInit {
     this.pagoForm = this.fb.group({
       estudianteId: [null, Validators.required],
       tipoPago: [null, Validators.required],
-      monto: [null, [Validators.required, Validators.min(0.01)]],
+      monto: ['', [Validators.required, Validators.min(0.01)]],
       descripcion: ['Pago realizado por concepto de servicios académicos del estudiante.']
     });
   }
@@ -79,8 +85,18 @@ export class PaymentFormComponent implements OnInit {
     // Escuchar cambios en el dropdown de estudiante
     this.pagoForm.get('estudianteId')?.valueChanges.subscribe(id => {
       this.estudianteSeleccionado = this.estudiantes.find(e => e.id === id) || null;
+      this.categoriadepago = this.CATEGORIA_DE_PAGO
       this.generarMensualidades();
     });
+
+    this.pagoForm.get('tipoPago')?.valueChanges.subscribe(id => {
+      this.deuda = undefined;
+      this.deuda = this.deudaDisplay.find(deuda => deuda.id === Number(id));
+      if (this.deuda) {
+        const monto = this.deuda.monto.toString()
+        this.pagoForm.patchValue({ monto: monto });
+      }
+    })
 
     this._inscripcionService.listaInscritos()
       .pipe(take(1))
@@ -135,8 +151,15 @@ export class PaymentFormComponent implements OnInit {
   generarMensualidades() {
     if (!this.estudianteSeleccionado) return;
     const insc = this.estudianteSeleccionado;
-    const duracion = insc.curso.duracionMeses || 0;
     this.mensualidadesDisplay = insc.pagos;
+    this.deudaDisplay = insc.deudas;
+    this.categoriadepago = [
+      ...this.CATEGORIA_DE_PAGO,
+      ...insc.deudas.map(data => ({
+        label: data.detalle || '',
+        value: data.id?.toString() || ''
+      }))
+    ];
   }
 
   onSubmitPago() {
@@ -144,7 +167,7 @@ export class PaymentFormComponent implements OnInit {
       const formValues = this.pagoForm.value;
 
       const nuevoPago: PagoDTO = {
-        monto: formValues.monto!,
+        monto: Number(formValues.monto),
         fechaPago: new Date(),
         categoria: formValues.tipoPago!,
         tipoPago: this.checked ? A_CUENTA : COMPLETO,
@@ -190,7 +213,7 @@ export class PaymentFormComponent implements OnInit {
     }
   }
 
-  private _formatDate(date: Date): Date{
+  private _formatDate(date: Date): Date {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const dd = String(date.getDate()).padStart(2, '0');

@@ -11,6 +11,7 @@ export const PAGADO = 'PAGADO';
 export const PAGO_NO_GENERADO = 'PAGO_NO_GENERADO';
 export const PAGO_PENDIENTE = 'PAGO_PENDIENTE';
 export const PAGO_VENCIDO = 'PAGO_VENCIDO';
+export const SALDO_PENDIENTE = 'SALDO_PENDIENTE';
 
 export const CONGELADO = 'CONGELADO';
 export const INACTIVO = 'INACTIVO';

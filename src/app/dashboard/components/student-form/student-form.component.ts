@@ -6,7 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {CourseService} from '../../services/course.service';
 import {InscripcionService} from '../../services/inscripcion.service';
 import {DeudaDTO, EstudianteDTO, InscripcionDTO, PagoDTO} from '../../interfaces/inscripcion.interface';
-import {forkJoin, switchMap, take, tap, timer} from 'rxjs';
+import {EMPTY, forkJoin, iif, of, switchMap, take, tap, timer} from 'rxjs';
 import {Course} from '../../interfaces/course.interface';
 import {SelectInterface} from '../../interfaces/select.interface';
 import {DatePickerModule} from 'primeng/datepicker';
@@ -20,7 +20,7 @@ import {
   PAGADO,
   PAGO_PENDIENTE,
   PAGO_TOTAL,
-  SABADOS,
+  SABADOS, SALDO_PENDIENTE,
   SIN_MATRICULA,
   TOTAL
 } from '../../utils/constantes';
@@ -206,19 +206,21 @@ export class StudentFormComponent implements OnInit {
         return this._inscripcionService.crearPago(pago).pipe(
           switchMap(() => {
             const fechaInicio = new Date(inscripcionForm.fechaInicio);
-            const deudasMensuales: DeudaDTO[] = [1, 2].map((mes) => {
-            // 📌 fechaPago depende de la cantidad de meses
-              const fechaPago = new Date(fechaInicio);
-              fechaPago.setMonth(fechaPago.getMonth() + mes);
+            const deudasMensuales: DeudaDTO[] = inscripcionForm.categoria === TOTAL
+              ? []
+              : [1, 2].map((mes) => {
+                // 📌 fechaPago depende de la cantidad de meses
+                const fechaPago = new Date(fechaInicio);
+                fechaPago.setMonth(fechaPago.getMonth() + mes);
 
-              return {
-                monto: 300,
-                fechaPago: this._formatDate(fechaPago),
-                estadoDePago: PAGO_PENDIENTE,
-                inscripcionId: inscripcionId!,
-                detalle: `Pago mensualidad ${mes}`,
-              };
-            });
+                return {
+                  monto: 300,
+                  fechaPago: this._formatDate(fechaPago),
+                  estadoDePago: PAGO_PENDIENTE,
+                  inscripcionId: inscripcionId!,
+                  detalle: `MENSUALIDAD _${mes}`,
+                };
+              });
 
             // ✅ Crear deuda inicial solo si aplica
             if (this.checked && this.saldoRef) {
@@ -233,19 +235,27 @@ export class StudentFormComponent implements OnInit {
                 fechaPago: this._formatDate(enUnaSemana),
                 estadoDePago: PAGO_PENDIENTE,
                 inscripcionId: inscripcionId!,
-                detalle: inscripcionForm.descripcion || NINGUNO,
+                detalle: SALDO_PENDIENTE,
               };
 
-              // Crear deuda inicial y luego las 3 deudas
+              // Crear deuda inicial y luego las 2 deudas
               return this._pagosService.crearDeuda(deudaInicial).pipe(
                 switchMap(() =>
-                  forkJoin(deudasMensuales.map((d) => this._pagosService.crearDeuda(d)))
+                  iif(
+                    () => deudasMensuales && deudasMensuales.length > 0,
+                    forkJoin(deudasMensuales.map(d => this._pagosService.crearDeuda(d))),
+                    of(EMPTY)
+                  )
                 )
               );
+            } else {
+              // Si no aplica deuda inicial, solo crear las 3 deudas
+              if (deudasMensuales && deudasMensuales.length > 0) {
+                return forkJoin(deudasMensuales.map((d) => this._pagosService.crearDeuda(d)));
+              } else {
+                return of(EMPTY)
+              }
             }
-
-            // Si no aplica deuda inicial, solo crear las 3 deudas
-            return forkJoin(deudasMensuales.map((d) => this._pagosService.crearDeuda(d)));
           })
         );
       }),

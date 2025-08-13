@@ -50,14 +50,14 @@ export class IncomeExpensesListComponent implements OnInit {
       .pipe(
         take(1))
       .subscribe(pagos => {
-        this.pagos = pagos.filter(pago => pago.tipoPago === INGRESO || pago.tipoPago === EGRESO);
+        this.pagos = pagos.filter(pago => pago.categoria === INGRESO || pago.categoria === EGRESO);
         this.pagosFiltrados = [...this.pagos];
       })
   }
 
   aplicarFiltros() {
     this.pagosFiltrados = this.pagos.filter(curso => {
-      const coincidenciaPago = this.tipoRegistroOptions ? curso.tipoPago === this.selectedPago : true;
+      const coincidenciaPago = this.tipoRegistroOptions ? curso.categoria === this.selectedPago : true;
 
       return coincidenciaPago;
     });

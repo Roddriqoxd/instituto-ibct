@@ -36,6 +36,7 @@ export interface InscripcionResponseDTO {
   horario: ScheduleDTO;
   curso: CourseDTO;
   pagos: PagoDTO[];
+  deudas: DeudaDTO[];
 }
 
 
