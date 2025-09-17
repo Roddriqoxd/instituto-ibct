@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "angular-app"
+        IMAGE_NAME = "instituto-ibct"
         IMAGE_TAG = "latest"
         DOCKERHUB_USER = "roddrigoo"
     }
