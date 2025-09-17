@@ -1,6 +1,10 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'node:16-alpine'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     environment {
         IMAGE_NAME = "instituto-ibct"
         IMAGE_TAG = "latest"
@@ -36,17 +40,10 @@ pipeline {
 
         stage('Push a DockerHub') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKER_PASS')]) {
-                    sh "echo $DOCKER_PASS | docker login -u $DOCKERHUB_USER --password-stdin"
-                    sh "docker push $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                    sh "docker push ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
                 }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Aquí puedes correr el contenedor en un servidor remoto o local
-                sh "docker run -d -p 8080:80 --name angular-app $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG || true"
             }
         }
     }
